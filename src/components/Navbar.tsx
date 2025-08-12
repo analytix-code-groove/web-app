@@ -25,12 +25,12 @@ export default function Navbar() {
         <Link href="/" aria-label="AnalytiX Code Groove" className="flex items-center gap-2">
           <span className="text-text font-semibold tracking-wide">analyti<span className="text-mint">x</span></span>
         </Link>
-        <div className="hidden gap-6 md:flex">
+        <div className="hidden items-center gap-6 md:flex">
           {links.map(l => {
             const active = pathname.startsWith(l.href)
             if (l.children) {
               return (
-                <div key={l.href} className="relative group">
+                <div key={l.href} className="relative group flex items-center">
                   <Link
                     href={l.href}
                     className={`text-sm font-bold transition-colors ${
@@ -66,18 +66,20 @@ export default function Navbar() {
             )
           })}
         </div>
-        <Link
-          href="/login"
-          className="ml-4 hidden text-sm text-text/80 transition-colors hover:text-text md:inline-block"
-        >
-          Log in
-        </Link>
-        <Link
-          href="/contact"
-          className="ml-4 hidden rounded-xl2 bg-mint px-4 py-2 text-sm font-medium text-black shadow-soft hover:opacity-90 md:inline-block"
-        >
-          Let’s talk
-        </Link>
+        <div className="hidden items-center gap-4 md:flex">
+          <Link
+            href="/login"
+            className="text-sm text-text/80 transition-colors hover:text-text"
+          >
+            Log in
+          </Link>
+          <Link
+            href="/contact"
+            className="rounded-xl2 bg-mint px-4 py-2 text-sm font-medium text-black shadow-soft hover:opacity-90"
+          >
+            Let’s talk
+          </Link>
+        </div>
       </nav>
     </header>
   )
