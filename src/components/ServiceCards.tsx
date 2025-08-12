@@ -1,3 +1,5 @@
+"use client"
+
 type Card = { title: string; blurb: string; href: string }
 const cards: Card[] = [
   { title: 'dataEngineering', blurb: 'dataEngineeringCard', href: '/services/data' },
