@@ -34,6 +34,12 @@ export default function Navbar() {
           })}
         </div>
         <Link
+          href="/login"
+          className="ml-4 hidden text-sm text-text/80 transition-colors hover:text-text md:inline-block"
+        >
+          Log in
+        </Link>
+        <Link
           href="/contact"
           className="ml-4 hidden rounded-xl2 bg-mint px-4 py-2 text-sm font-medium text-black shadow-soft hover:opacity-90 md:inline-block"
         >
