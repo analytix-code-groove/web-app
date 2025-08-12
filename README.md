@@ -1,6 +1,6 @@
 # Supabase Style Web App
 
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app). It features a Supabase-inspired dark theme and includes Auth, Solutions, and Blog pages.
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app). It features a Supabase-inspired dark theme and includes Auth, Services, and Blog pages.
 
 ## Getting Started
 
