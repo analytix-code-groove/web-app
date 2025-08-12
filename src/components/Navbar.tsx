@@ -6,8 +6,8 @@ import { useRef, useState } from 'react'
 const links = [
   { href: '/about', label: 'About' },
   {
-    href: '/services',
-    label: 'Services',
+    href: '/solutions',
+    label: 'Solutions',
     children: [
       {
         href: '/services/data',
