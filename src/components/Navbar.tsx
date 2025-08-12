@@ -3,18 +3,48 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 const links = [
+  { href: '/about', label: 'About' },
   {
     href: '/services',
     label: 'Services',
     children: [
-      { href: '/services/data', label: 'Data Engineering' },
-      { href: '/services/devops', label: 'Cloud & DevOps' },
+      {
+        href: '/services/data',
+        label: 'Data Engineering',
+        description: 'ETL pipelines, warehouses & lakes',
+        icon: (
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            className="h-5 w-5"
+          >
+            <ellipse cx="12" cy="6" rx="7" ry="3" />
+            <path d="M5 6v6c0 1.66 3.13 3 7 3s7-1.34 7-3V6" />
+            <path d="M5 12v6c0 1.66 3.13 3 7 3s7-1.34 7-3v-6" />
+          </svg>
+        ),
+      },
+      {
+        href: '/services/devops',
+        label: 'Cloud & DevOps',
+        description: 'Infrastructure automation & reliability',
+        icon: (
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            className="h-5 w-5"
+          >
+            <path d="M17 16a4 4 0 0 0 0-8 6 6 0 0 0-11.8 1.46A4 4 0 0 0 6 20h11" />
+          </svg>
+        ),
+      },
     ],
   },
   { href: '/blog', label: 'Blog' },
-  { href: '/bookmarks', label: 'Bookmarks' },
-  { href: '/about', label: 'About' },
-  { href: '/contact', label: 'Contact' },
 ]
 
 export default function Navbar() {
@@ -39,16 +69,30 @@ export default function Navbar() {
                   >
                     {l.label}
                   </Link>
-                  <div className="absolute left-0 mt-2 hidden w-48 flex-col rounded-md border border-stroke/60 bg-surface shadow-soft group-hover:flex">
-                    {l.children.map(child => (
-                      <Link
-                        key={child.href}
-                        href={child.href}
-                        className="px-4 py-2 text-sm text-text/80 hover:bg-mint/10 hover:text-text"
-                      >
-                        {child.label}
-                      </Link>
-                    ))}
+                  <div className="absolute left-0 mt-2 hidden w-80 rounded-xl border border-stroke/60 bg-surface p-4 shadow-soft group-hover:block">
+                    <div className="grid gap-4">
+                      {l.children.map(child => (
+                        <Link
+                          key={child.href}
+                          href={child.href}
+                          className="flex items-start gap-3 rounded-md p-2 hover:bg-mint/10"
+                        >
+                          <span className="flex h-8 w-8 items-center justify-center rounded bg-mint/20 text-mint">
+                            {child.icon}
+                          </span>
+                          <span className="text-left">
+                            <span className="block text-sm font-semibold text-text">
+                              {child.label}
+                            </span>
+                            {child.description && (
+                              <span className="block text-xs text-text/70">
+                                {child.description}
+                              </span>
+                            )}
+                          </span>
+                        </Link>
+                      ))}
+                    </div>
                   </div>
                 </div>
               )
