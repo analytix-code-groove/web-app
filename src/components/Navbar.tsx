@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 const links = [
+  { href: '/about', label: 'About' },
   {
     href: '/services',
     label: 'Services',
@@ -12,9 +13,6 @@ const links = [
     ],
   },
   { href: '/blog', label: 'Blog' },
-  { href: '/bookmarks', label: 'Bookmarks' },
-  { href: '/about', label: 'About' },
-  { href: '/contact', label: 'Contact' },
 ]
 
 export default function Navbar() {
