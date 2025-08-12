@@ -69,7 +69,7 @@ export default function Navbar() {
                   >
                     {l.label}
                   </Link>
-                  <div className="absolute left-0 mt-2 hidden w-80 rounded-xl border border-stroke/60 bg-surface p-4 shadow-soft group-hover:block">
+                  <div className="absolute left-0 top-full mt-2 hidden w-80 rounded-xl border border-stroke/60 bg-surface p-4 shadow-soft group-hover:block">
                     <div className="grid gap-4">
                       {l.children.map(child => (
                         <Link
