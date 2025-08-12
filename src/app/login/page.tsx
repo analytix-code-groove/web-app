@@ -29,7 +29,7 @@ export default function LoginPage() {
       {/* Logo */}
       <div className="absolute left-6 top-6">
         <Image
-          src="/brand/acg-logo.png"
+          src="/images/logo.png"
           alt="Analytix Code Groove"
           width={160}
           height={40}
