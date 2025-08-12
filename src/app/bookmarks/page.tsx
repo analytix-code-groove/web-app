@@ -48,7 +48,7 @@ export default function BookmarksPage() {
     const local = loadLocal()
     setBookmarks(local)
     sync()
-    const { subscription } = supabase.auth.onAuthStateChange(() => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(() => {
       sync()
     })
     return () => {
