@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import Link from 'next/link'
+import { FaGithub, FaGoogle } from 'react-icons/fa'
 import { createSupabaseBrowserClient } from '../../lib/supabase'
 
 export default function LoginPage() {
@@ -24,22 +24,22 @@ export default function LoginPage() {
   return (
     <main className="bg-bg flex min-h-screen items-center justify-center px-4">
       <div className="w-full max-w-md rounded-xl2 border border-stroke/70 bg-surface p-6 text-center shadow-soft">
-        <h1 className="text-2xl font-semibold text-text">Welcome back</h1>
-
-        <div className="mt-6 flex flex-col gap-3">
+        <div className="flex flex-col gap-3">
           <button
             type="button"
             onClick={handleProviderLogin('github')}
-            className="rounded-xl2 border border-stroke/60 bg-bg px-4 py-2 text-sm font-medium text-text transition hover:bg-bg/80"
+            className="flex items-center justify-center gap-2 rounded-xl2 border border-stroke/60 bg-bg px-4 py-2 text-sm font-medium text-text transition hover:bg-bg/80"
           >
-            Sign in with GitHub
+            <FaGithub className="h-5 w-5" />
+            <span>Sign in with GitHub</span>
           </button>
           <button
             type="button"
             onClick={handleProviderLogin('google')}
-            className="rounded-xl2 border border-stroke/60 bg-bg px-4 py-2 text-sm font-medium text-text transition hover:bg-bg/80"
+            className="flex items-center justify-center gap-2 rounded-xl2 border border-stroke/60 bg-bg px-4 py-2 text-sm font-medium text-text transition hover:bg-bg/80"
           >
-            Sign in with Google
+            <FaGoogle className="h-5 w-5" />
+            <span>Sign in with Google</span>
           </button>
         </div>
 
@@ -66,13 +66,6 @@ export default function LoginPage() {
         </form>
 
         {message && <p className="mt-4 text-sm text-text">{message}</p>}
-
-        <p className="mt-6 text-center text-sm">
-          Don&apos;t have an account?{' '}
-          <Link href="/signup" className="text-mint hover:underline">
-            Sign up
-          </Link>
-        </p>
       </div>
     </main>
   )
