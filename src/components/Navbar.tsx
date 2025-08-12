@@ -1,12 +1,13 @@
 'use client'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { useState } from 'react'
 
 const links = [
   { href: '/about', label: 'About' },
   {
-    href: '/services',
-    label: 'Services',
+    href: '/solutions',
+    label: 'Solutions',
     children: [
       {
         href: '/services/data',
@@ -49,6 +50,7 @@ const links = [
 
 export default function Navbar() {
   const pathname = usePathname()
+  const [solutionsOpen, setSolutionsOpen] = useState(false)
   return (
     <header className="sticky top-0 z-50 border-b border-stroke/60 bg-surface/70 backdrop-blur">
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3">
@@ -60,7 +62,12 @@ export default function Navbar() {
             const active = pathname.startsWith(l.href)
             if (l.children) {
               return (
-                <div key={l.href} className="relative group flex items-center">
+                <div
+                  key={l.href}
+                  className="relative flex items-center"
+                  onMouseEnter={() => setSolutionsOpen(true)}
+                  onMouseLeave={() => setSolutionsOpen(false)}
+                >
                   <Link
                     href={l.href}
                     className={`text-sm font-bold transition-colors ${
@@ -69,31 +76,44 @@ export default function Navbar() {
                   >
                     {l.label}
                   </Link>
-                  <div className="absolute left-0 top-full mt-2 hidden w-80 rounded-xl border border-stroke/60 bg-surface p-4 shadow-soft group-hover:block">
-                    <div className="grid gap-4">
-                      {l.children.map(child => (
-                        <Link
-                          key={child.href}
-                          href={child.href}
-                          className="flex items-start gap-3 rounded-md p-2 hover:bg-mint/10"
-                        >
-                          <span className="flex h-8 w-8 items-center justify-center rounded bg-mint/20 text-mint">
-                            {child.icon}
-                          </span>
-                          <span className="text-left">
-                            <span className="block text-sm font-semibold text-text">
-                              {child.label}
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    className={`ml-1 h-4 w-4 transition-transform ${
+                      solutionsOpen ? 'rotate-180' : ''
+                    }`}
+                  >
+                    <path d="M6 9l6 6 6-6" />
+                  </svg>
+                  {solutionsOpen && (
+                    <div className="absolute left-1/2 top-full mt-5 w-80 -translate-x-1/2 rounded-xl border border-stroke/60 bg-surface p-4 shadow-soft">
+                      <div className="grid gap-4">
+                        {l.children.map(child => (
+                          <Link
+                            key={child.href}
+                            href={child.href}
+                            className="flex items-start gap-3 rounded-md p-2 hover:bg-mint/10"
+                          >
+                            <span className="flex h-8 w-8 items-center justify-center rounded bg-mint/20 text-mint">
+                              {child.icon}
                             </span>
-                            {child.description && (
-                              <span className="block text-xs text-text/70">
-                                {child.description}
+                            <span className="text-left">
+                              <span className="block text-sm font-semibold text-text">
+                                {child.label}
                               </span>
-                            )}
-                          </span>
-                        </Link>
-                      ))}
+                              {child.description && (
+                                <span className="block text-xs text-text/70">
+                                  {child.description}
+                                </span>
+                              )}
+                            </span>
+                          </Link>
+                        ))}
+                      </div>
                     </div>
-                  </div>
+                  )}
                 </div>
               )
             }
