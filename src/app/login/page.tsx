@@ -21,9 +21,33 @@ export default function LoginPage() {
 
   return (
     <main className="bg-bg flex min-h-screen items-center justify-center px-4">
-      <form onSubmit={handleEmailLogin} className="w-full max-w-md rounded-xl2 border border-stroke/70 bg-surface p-6 shadow-soft">
-        <h1 className="text-2xl font-semibold text-text">Log in</h1>
-        <div className="mt-4 flex flex-col gap-4">
+      <div className="w-full max-w-md rounded-xl2 border border-stroke/70 bg-surface p-6 text-center shadow-soft">
+        <h1 className="text-2xl font-semibold text-text">Welcome back</h1>
+
+        <div className="mt-6 flex flex-col gap-3">
+          <button
+            type="button"
+            onClick={handleProviderLogin('github')}
+            className="rounded-xl2 border border-stroke/60 bg-bg px-4 py-2 text-sm font-medium text-text transition hover:bg-bg/80"
+          >
+            Sign in with GitHub
+          </button>
+          <button
+            type="button"
+            onClick={handleProviderLogin('google')}
+            className="rounded-xl2 border border-stroke/60 bg-bg px-4 py-2 text-sm font-medium text-text transition hover:bg-bg/80"
+          >
+            Sign in with Google
+          </button>
+        </div>
+
+        <div className="my-6 flex items-center">
+          <span className="h-px flex-1 bg-stroke/40" />
+          <span className="px-2 text-xs uppercase text-muted">or</span>
+          <span className="h-px flex-1 bg-stroke/40" />
+        </div>
+
+        <form onSubmit={handleEmailLogin} className="flex flex-col gap-3">
           <input
             type="email"
             value={email}
@@ -37,28 +61,17 @@ export default function LoginPage() {
           >
             Send magic link
           </button>
-          <button
-            type="button"
-            onClick={handleProviderLogin('google')}
-            className="rounded-xl2 bg-mint px-4 py-2 text-sm font-medium text-black shadow-soft transition hover:opacity-90"
-          >
-            Sign in with Google
-          </button>
-          <button
-            type="button"
-            onClick={handleProviderLogin('github')}
-            className="rounded-xl2 bg-mint px-4 py-2 text-sm font-medium text-black shadow-soft transition hover:opacity-90"
-          >
-            Sign in with GitHub
-          </button>
-          {message && <p className="text-sm text-text">{message}</p>}
-        </div>
-        <div className="mt-4 flex justify-between text-sm">
+        </form>
+
+        {message && <p className="mt-4 text-sm text-text">{message}</p>}
+
+        <p className="mt-6 text-center text-sm">
+          Don&apos;t have an account?{' '}
           <Link href="/signup" className="text-mint hover:underline">
             Sign up
           </Link>
-        </div>
-      </form>
+        </p>
+      </div>
     </main>
   )
 }
