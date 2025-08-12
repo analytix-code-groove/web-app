@@ -2,17 +2,18 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useRef, useState } from 'react'
+import { useLanguage } from '@/lib/i18n'
 
 const links = [
-  { href: '/about', label: 'About' },
+  { href: '/about', label: 'about' },
   {
     href: '/solutions',
-    label: 'Solutions',
+    label: 'solutions',
     children: [
       {
         href: '/services/data',
-        label: 'Data Engineering',
-        description: 'ETL pipelines, warehouses & lakes',
+        label: 'dataEngineering',
+        description: 'dataEngineeringDesc',
         icon: (
           <svg
             viewBox="0 0 24 24"
@@ -29,8 +30,8 @@ const links = [
       },
       {
         href: '/services/devops',
-        label: 'Cloud & DevOps',
-        description: 'Infrastructure automation & reliability',
+        label: 'cloudDevops',
+        description: 'cloudDevopsDesc',
         icon: (
           <svg
             viewBox="0 0 24 24"
@@ -45,13 +46,14 @@ const links = [
       },
     ],
   },
-  { href: '/blog', label: 'Blog' },
+  { href: '/blog', label: 'blog' },
 ]
 
 export default function Navbar() {
   const pathname = usePathname()
   const [servicesOpen, setServicesOpen] = useState(false)
   const timeoutRef = useRef<NodeJS.Timeout | null>(null)
+  const { t, lang, setLang } = useLanguage()
 
   const openMenu = () => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current)
@@ -85,7 +87,7 @@ export default function Navbar() {
                       active ? 'text-mint' : 'text-text/80 hover:text-text'
                     }`}
                   >
-                    {l.label}
+                    {t(l.label)}
                   </Link>
                   <svg
                     viewBox="0 0 24 24"
@@ -116,11 +118,11 @@ export default function Navbar() {
                             </span>
                             <span className="text-left">
                               <span className="block text-sm font-semibold text-text">
-                                {child.label}
+                                {t(child.label)}
                               </span>
                               {child.description && (
                                 <span className="block text-xs text-text/70">
-                                  {child.description}
+                                  {t(child.description)}
                                 </span>
                               )}
                             </span>
@@ -140,23 +142,29 @@ export default function Navbar() {
                   active ? 'text-mint' : 'text-text/80 hover:text-text'
                 }`}
               >
-                {l.label}
+                {t(l.label)}
               </Link>
             )
           })}
         </div>
         <div className="hidden items-center gap-4 md:flex">
+          <button
+            onClick={() => setLang(lang === 'en' ? 'es' : 'en')}
+            className="text-sm text-text/80 transition-colors hover:text-text"
+          >
+            {lang === 'en' ? 'ES' : 'EN'}
+          </button>
           <Link
             href="/login"
             className="text-sm text-text/80 transition-colors hover:text-text"
           >
-            Log in
+            {t('login')}
           </Link>
           <Link
             href="/contact"
             className="rounded-xl2 bg-mint px-4 py-2 text-sm font-medium text-black shadow-soft hover:opacity-90"
           >
-            Let’s talk
+            {t('letsTalk')}
           </Link>
         </div>
       </nav>
