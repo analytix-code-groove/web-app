@@ -2,7 +2,8 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { supabase } from '../../lib/supabase'
+
+import { createSupabaseBrowserClient } from '../../lib/supabase'
 
 export default function SignupPage() {
   const [email, setEmail] = useState('')
@@ -10,11 +11,13 @@ export default function SignupPage() {
 
   const handleEmailSignup = async (e: React.FormEvent) => {
     e.preventDefault()
+    const supabase = createSupabaseBrowserClient()
     const { error } = await supabase.auth.signInWithOtp({ email })
     setMessage(error ? error.message : 'Check your email for the signup link.')
   }
 
   const handleProviderSignup = (provider: 'google' | 'github') => async () => {
+    const supabase = createSupabaseBrowserClient()
     const { error } = await supabase.auth.signInWithOAuth({ provider })
     if (error) setMessage(error.message)
   }

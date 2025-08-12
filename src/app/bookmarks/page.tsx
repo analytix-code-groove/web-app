@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { supabase } from '../../lib/supabase'
+import { createSupabaseBrowserClient } from '../../lib/supabase'
 
 type Bookmark = {
   url: string
@@ -16,6 +16,7 @@ const merge = (local: Bookmark[], server: Bookmark[]): Bookmark[] => {
 export default function BookmarksPage() {
   const [bookmarks, setBookmarks] = useState<Bookmark[]>([])
   const [url, setUrl] = useState('')
+  const supabase = typeof window !== 'undefined' ? createSupabaseBrowserClient() : null
 
   const loadLocal = (): Bookmark[] => {
     try {
@@ -30,6 +31,7 @@ export default function BookmarksPage() {
   }
 
   useEffect(() => {
+    if (!supabase) return
     const sync = async () => {
       const { data: { user } } = await supabase.auth.getUser()
       if (user) {
@@ -54,11 +56,11 @@ export default function BookmarksPage() {
     return () => {
       subscription.unsubscribe()
     }
-  }, [])
+  }, [supabase])
 
   const addBookmark = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!url) return
+    if (!supabase || !url) return
     const newBookmarks = merge(bookmarks, [{ url }])
     setBookmarks(newBookmarks)
     saveLocal(newBookmarks)
@@ -68,6 +70,8 @@ export default function BookmarksPage() {
       await supabase.from('bookmarks').upsert({ url, user_id: user.id })
     }
   }
+
+  if (!supabase) return null
 
   return (
     <main className="bg-bg min-h-screen p-4 text-text">

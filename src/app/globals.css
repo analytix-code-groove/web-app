@@ -1,4 +1,6 @@
 @import "tailwindcss";
+@import '@fontsource-variable/inter';
+@import '@fontsource-variable/sora';
 
 :root {
   --bg: #0B0E11;
@@ -21,8 +23,8 @@
   --shadow-soft: 0 6px 24px rgba(0,0,0,0.25);
   --shadow-glow: 0 0 0 6px rgba(54,226,180,0.12);
   --radius-xl2: 1rem;
-  --font-sans: var(--font-inter), sans-serif;
-  --font-heading: var(--font-sora), sans-serif;
+  --font-sans: "Inter Variable", sans-serif;
+  --font-heading: "Sora Variable", sans-serif;
 }
 
 body {
