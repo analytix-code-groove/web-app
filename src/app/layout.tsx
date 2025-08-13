@@ -1,8 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.css'
-import Navbar from '@/components/Navbar'
-import Footer from '@/components/Footer'
-import { LanguageProvider } from '@/lib/i18n'
+import ClientLayout from '@/components/ClientLayout'
 
 export const metadata: Metadata = {
   title: 'AnalytiX | Code Groove',
@@ -17,11 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="bg-bg text-text antialiased flex min-h-screen flex-col">
-        <LanguageProvider>
-          <Navbar />
-          <div className="flex-1">{children}</div>
-          <Footer />
-        </LanguageProvider>
+        <ClientLayout>{children}</ClientLayout>
       </body>
     </html>
   )

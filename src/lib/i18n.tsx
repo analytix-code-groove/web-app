@@ -34,6 +34,21 @@ const translations: Record<Language, Record<string, string>> = {
     appsApisCard: 'From prototype to production.',
     learnMore: 'Learn more →',
     rights: 'All rights reserved.',
+    welcomeBack: 'Welcome back',
+    signInToAccount: 'Sign in to your account',
+    continueWithGithub: 'Continue with GitHub',
+    continueWithGoogle: 'Continue with Google',
+    or: 'or',
+    email: 'Email',
+    emailPlaceholder: 'you@example.com',
+    password: 'Password',
+    passwordPlaceholder: '••••••••••',
+    forgotPassword: 'Forgot Password?',
+    signIn: 'Sign In',
+    dontHaveAccount: "Don't have an account?",
+    signUpNow: 'Sign Up Now',
+    termsAgreement:
+      "By continuing, you agree to Analytix's Terms of Service and Privacy Policy, and to receive periodic emails with updates.",
   },
   es: {
     about: 'Acerca de',
@@ -64,6 +79,21 @@ const translations: Record<Language, Record<string, string>> = {
     appsApisCard: 'Del prototipo a la producción.',
     learnMore: 'Aprender más →',
     rights: 'Todos los derechos reservados.',
+    welcomeBack: 'Bienvenido de nuevo',
+    signInToAccount: 'Inicia sesión en tu cuenta',
+    continueWithGithub: 'Continuar con GitHub',
+    continueWithGoogle: 'Continuar con Google',
+    or: 'o',
+    email: 'Correo electrónico',
+    emailPlaceholder: 'tu@ejemplo.com',
+    password: 'Contraseña',
+    passwordPlaceholder: '••••••••••',
+    forgotPassword: '¿Olvidaste tu contraseña?',
+    signIn: 'Iniciar sesión',
+    dontHaveAccount: '¿No tienes una cuenta?',
+    signUpNow: 'Regístrate ahora',
+    termsAgreement:
+      'Al continuar, aceptas los Términos de Servicio y la Política de Privacidad de Analytix y recibir correos electrónicos periódicos con actualizaciones.',
   },
 }
 
@@ -78,17 +108,15 @@ const LanguageContext = createContext<LanguageContextProps | undefined>(
 )
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const [lang, setLangState] = useState<Language>('en')
-
-  useEffect(() => {
-    const stored = localStorage.getItem('lang') as Language | null
-    if (stored) {
-      setLangState(stored)
-    } else {
+  const [lang, setLangState] = useState<Language>(() => {
+    if (typeof window !== 'undefined') {
+      const stored = localStorage.getItem('lang') as Language | null
+      if (stored) return stored
       const browser = navigator.language.slice(0, 2)
-      if (browser === 'es') setLangState('es')
+      if (browser === 'es') return 'es'
     }
-  }, [])
+    return 'en'
+  })
 
   useEffect(() => {
     document.documentElement.lang = lang
