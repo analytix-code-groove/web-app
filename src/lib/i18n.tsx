@@ -93,7 +93,7 @@ const translations: Record<Language, Record<string, string>> = {
     dontHaveAccount: '¿No tienes una cuenta?',
     signUpNow: 'Regístrate ahora',
     termsAgreement:
-      'Al continuar, aceptas los Términos de Servicio y la Política de Privacidad de Analytix y recibir correos electrónicos periódicos con actualizaciones.',
+      'Al continuar, aceptas los Términos de Servicio y la Política de Privacidad de Analytix, y autorizas el envío de correos electrónicos periódicos con actualizaciones.',
   },
 }
 
