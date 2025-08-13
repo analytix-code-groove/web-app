@@ -6,7 +6,9 @@ import Link from 'next/link'
 import { FaGithub, FaGoogle, FaTimes } from 'react-icons/fa'
 import { useRouter } from 'next/navigation'
 import { useLanguage } from '@/lib/i18n'
-import { createSupabaseBrowserClient } from '../../lib/supabase'
+import { createSupabaseBrowserClient } from '@/lib/supabase'
+import supabaseConfig from '../../../supabase.local.json'
+import logo from '@/images/logo.png'
 
 export default function LoginPage() {
   const [email, setEmail] = useState('')
@@ -24,7 +26,17 @@ export default function LoginPage() {
 
   const handleProviderLogin = (provider: 'google' | 'github') => async () => {
     const supabase = createSupabaseBrowserClient() // init on action
-    const { error } = await supabase.auth.signInWithOAuth({ provider })
+    const clientId =
+      provider === 'github'
+        ? supabaseConfig.GITHUB_CLIENT_ID
+        : supabaseConfig.GOOGLE_CLIENT_ID
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider,
+      options: {
+        redirectTo: supabaseConfig.SUPABASE_CALLBACK_URL,
+        queryParams: { client_id: clientId },
+      },
+    })
     if (error) setMessage(error.message)
   }
 
@@ -33,7 +45,7 @@ export default function LoginPage() {
       {/* Logo */}
       <div className="absolute left-6 top-6">
         <Image
-          src="/images/logo.png"
+          src={logo}
           alt="Analytix Code Groove"
           width={160}
           height={40}

@@ -22,11 +22,20 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 ## Auth Configuration
 
-Create a `.env.local` file with your Supabase project credentials:
+Create a `supabase.local.json` file under `src/lib` with your Supabase project credentials and OAuth provider keys:
 
 ```
-NEXT_PUBLIC_SUPABASE_URL=your-supabase-url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
+{
+  "SUPABASE_URL": "https://your-project.supabase.co",
+  "SUPABASE_ANON_KEY": "your-supabase-anon-key",
+  "GITHUB_APP_NAME": "AnalytixCG (Dev)",
+  "GITHUB_CLIENT_ID": "your-client-id",
+  "GITHUB_CLIENT_SECRET": "your-client-secret",
+  "GOOGLE_APP_NAME": "AnalytixCG (Dev)",
+  "GOOGLE_CLIENT_ID": "your-client-id",
+  "GOOGLE_CLIENT_SECRET": "your-client-secret",
+  "SUPABASE_CALLBACK_URL": "https://your-project.supabase.co/auth/v1/callback"
+}
 ```
 
 ## Learn More
