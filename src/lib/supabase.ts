@@ -8,6 +8,7 @@ export function createSupabaseBrowserClient(): SupabaseClient {
   if ((!supabaseUrl || !supabaseAnonKey) && process.env.NODE_ENV === 'development') {
     try {
       // This file should be in your project root or /src/config, and .gitignore'd
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
       const localConfig = require('./supabase.local.json')
       supabaseUrl = localConfig.SUPABASE_URL
       supabaseAnonKey = localConfig.SUPABASE_ANON_KEY
