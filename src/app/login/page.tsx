@@ -42,7 +42,7 @@ export default function LoginPage() {
       <div className="w-full max-w-md rounded-xl2 border border-stroke/70 bg-surface p-6 text-center shadow-soft">
         {/* Heading to match screenshot */}
         <h1 className="text-3xl font-semibold tracking-tight text-text">Welcome back</h1>
-        <p className="mt-2 mb-6 text-sm text-muted">Sign in to your account</p>
+        <p className="mt-2 mb-10 text-sm text-muted">Sign in to your account</p>
 
         {/* Social buttons */}
         <div className="mb-6 flex flex-col gap-3">
@@ -67,7 +67,7 @@ export default function LoginPage() {
         {/* Divider */}
         <div className="mb-6 flex items-center">
           <span className="h-px flex-1 bg-stroke/40" />
-          <span className="px-2 text-xs uppercase tracking-wide text-muted">or</span>
+          <span className="px-2 text-sm tracking-wide text-muted">or</span>
           <span className="h-px flex-1 bg-stroke/40" />
         </div>
 
@@ -112,12 +112,12 @@ export default function LoginPage() {
 
         {message && <p className="mt-4 text-sm text-text" role="alert">{message}</p>}
 
-        <p className="mt-6 text-sm text-muted">
+        <p className="mt-8 text-sm text-muted">
           Don&apos;t have an account?{' '}
           <Link href="/signup" className="font-medium text-mint hover:opacity-90">Sign Up Now</Link>
         </p>
 
-        <p className="mt-6 text-xs leading-relaxed text-muted">
+        <p className="mt-16 text-xs leading-relaxed text-muted">
           By continuing, you agree to Analytix&apos;s Terms of Service and Privacy Policy,
           and to receive periodic emails with updates.
         </p>
