@@ -72,9 +72,9 @@ const translations: Record<Language, Record<string, string>> = {
     letsTalk: 'Hablemos',
     seeServices: 'Ver servicios',
     readBlog: 'Leer el blog',
-    whereData: 'Donde los datos',
-    meets: 'se encuentran con el',
-    flow: 'flujo',
+    whereData: 'Where Data',
+    meets: 'Meets',
+    flow: 'Flow',
     heroParagraph:
       'Construimos plataformas de datos confiables y aplicaciones de producción: rápidas, observables y seguras. Menos fricción, más ritmo.',
     analytics: 'Analítica',
