@@ -8,17 +8,17 @@ export default function ItConsultingPage() {
     {
       icon: FiMap,
       title: 'Strategy',
-      description: 'Identify opportunities and risks.',
+      description: 'Assess your landscape to uncover opportunities and risks.',
     },
     {
       icon: FiLayers,
       title: 'Architecture',
-      description: 'Design systems that scale.',
+      description: 'Blueprint resilient, scalable systems aligned to goals.',
     },
     {
       icon: FiCompass,
       title: 'Roadmaps',
-      description: 'Plan actionable technology paths.',
+      description: 'Prioritized technology paths that keep teams aligned.',
     },
   ]
 
@@ -27,6 +27,7 @@ export default function ItConsultingPage() {
       titleKey="itConsulting"
       descKey="itConsultingDesc"
       features={features}
+      imageSrc="https://images.unsplash.com/photo-1551836022-02eeb4e36dd0?auto=format&fit=crop&w=800&q=80"
     />
   )
 }

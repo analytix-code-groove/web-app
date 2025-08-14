@@ -8,17 +8,17 @@ export default function DataEngineeringPage() {
     {
       icon: FiDatabase,
       title: 'Warehouses',
-      description: 'Streamlined storage for analytics-ready data.',
+      description: 'Scalable warehouses and lakes tuned for your analytics.',
     },
     {
       icon: FiGitBranch,
       title: 'Pipelines',
-      description: 'Automated ETL and scheduling.',
+      description: 'Event-driven ETL/ELT orchestrated with modern tooling.',
     },
     {
       icon: FiCheckCircle,
       title: 'Quality',
-      description: 'Monitoring and tests for trustworthy data.',
+      description: 'Validation, lineage, and monitoring to keep data reliable.',
     },
   ]
 
@@ -27,6 +27,7 @@ export default function DataEngineeringPage() {
       titleKey="dataEngineering"
       descKey="dataEngineeringDesc"
       features={features}
+      imageSrc="https://images.unsplash.com/photo-1518779578993-ec3579fee39f?auto=format&fit=crop&w=800&q=80"
     />
   )
 }
