@@ -56,11 +56,11 @@ export default function LoginPage() {
         <Image
           src={logo}
           alt="Analytix Code Groove"
-          width={480}
-          height={120}
+          width={280}
+          height={70}
           loading="lazy"
           sizes="(min-width: 1024px) 33vw, 0px"
-          className="h-28 w-auto max-w-full"
+          className="h-16 w-auto max-w-full"
         />
       </div>
 
