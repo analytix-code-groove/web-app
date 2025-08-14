@@ -27,9 +27,8 @@ export default function Footer() {
 
   return (
     <footer className="border-t border-stroke/60 bg-surface/70 backdrop-blur">
-      <div className="relative mx-auto max-w-7xl py-12">
-        {/* Inner wrapper MUST match your cards width (e.g., max-w-5xl or max-w-6xl) */}
-        <div className="mx-auto grid max-w-6xl grid-cols-1 items-start gap-y-8 px-4 md:grid-cols-2 md:gap-12">
+      <div className="mx-auto max-w-6xl px-4 py-12">
+        <div className="grid grid-cols-1 items-start gap-y-8 md:grid-cols-2 md:gap-12">
           {/* Left column: centered logo (shifted to match Services) */}
           <div className="flex justify-center">
             <Link
@@ -99,12 +98,10 @@ export default function Footer() {
         </div>
 
         {/* Divider */}
-        <div className="mx-auto mt-8 max-w-6xl px-4">
-          <div className="h-px w-full bg-stroke/60" />
-        </div>
+        <div className="mt-8 h-px w-full bg-stroke/60" />
 
-        {/* Bottom bar: © on the left, socials on the right (aligned to inner width) */}
-        <div className="mx-auto mt-4 flex max-w-6xl items-center justify-between px-4 text-xs text-muted">
+        {/* Bottom bar: © on the left, socials on the right */}
+        <div className="mt-4 flex items-center justify-between text-xs text-muted">
           <p>© Analytixcg</p>
           <div className="flex items-center gap-4">
             <a
