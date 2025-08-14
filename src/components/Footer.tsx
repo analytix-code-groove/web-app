@@ -13,6 +13,7 @@ const services = [
   { href: '/services/apps', label: 'appsApis' },
   { href: '/services/devops', label: 'cloudDevops' },
   { href: '/services/data', label: 'dataEngineering' },
+  { href: '/services/consulting', label: 'itConsulting' },
 ]
 
 const company = [
