@@ -195,9 +195,9 @@ export default function Navbar() {
                     <div
                       onMouseEnter={openMenu}
                       onMouseLeave={closeMenu}
-                      className="absolute left-1/2 top-full mt-4 w-80 -translate-x-1/2 rounded-xl border border-stroke/60 bg-surface p-4 shadow-soft"
+                      className="absolute left-1/2 top-full mt-4 w-[30rem] -translate-x-1/2 rounded-xl border border-stroke/60 bg-surface p-4 shadow-soft"
                     >
-                      <div className="grid gap-4">
+                      <div className="grid grid-flow-col grid-rows-3 gap-4">
                         {l.children.map(child => (
                           <Link
                             key={child.href}
