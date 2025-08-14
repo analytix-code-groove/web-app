@@ -55,13 +55,11 @@ export default function Footer() {
           <div className="hidden self-stretch w-px bg-stroke/60 sm:block" />
 
           {/* Right: Link columns (Services → Company → Blog) */}
-          {/* Tight horizontal gaps, no column stretching */}
-          <div className="flex flex-1 flex-wrap items-start gap-x-6 gap-y-8 md:gap-x-8">
-
+          <div className="flex flex-1 flex-wrap items-start gap-x-4 md:gap-x-5 gap-y-5">
             {/* Services */}
-            <div className="w-[160px] shrink-0">
-              <h3 className="mb-3 text-base font-semibold text-text">{t('services')}</h3>
-              <ul className="space-y-2 text-sm leading-6 text-muted">
+            <div className="w-[150px] shrink-0">
+              <h3 className="mb-1.5 text-[14px] font-semibold text-text">{t('services')}</h3>
+              <ul className="space-y-1 text-[12px] leading-5 text-muted">
                 {serviceLinks.map(s => (
                   <li key={s.href}>
                     <Link href={s.href} className="transition-colors hover:text-text">
@@ -73,9 +71,9 @@ export default function Footer() {
             </div>
 
             {/* Company */}
-            <div className="w-[160px] shrink-0">
-              <h3 className="mb-3 text-base font-semibold text-text">{t('company')}</h3>
-              <ul className="space-y-2 text-sm leading-6 text-muted">
+            <div className="w-[150px] shrink-0">
+              <h3 className="mb-1.5 text-[14px] font-semibold text-text">{t('company')}</h3>
+              <ul className="space-y-1 text-[12px] leading-5 text-muted">
                 {company.map(c => (
                   <li key={c.href}>
                     <Link href={c.href} className="transition-colors hover:text-text">
@@ -87,9 +85,9 @@ export default function Footer() {
             </div>
 
             {/* Resources */}
-            <div className="w-[160px] shrink-0">
-              <h3 className="mb-3 text-base font-semibold text-text">{t('Resources')}</h3>
-              <ul className="space-y-2 text-sm leading-6 text-muted">
+            <div className="w-[150px] shrink-0">
+              <h3 className="mb-1.5 text-[14px] font-semibold text-text">{t('Resources')}</h3>
+              <ul className="space-y-1 text-[12px] leading-5 text-muted">
                 <li>
                   <Link href="/blog" className="transition-colors hover:text-text">
                     {t('blog')}
@@ -97,8 +95,8 @@ export default function Footer() {
                 </li>
               </ul>
             </div>
-
           </div>
+
         </div>
 
         {/* Bottom border + copyright */}
