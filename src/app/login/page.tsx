@@ -42,18 +42,6 @@ export default function LoginPage() {
 
   return (
     <main className="relative flex min-h-screen items-center justify-center bg-bg px-4">
-      {/* Logo */}
-      <div className="absolute left-6 top-6">
-        <Image
-          src={logo}
-          alt="Analytix Code Groove"
-          width={160}
-          height={40}
-          priority
-          className="h-8 w-auto"
-        />
-      </div>
-
       {/* Close */}
       <button
         onClick={() => router.back()}
@@ -63,8 +51,19 @@ export default function LoginPage() {
         <FaTimes className="h-6 w-6" />
       </button>
 
-      {/* Card */}
-      <div className="w-full max-w-md rounded-xl2 border border-stroke/70 bg-surface p-6 text-center shadow-soft">
+      {/* Logo and Card */}
+      <div className="flex items-center gap-12">
+        <Image
+          src={logo}
+          alt="Analytix Code Groove"
+          width={160}
+          height={40}
+          priority
+          className="h-8 w-auto"
+        />
+
+        {/* Card */}
+        <div className="w-full max-w-md rounded-xl2 border border-stroke/70 bg-surface p-6 text-center shadow-soft">
         {/* Heading to match screenshot */}
         <h1 className="text-3xl font-semibold tracking-tight text-text">{t('welcomeBack')}</h1>
         <p className="mt-2 mb-10 text-sm text-muted">{t('signInToAccount')}</p>
@@ -145,6 +144,7 @@ export default function LoginPage() {
         <p className="mt-16 text-xs leading-relaxed text-muted">
           {t('termsAgreement')}
         </p>
+        </div>
       </div>
     </main>
   )
