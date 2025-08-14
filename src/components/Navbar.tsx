@@ -47,6 +47,66 @@ const links = [
           </svg>
         ),
       },
+      {
+        href: '/services/analytics',
+        label: 'analytics',
+        description: 'analyticsDesc',
+        icon: (
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            className="h-5 w-5"
+          >
+            <path d="M3 3v18h18" />
+            <path d="M7 16V10" />
+            <path d="M12 16V4" />
+            <path d="M17 16v-2" />
+          </svg>
+        ),
+      },
+      {
+        href: '/services/ai',
+        label: 'aiAutomation',
+        description: 'aiAutomationDesc',
+        icon: (
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            className="h-5 w-5"
+          >
+            <circle cx="12" cy="12" r="3" />
+            <path d="M12 3v3" />
+            <path d="M12 18v3" />
+            <path d="M3 12h3" />
+            <path d="M18 12h3" />
+            <path d="M5.6 5.6l2.1 2.1" />
+            <path d="M16.3 16.3l2.1 2.1" />
+            <path d="M5.6 18.4l2.1-2.1" />
+            <path d="M16.3 7.7l2.1-2.1" />
+          </svg>
+        ),
+      },
+      {
+        href: '/services/apps',
+        label: 'appsApis',
+        description: 'appsApisDesc',
+        icon: (
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            className="h-5 w-5"
+          >
+            <path d="M8 4l-6 8 6 8" />
+            <path d="M16 4l6 8-6 8" />
+          </svg>
+        ),
+      },
     ],
   },
   { href: '/blog', label: 'blog' },
