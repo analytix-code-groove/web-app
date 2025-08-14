@@ -27,6 +27,7 @@ export default function AiAutomationPage() {
       titleKey="aiAutomation"
       descKey="aiAutomationDesc"
       features={features}
+      imageSrc="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80"
     />
   )
 }

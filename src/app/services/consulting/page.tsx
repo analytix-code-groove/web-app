@@ -27,6 +27,7 @@ export default function ItConsultingPage() {
       titleKey="itConsulting"
       descKey="itConsultingDesc"
       features={features}
+      imageSrc="https://images.unsplash.com/photo-1551836022-02eeb4e36dd0?auto=format&fit=crop&w=800&q=80"
     />
   )
 }
