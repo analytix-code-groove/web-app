@@ -16,7 +16,7 @@ import { useLanguage } from '@/lib/i18n'
 export default function ServiceCards() {
   const { t } = useLanguage()
   return (
-    <section className="bg-bg py-14">
+    <section className="bg-bg py-14 mb-24">
       <div className="mx-auto grid max-w-6xl grid-cols-1 gap-6 px-4 sm:grid-cols-2 lg:grid-cols-3">
         {cards.map(c => (
           <Link

@@ -7,6 +7,9 @@ import { LanguageProvider } from '@/lib/i18n'
 export const metadata: Metadata = {
   title: 'AnalytiX | Code Groove',
   description: 'Where data meets flow.',
+  icons: {
+    icon: '/favicon.svg',
+  },
 }
 
 export default function RootLayout({
