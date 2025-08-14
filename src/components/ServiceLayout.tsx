@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { IconType } from 'react-icons'
 import { useLanguage } from '@/lib/i18n'
 
@@ -14,9 +15,10 @@ interface Props {
   titleKey: string
   descKey: string
   features: Feature[]
+  imageSrc?: string
 }
 
-export default function ServiceLayout({ titleKey, descKey, features }: Props) {
+export default function ServiceLayout({ titleKey, descKey, features, imageSrc }: Props) {
   const { t } = useLanguage()
   return (
     <main className="min-h-screen">
@@ -33,7 +35,16 @@ export default function ServiceLayout({ titleKey, descKey, features }: Props) {
             </Link>
           </div>
         </div>
-        <div className="hidden h-72 rounded-xl bg-surface shadow-soft md:block" />
+        <div className="relative hidden h-72 md:block">
+          {imageSrc && (
+            <Image
+              src={imageSrc}
+              alt={t(titleKey)}
+              fill
+              className="rounded-xl object-cover shadow-soft"
+            />
+          )}
+        </div>
       </section>
       <section className="bg-surface py-24">
         <div className="mx-auto grid max-w-5xl gap-12 px-4 md:grid-cols-3">

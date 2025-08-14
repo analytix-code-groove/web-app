@@ -27,6 +27,7 @@ export default function AnalyticsPage() {
       titleKey="analytics"
       descKey="analyticsDesc"
       features={features}
+      imageSrc="https://images.unsplash.com/photo-1556157382-97eda2c9f7e9?auto=format&fit=crop&w=800&q=80"
     />
   )
 }

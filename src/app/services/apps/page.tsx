@@ -27,6 +27,7 @@ export default function AppsApisPage() {
       titleKey="appsApis"
       descKey="appsApisDesc"
       features={features}
+      imageSrc="https://images.unsplash.com/photo-1517433456452-f9633a875f6f?auto=format&fit=crop&w=800&q=80"
     />
   )
 }

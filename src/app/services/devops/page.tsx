@@ -27,6 +27,7 @@ export default function CloudDevopsPage() {
       titleKey="cloudDevops"
       descKey="cloudDevopsDesc"
       features={features}
+      imageSrc="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=800&q=80"
     />
   )
 }

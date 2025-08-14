@@ -9,11 +9,11 @@ const translations: Record<Language, Record<string, string>> = {
     about: 'About',
     dataEngineering: 'Data Engineering',
     dataEngineeringDesc:
-      'Design resilient pipelines, warehouses, and lakes. Analytix applies cross-industry patterns to turn messy data into trusted assets.',
+      'We design and implement robust data pipelines that ensure your information flows seamlessly from source to destination. Our expertise covers ETL/ELT processes, orchestration frameworks, and data quality checks to keep your systems running reliably. With a focus on SLOs, scalability, and maintainability, we help you build a foundation that supports real-time analytics, machine learning, and business intelligence without downtime or data loss.',
     dataEngineeringCard: 'Pipelines, orchestration, quality, SLOs.',
     cloudDevops: 'Cloud & DevOps',
     cloudDevopsDesc:
-      'Automate infrastructure and delivery with confidence. Our engineers bring cloud know-how from finance, health, and SaaS.',
+      'We help you leverage cloud platforms like AWS to deploy, scale, and optimize your infrastructure. From Infrastructure as Code (IaC) and CI/CD automation to security best practices and cost optimization, we ensure your systems run efficiently and securely. Our DevOps approach bridges development and operations, enabling faster releases, better reliability, and continuous improvement without compromising performance.',
     cloudDevopsCard: 'AWS, IaC, CI/CD, cost-safe scaling.',
     blog: 'Blog',
     company: 'Company',
@@ -31,19 +31,19 @@ const translations: Record<Language, Record<string, string>> = {
       'We build reliable data platforms and production-grade apps—fast, observable, secure. Less friction, more groove.',
     analytics: 'Analytics',
     analyticsDesc:
-      'Turn raw metrics into dashboards and visuals that drive action, drawing on insights from many sectors.',
+      'Turn data into insight with interactive dashboards and analytics solutions designed to drive decision-making. We combine advanced visualization tools with well-structured data models to deliver accurate, timely, and actionable insights. Whether it’s business performance monitoring, trend analysis, or KPI tracking, our solutions empower teams to make informed choices with confidence.',
     analyticsCard: 'Dashboards that drive decisions.',
     aiAutomation: 'AI / Automation',
     aiAutomationDesc:
-      'Deploy LLMs and automation that streamline operations. Analytix has shipped AI for support, marketing, and ops.',
+      'Harness the power of AI to streamline processes and boost productivity. We build intelligent workflows using Large Language Models (LLMs), autonomous agents, and task automation frameworks. From customer service bots to process orchestration and document processing, our solutions free up time, reduce errors, and enable your team to focus on high-value work.',
     aiAutomationCard: 'LLMs, agents, workflow automation.',
     appsApis: 'Apps & APIs',
     appsApisDesc:
-      'Build scalable applications and APIs with production readiness, reusing designs proven across industries.',
+      'We turn your vision into reality — from concept to fully operational applications. Our team develops secure, scalable web and mobile apps, along with APIs that integrate seamlessly with your existing systems. Whether you need a proof of concept or a production-grade product, we follow best practices in architecture, testing, and deployment to ensure long-term success.',
     appsApisCard: 'From prototype to production.',
     itConsulting: 'IT Consulting',
     itConsultingDesc:
-      'Gain a technology partner for strategy and roadmaps. Our guidance reflects lessons from work with diverse organizations.',
+      'We provide strategic guidance to align your technology with your business goals. Our consulting services cover IT architecture design, digital transformation roadmaps, system modernization, and vendor selection. By combining technical expertise with a deep understanding of business operations, we help you make decisions that reduce risk, optimize costs, and position you for growth.',
     itConsultingCard: 'Strategy, architecture, roadmaps.',
     learnMore: 'Learn more →',
     rights: 'All rights reserved.',
@@ -67,11 +67,11 @@ const translations: Record<Language, Record<string, string>> = {
     about: 'Acerca de',
     dataEngineering: 'Ingeniería de Datos',
     dataEngineeringDesc:
-      'Diseña data pipelines, data warehouses y data lakes. Analytix aplica patrones de múltiples industrias para convertir datos en activos confiables.',
+      'Diseñamos e implementamos pipelines de datos robustos que garantizan que tu información fluya sin interrupciones desde el origen hasta el destino. Nuestra experiencia abarca procesos ETL/ELT, frameworks de orquestación y controles de calidad de datos para mantener tus sistemas funcionando de forma confiable. Con un enfoque en SLOs, escalabilidad y mantenibilidad, te ayudamos a construir una base que soporta analítica en tiempo real, aprendizaje automático e inteligencia de negocios sin interrupciones ni pérdida de datos.',
     dataEngineeringCard: 'Pipelines, orquestación, calidad, SLOs.',
     cloudDevops: 'Nube y DevOps',
     cloudDevopsDesc:
-      'Automatiza infraestructura y entrega con confianza. Nuestro equipo aporta experiencia en la nube desde finanzas, salud y SaaS.',
+      'Te ayudamos a aprovechar plataformas en la nube como AWS para desplegar, escalar y optimizar tu infraestructura. Desde Infraestructura como Código (IaC) y automatización CI/CD hasta buenas prácticas de seguridad y optimización de costos, aseguramos que tus sistemas funcionen de manera eficiente y segura. Nuestro enfoque DevOps conecta desarrollo y operaciones, permitiendo lanzamientos más rápidos, mayor confiabilidad y mejora continua sin comprometer el rendimiento.',
     cloudDevopsCard: 'AWS, IaC, CI/CD, escalado rentable.',
     blog: 'Blog',
     company: 'Compañía',
@@ -89,19 +89,19 @@ const translations: Record<Language, Record<string, string>> = {
       'Construimos plataformas de datos confiables y aplicaciones de producción: rápidas, observables y seguras. Menos fricción, más ritmo.',
     analytics: 'Analítica',
     analyticsDesc:
-      'Convierte métricas en paneles y visualizaciones que impulsan acciones, con insights de muchos sectores.',
+      'Convierte datos en información con paneles interactivos y soluciones analíticas diseñadas para impulsar la toma de decisiones. Combinamos herramientas de visualización avanzadas con modelos de datos bien estructurados para entregar insights precisos, oportunos y accionables. Ya sea monitoreo del desempeño del negocio, análisis de tendencias o seguimiento de KPIs, nuestras soluciones permiten a los equipos tomar decisiones informadas con confianza.',
     analyticsCard: 'Paneles que impulsan decisiones.',
     aiAutomation: 'IA / Automatización',
     aiAutomationDesc:
-      'Despliega LLMs y automatización para agilizar operaciones. Analytix ha entregado IA para soporte, marketing y operaciones.',
+      'Aprovecha el poder de la IA para simplificar procesos y aumentar la productividad. Construimos flujos de trabajo inteligentes usando modelos de lenguaje grande (LLMs), agentes autónomos y frameworks de automatización de tareas. Desde bots de atención al cliente hasta orquestación de procesos y procesamiento de documentos, nuestras soluciones liberan tiempo, reducen errores y permiten que tu equipo se concentre en el trabajo de mayor valor.',
     aiAutomationCard: 'LLMs, agentes, automatización de flujos.',
     appsApis: 'Apps y APIs',
     appsApisDesc:
-      'Construye apps y APIs escalables listas para producción, reutilizando diseños probados en diversas industrias.',
+      'Convertimos tu visión en realidad, desde el concepto hasta aplicaciones totalmente operativas. Nuestro equipo desarrolla aplicaciones web y móviles seguras y escalables, junto con APIs que se integran sin problemas con tus sistemas existentes. Ya sea que necesites un proof of concept o un producto listo para producción, seguimos las mejores prácticas de arquitectura, pruebas y despliegue para asegurar el éxito a largo plazo.',
     appsApisCard: 'Del prototipo a la producción.',
     itConsulting: 'Consultoría IT',
     itConsultingDesc:
-      'Obtén un socio tecnológico para estrategia y roadmaps. Nuestra guía refleja lecciones de organizaciones de distintos ámbitos.',
+      'Brindamos orientación estratégica para alinear tu tecnología con tus objetivos de negocio. Nuestros servicios de consultoría abarcan diseño de arquitectura IT, roadmaps de transformación digital, modernización de sistemas y selección de proveedores. Al combinar experiencia técnica con un profundo entendimiento de las operaciones del negocio, te ayudamos a tomar decisiones que reducen riesgos, optimizan costos y te posicionan para el crecimiento.',
     itConsultingCard: 'Estrategia, arquitectura y roadmaps.',
     learnMore: 'Aprender más →',
     rights: 'Todos los derechos reservados.',

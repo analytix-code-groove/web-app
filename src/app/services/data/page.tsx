@@ -27,6 +27,7 @@ export default function DataEngineeringPage() {
       titleKey="dataEngineering"
       descKey="dataEngineeringDesc"
       features={features}
+      imageSrc="https://images.unsplash.com/photo-1518779578993-ec3579fee39f?auto=format&fit=crop&w=800&q=80"
     />
   )
 }
