@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation'
 import { useLanguage } from '@/lib/i18n'
 import { createSupabaseBrowserClient } from '@/lib/supabase'
 import supabaseConfig from '../../../supabase.local.json'
-import logo from '@/images/logo.png'
+import logo from '@/images/logos/desktop/logo_login.png'
 
 export default function LoginPage() {
   const [email, setEmail] = useState('')
