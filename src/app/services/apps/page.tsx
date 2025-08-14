@@ -8,17 +8,17 @@ export default function AppsApisPage() {
     {
       icon: FiSmartphone,
       title: 'Frontends',
-      description: 'Mobile-first, accessible UIs.',
+      description: 'Responsive interfaces built with modern frameworks.',
     },
     {
       icon: FiCode,
       title: 'APIs',
-      description: 'Typed, versioned endpoints.',
+      description: 'Secure, documented endpoints for internal or public use.',
     },
     {
       icon: FiActivity,
       title: 'Operations',
-      description: 'Monitoring and telemetry.',
+      description: 'Observability and SRE practices to keep services healthy.',
     },
   ]
 

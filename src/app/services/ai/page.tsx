@@ -8,17 +8,17 @@ export default function AiAutomationPage() {
     {
       icon: FiCpu,
       title: 'LLM Apps',
-      description: 'Integrate large language models.',
+      description: 'Chatbots and copilots that accelerate your teams.',
     },
     {
       icon: FiZap,
       title: 'Automation',
-      description: 'Workflow engines and triggers.',
+      description: 'Event-driven workflows that eliminate busywork.',
     },
     {
       icon: FiActivity,
       title: 'Monitoring',
-      description: 'Observability to keep bots in check.',
+      description: 'Track drift and performance to keep automation on target.',
     },
   ]
 

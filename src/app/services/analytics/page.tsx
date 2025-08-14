@@ -8,17 +8,17 @@ export default function AnalyticsPage() {
     {
       icon: FiPieChart,
       title: 'Dashboards',
-      description: 'Interactive dashboards in real time.',
+      description: 'Real-time dashboards for operations and KPIs.',
     },
     {
       icon: FiBarChart,
       title: 'Visualization',
-      description: 'Visuals that highlight trends.',
+      description: 'Custom charts that surface trends and anomalies.',
     },
     {
       icon: FiTrendingUp,
       title: 'Insights',
-      description: 'Metrics that drive decisions.',
+      description: 'Guidance to turn metrics into decisive action.',
     },
   ]
 

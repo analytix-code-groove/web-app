@@ -8,17 +8,17 @@ export default function CloudDevopsPage() {
     {
       icon: FiCloud,
       title: 'IaC',
-      description: 'Provision reproducible environments.',
+      description: 'Provision reproducible environments with Terraform or CloudFormation.',
     },
     {
       icon: FiRefreshCw,
       title: 'CI/CD',
-      description: 'Ship code with automated pipelines.',
+      description: 'Automated testing and deployments for rapid, safe releases.',
     },
     {
       icon: FiLock,
       title: 'Security',
-      description: 'Built-in policies and guardrails.',
+      description: 'Policy-as-code and guardrails baked into every pipeline.',
     },
   ]
 
