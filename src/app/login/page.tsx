@@ -41,7 +41,7 @@ export default function LoginPage() {
   }
 
   return (
-    <main className="relative flex min-h-screen items-center justify-center bg-bg px-4">
+    <main className="relative grid min-h-screen grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center bg-bg px-4">
       {/* Close */}
       <button
         onClick={() => router.back()}
@@ -51,18 +51,20 @@ export default function LoginPage() {
         <FaTimes className="h-6 w-6" />
       </button>
 
-      {/* Logo and Card */}
-      <div className="flex items-center gap-12">
+      {/* Left logo */}
+      <div className="flex items-center justify-center overflow-hidden">
         <Image
           src={logo}
           alt="Analytix Code Groove"
-          width={160}
-          height={40}
+          width={160 * 300}
+          height={40 * 300}
           priority
-          className="h-8 w-auto"
+          className="h-[12000px] w-auto"
         />
+      </div>
 
-        {/* Card */}
+      {/* Card */}
+      <div className="flex justify-center">
         <div className="w-full max-w-md rounded-xl2 border border-stroke/70 bg-surface p-6 text-center shadow-soft">
         {/* Heading to match screenshot */}
         <h1 className="text-3xl font-semibold tracking-tight text-text">{t('welcomeBack')}</h1>
@@ -146,6 +148,9 @@ export default function LoginPage() {
         </p>
         </div>
       </div>
+
+      {/* Right spacer */}
+      <div />
     </main>
   )
 }
