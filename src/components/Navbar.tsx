@@ -7,8 +7,8 @@ import { useLanguage } from '@/lib/i18n'
 const links = [
   { href: '/about', label: 'about' },
   {
-    href: '/solutions',
-    label: 'solutions',
+    href: '/services',
+    label: 'services',
     children: [
       {
         href: '/services/data',

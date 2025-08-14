@@ -7,7 +7,6 @@ type Language = 'en' | 'es'
 const translations: Record<Language, Record<string, string>> = {
   en: {
     about: 'About',
-    solutions: 'Solutions',
     dataEngineering: 'Data Engineering',
     dataEngineeringDesc: 'ETL pipelines, warehouses & lakes',
     dataEngineeringCard: 'Pipelines, orchestration, quality, SLOs.',
@@ -52,7 +51,6 @@ const translations: Record<Language, Record<string, string>> = {
   },
   es: {
     about: 'Acerca de',
-    solutions: 'Soluciones',
     dataEngineering: 'Ingeniería de Datos',
     dataEngineeringDesc: 'Pipelines ETL, almacenes y lagos',
     dataEngineeringCard: 'Pipelines, orquestación, calidad, SLOs.',
