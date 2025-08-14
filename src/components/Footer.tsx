@@ -27,84 +27,83 @@ export default function Footer() {
 
   return (
     <footer className="border-t border-stroke/60 bg-surface/70 backdrop-blur">
-      <div className="relative mx-auto max-w-7xl py-12">
-        {/* Inner wrapper MUST match your cards width (e.g., max-w-5xl or max-w-6xl) */}
-        <div className="mx-auto grid max-w-6xl grid-cols-1 items-start gap-y-8 px-4 md:grid-cols-2 md:gap-12">
-          {/* Left column: centered logo (shifted to match Services) */}
-          <div className="flex justify-center">
+      <div className="mx-auto max-w-6xl px-4 py-12">
+        <div className="flex flex-col items-center gap-y-8 md:flex-row md:items-center">
+          {/* Logo */}
+          <div className="flex justify-center md:w-1/2 md:justify-start">
             <Link
               href="/"
               aria-label="Analytix Code Groove"
-              className="block w-[160px] md:-translate-x-5"
+              className="block w-[160px] md:shrink-0"
             >
               <Image src={logo} alt="Analytix Code Groove" width={160} height={46} />
             </Link>
           </div>
 
-          {/* Right column: link blocks start exactly at the midline */}
-          <div className="flex flex-nowrap items-start gap-x-10">
-            {/* Services (two tight internal columns, small left nudge) */}
-            <div className="grid w-[260px] shrink-0 grid-cols-[auto_auto] gap-x-2 md:-translate-x-5">
-              <h3 className="col-span-2 mb-1.5 text-[14px] font-semibold text-text">
-                {t('services')}
-              </h3>
+          {/* Link groups */}
+          <div className="flex justify-center md:w-1/2 md:justify-start">
+            <div className="flex flex-nowrap items-start gap-x-10">
+              {/* Services (two internal columns) */}
+              <div className="grid w-[260px] shrink-0 grid-cols-[auto_auto] gap-x-2">
+                <h3 className="col-span-2 mb-1.5 text-[14px] font-semibold text-text">
+                  {t('services')}
+                </h3>
 
-              <ul className="list-none pl-0 space-y-1 text-[12px] leading-5 text-muted">
-                {serviceLinks.slice(0, 3).map(s => (
-                  <li key={s.href}>
-                    <Link href={s.href} className="transition-colors hover:text-text">
-                      {s.name}
+                <ul className="list-none pl-0 space-y-1 text-[12px] leading-5 text-muted">
+                  {serviceLinks.slice(0, 3).map(s => (
+                    <li key={s.href}>
+                      <Link href={s.href} className="transition-colors hover:text-text">
+                        {s.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+
+                <ul className="list-none pl-0 space-y-1 text-[12px] leading-5 text-muted">
+                  {serviceLinks.slice(3).map(s => (
+                    <li key={s.href}>
+                      <Link href={s.href} className="transition-colors hover:text-text">
+                        {s.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Company */}
+              <div className="w-[150px] shrink-0">
+                <h3 className="mb-1.5 text-[14px] font-semibold text-text">{t('company')}</h3>
+                <ul className="space-y-1 text-[12px] leading-5 text-muted">
+                  {company.map(c => (
+                    <li key={c.href}>
+                      <Link href={c.href} className="transition-colors hover:text-text">
+                        {t(c.label)}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Resources */}
+              <div className="w-[150px] shrink-0">
+                <h3 className="mb-1.5 text-[14px] font-semibold text-text">{t('Resources')}</h3>
+                <ul className="space-y-1 text-[12px] leading-5 text-muted">
+                  <li>
+                    <Link href="/blog" className="transition-colors hover:text-text">
+                      {t('blog')}
                     </Link>
                   </li>
-                ))}
-              </ul>
-
-              <ul className="list-none pl-0 space-y-1 text-[12px] leading-5 text-muted">
-                {serviceLinks.slice(3).map(s => (
-                  <li key={s.href}>
-                    <Link href={s.href} className="transition-colors hover:text-text">
-                      {s.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Company */}
-            <div className="w-[150px] shrink-0">
-              <h3 className="mb-1.5 text-[14px] font-semibold text-text">{t('company')}</h3>
-              <ul className="space-y-1 text-[12px] leading-5 text-muted">
-                {company.map(c => (
-                  <li key={c.href}>
-                    <Link href={c.href} className="transition-colors hover:text-text">
-                      {t(c.label)}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Resources */}
-            <div className="w-[150px] shrink-0">
-              <h3 className="mb-1.5 text-[14px] font-semibold text-text">{t('Resources')}</h3>
-              <ul className="space-y-1 text-[12px] leading-5 text-muted">
-                <li>
-                  <Link href="/blog" className="transition-colors hover:text-text">
-                    {t('blog')}
-                  </Link>
-                </li>
-              </ul>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
 
         {/* Divider */}
-        <div className="mx-auto mt-8 max-w-6xl px-4">
-          <div className="h-px w-full bg-stroke/60" />
-        </div>
+        <div className="mt-8 h-px w-full bg-stroke/60" />
 
-        {/* Bottom bar: © on the left, socials on the right (aligned to inner width) */}
-        <div className="mx-auto mt-4 flex max-w-6xl items-center justify-between px-4 text-xs text-muted">
+        {/* Bottom bar: © on the left, socials on the right */}
+        <div className="mt-4 flex items-center justify-between text-xs text-muted">
           <p>© Analytixcg</p>
           <div className="flex items-center gap-4">
             <a
