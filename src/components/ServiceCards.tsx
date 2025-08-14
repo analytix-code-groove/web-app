@@ -7,6 +7,7 @@ const cards: Card[] = [
   { title: 'analytics', blurb: 'analyticsCard', href: '/services/analytics' },
   { title: 'aiAutomation', blurb: 'aiAutomationCard', href: '/services/ai' },
   { title: 'appsApis', blurb: 'appsApisCard', href: '/services/apps' },
+  { title: 'itConsulting', blurb: 'itConsultingCard', href: '/services/consulting' },
 ]
 
 import Link from 'next/link'
