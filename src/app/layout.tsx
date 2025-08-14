@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
+import Script from 'next/script'
 import './globals.css'
 import ClientLayout from '@/components/ClientLayout'
+import { LanguageProvider } from '@/lib/i18n'
 
 export const metadata: Metadata = {
   title: 'AnalytiX | Code Groove',
@@ -13,9 +15,14 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className="bg-bg text-text antialiased flex min-h-screen flex-col">
-        <ClientLayout>{children}</ClientLayout>
+        <LanguageProvider>
+          <ClientLayout>{children}</ClientLayout>
+        </LanguageProvider>
+        <Script id="lang-init" strategy="beforeInteractive">
+          {`document.documentElement.lang = localStorage.getItem('lang') || 'en';`}
+        </Script>
       </body>
     </html>
   )

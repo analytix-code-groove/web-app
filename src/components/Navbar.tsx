@@ -84,7 +84,7 @@ export default function Navbar() {
             priority
           />
         </Link>
-        <div className="hidden items-center gap-6 md:flex">
+        <div className="hidden flex-1 items-center justify-center gap-6 md:flex">
           {links.map(l => {
             const active = pathname.startsWith(l.href)
             if (l.children) {
@@ -161,7 +161,7 @@ export default function Navbar() {
             )
           })}
         </div>
-        <div className="hidden items-center gap-4 md:flex">
+        <div className="flex items-center gap-4">
           <button
             onClick={() => setLang(lang === 'en' ? 'es' : 'en')}
             className="text-sm text-text/80 transition-colors hover:text-text"
@@ -176,7 +176,7 @@ export default function Navbar() {
           </Link>
           <Link
             href="/contact"
-            className="rounded-xl2 bg-mint px-4 py-2 text-sm font-medium text-black shadow-soft hover:opacity-90"
+            className="hidden rounded-xl2 bg-mint px-4 py-2 text-sm font-medium text-black shadow-soft hover:opacity-90 sm:inline"
           >
             {t('letsTalk')}
           </Link>
