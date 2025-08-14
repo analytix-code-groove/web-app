@@ -4,7 +4,6 @@ import { usePathname } from 'next/navigation'
 import { useEffect } from 'react'
 import Navbar from './Navbar'
 import Footer from './Footer'
-import { LanguageProvider } from '@/lib/i18n'
 
 export default function ClientLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
@@ -19,11 +18,11 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
   }, [pathname])
 
   return (
-    <LanguageProvider>
+    <>
       {showChrome && <Navbar />}
       <div className="flex-1">{children}</div>
       {showChrome && <Footer />}
-    </LanguageProvider>
+    </>
   )
 }
 
