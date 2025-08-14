@@ -67,7 +67,7 @@ const translations: Record<Language, Record<string, string>> = {
     about: 'Acerca de',
     dataEngineering: 'Ingeniería de Datos',
     dataEngineeringDesc:
-      'Diseña pipelines, almacenes y lagos resilientes. Analytix aplica patrones de múltiples industrias para convertir datos en activos confiables.',
+      'Diseña data pipelines, data warehouses y data lakes. Analytix aplica patrones de múltiples industrias para convertir datos en activos confiables.',
     dataEngineeringCard: 'Pipelines, orquestación, calidad, SLOs.',
     cloudDevops: 'Nube y DevOps',
     cloudDevopsDesc:
