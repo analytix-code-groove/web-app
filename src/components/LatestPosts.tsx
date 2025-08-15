@@ -7,7 +7,7 @@ import { useLanguage } from '@/lib/i18n'
 export default function LatestPosts() {
   const { t } = useLanguage()
   return (
-    <section className="bg-bg py-14">
+    <section className="bg-bg py-14 mb-24">
       <div className="mx-auto max-w-6xl px-4">
         <h2 className="mb-8 font-heading text-2xl font-semibold text-text">
           {t('latestPosts')}
