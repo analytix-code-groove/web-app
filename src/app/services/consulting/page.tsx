@@ -2,27 +2,52 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { FiTrendingUp, FiLayers, FiShield, FiFileText } from 'react-icons/fi'
 import CoreCapability from '@/components/CoreCapability'
+import { useLanguage } from '@/lib/i18n'
 
 export const metadata: Metadata = {
   title: 'IT Consulting | AnalytiX',
   description: 'Clarity, architecture, and momentum—when you need it.',
 }
 
+const bringIn = [
+  {
+    icon: FiTrendingUp,
+    titleKey: 'consultBringScalingTitle',
+    descKey: 'consultBringScalingDesc',
+  },
+  {
+    icon: FiLayers,
+    titleKey: 'consultBringStuckTitle',
+    descKey: 'consultBringStuckDesc',
+  },
+  {
+    icon: FiShield,
+    titleKey: 'consultBringRiskTitle',
+    descKey: 'consultBringRiskDesc',
+  },
+  {
+    icon: FiFileText,
+    titleKey: 'consultBringRoadmapTitle',
+    descKey: 'consultBringRoadmapDesc',
+  },
+]
+
 export default function ITConsultingServicePage() {
+  const { t } = useLanguage()
   return (
     <main className="min-h-screen">
       {/* Hero */}
       <section className="mx-auto max-w-5xl px-4 py-28">
-        <h1 className="font-heading text-4xl font-semibold text-text">IT Consulting</h1>
-        <p className="mt-6 text-lg text-muted">
-          Clarity, architecture, and momentum—when you need it.
-        </p>
+        <h1 className="font-heading text-4xl font-semibold text-text">
+          {t('consultHeroTitle')}
+        </h1>
+        <p className="mt-6 text-lg text-muted">{t('consultHeroDesc')}</p>
         <div className="mt-8">
           <Link
             href="/contact"
             className="inline-block rounded bg-mint px-6 py-3 font-medium text-bg shadow-soft"
           >
-            Let’s talk
+            {t('letsTalk')}
           </Link>
         </div>
       </section>
@@ -30,28 +55,18 @@ export default function ITConsultingServicePage() {
       {/* When to Bring Us In */}
       <section className="bg-surface py-24">
         <div className="mx-auto max-w-5xl px-4">
-          <h2 className="text-2xl font-semibold text-text">When to Bring Us In</h2>
+          <h2 className="text-2xl font-semibold text-text">
+            {t('consultBringHeading')}
+          </h2>
           <div className="mt-10 grid gap-8 sm:grid-cols-2">
-            <CoreCapability
-              icon={FiTrendingUp}
-              title="Scaling Fast"
-              description="Architecture or costs can’t keep up."
-            />
-            <CoreCapability
-              icon={FiLayers}
-              title="Stuck Initiatives"
-              description="Critical projects are caught between options or teams."
-            />
-            <CoreCapability
-              icon={FiShield}
-              title="Rising Risk"
-              description="Compliance or security concerns are piling up."
-            />
-            <CoreCapability
-              icon={FiFileText}
-              title="Need a Roadmap"
-              description="You want a pragmatic plan—not another 80-page deck."
-            />
+            {bringIn.map(c => (
+              <CoreCapability
+                key={c.titleKey}
+                icon={c.icon}
+                title={t(c.titleKey)}
+                description={t(c.descKey)}
+              />
+            ))}
           </div>
         </div>
       </section>
@@ -60,28 +75,28 @@ export default function ITConsultingServicePage() {
       <section className="py-24">
         <div className="mx-auto max-w-5xl px-4">
           <h2 className="text-2xl font-semibold text-text">
-            What You Get (Tangible in Weeks, Not Months)
+            {t('consultGetHeading')}
           </h2>
           <ul className="mt-8 list-disc space-y-4 pl-5 text-muted">
             <li>
-              <span className="font-medium text-text">Current-State Brief:</span> systems, risks,
-              bottlenecks, and cost drivers.
+              <span className="font-medium text-text">{t('consultGetBriefHeading')}</span>
+              {t('consultGetBriefText')}
             </li>
             <li>
-              <span className="font-medium text-text">Target Architecture:</span> cloud, data, and
-              integration blueprint aligned to your goals.
+              <span className="font-medium text-text">{t('consultGetArchitectureHeading')}</span>
+              {t('consultGetArchitectureText')}
             </li>
             <li>
-              <span className="font-medium text-text">Execution Roadmap:</span> phased plan, owners,
-              KPIs, and budget.
+              <span className="font-medium text-text">{t('consultGetRoadmapHeading')}</span>
+              {t('consultGetRoadmapText')}
             </li>
             <li>
-              <span className="font-medium text-text">Cost &amp; Risk Model:</span> where to save, what to
-              defer, what to fix now.
+              <span className="font-medium text-text">{t('consultGetCostHeading')}</span>
+              {t('consultGetCostText')}
             </li>
             <li>
-              <span className="font-medium text-text">Security &amp; Compliance Baseline:</span> practical
-              guardrails that won’t slow delivery.
+              <span className="font-medium text-text">{t('consultGetSecurityHeading')}</span>
+              {t('consultGetSecurityText')}
             </li>
           </ul>
         </div>
@@ -90,32 +105,34 @@ export default function ITConsultingServicePage() {
       {/* How We Engage */}
       <section className="bg-surface py-24">
         <div className="mx-auto max-w-5xl px-4">
-          <h2 className="text-2xl font-semibold text-text">How We Engage (Pick What Fits)</h2>
+          <h2 className="text-2xl font-semibold text-text">
+            {t('consultEngageHeading')}
+          </h2>
           <div className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
             <div className="rounded-xl2 border border-stroke/70 bg-bg p-6 shadow-soft">
-              <h3 className="font-medium text-text">Strategy Sprint</h3>
+              <h3 className="font-medium text-text">{t('consultEngageStrategy')}</h3>
               <span className="mt-1 inline-block rounded bg-mint px-2 py-1 text-xs text-bg">2 weeks</span>
-              <p className="mt-3 text-sm text-muted">Sharpen goals, kill bad options, back the right bets.</p>
+              <p className="mt-3 text-sm text-muted">{t('consultEngageStrategyDesc')}</p>
             </div>
             <div className="rounded-xl2 border border-stroke/70 bg-bg p-6 shadow-soft">
-              <h3 className="font-medium text-text">Architecture & Roadmap</h3>
+              <h3 className="font-medium text-text">{t('consultEngageArchitecture')}</h3>
               <span className="mt-1 inline-block rounded bg-mint px-2 py-1 text-xs text-bg">4–6 weeks</span>
-              <p className="mt-3 text-sm text-muted">Design the path and the plan.</p>
+              <p className="mt-3 text-sm text-muted">{t('consultEngageArchitectureDesc')}</p>
             </div>
             <div className="rounded-xl2 border border-stroke/70 bg-bg p-6 shadow-soft">
-              <h3 className="font-medium text-text">Fractional Leadership</h3>
+              <h3 className="font-medium text-text">{t('consultEngageFractional')}</h3>
               <span className="mt-1 inline-block rounded bg-mint px-2 py-1 text-xs text-bg">Ongoing</span>
-              <p className="mt-3 text-sm text-muted">Interim CTO/Head of Data/DevOps to steer execution.</p>
+              <p className="mt-3 text-sm text-muted">{t('consultEngageFractionalDesc')}</p>
             </div>
             <div className="rounded-xl2 border border-stroke/70 bg-bg p-6 shadow-soft">
-              <h3 className="font-medium text-text">Delivery Oversight</h3>
+              <h3 className="font-medium text-text">{t('consultEngageDelivery')}</h3>
               <span className="mt-1 inline-block rounded bg-mint px-2 py-1 text-xs text-bg">As needed</span>
-              <p className="mt-3 text-sm text-muted">Governance, QA, and vendor management to keep outcomes on track.</p>
+              <p className="mt-3 text-sm text-muted">{t('consultEngageDeliveryDesc')}</p>
             </div>
             <div className="rounded-xl2 border border-stroke/70 bg-bg p-6 shadow-soft">
-              <h3 className="font-medium text-text">Vendor-Neutral RFP Support</h3>
+              <h3 className="font-medium text-text">{t('consultEngageRfp')}</h3>
               <span className="mt-1 inline-block rounded bg-mint px-2 py-1 text-xs text-bg">Project-based</span>
-              <p className="mt-3 text-sm text-muted">Requirements, scoring, and selection without bias.</p>
+              <p className="mt-3 text-sm text-muted">{t('consultEngageRfpDesc')}</p>
             </div>
           </div>
         </div>
@@ -125,32 +142,23 @@ export default function ITConsultingServicePage() {
       <section className="py-24">
         <div className="mx-auto max-w-5xl px-4">
           <h2 className="text-2xl font-semibold text-text">
-            Our Consulting POV (No Theater, Just Value)
+            {t('consultPovHeading')}
           </h2>
-          <p className="mt-4 text-muted">
-            We prioritize measurable impact over tool-of-the-day hype. Expect clear decisions,
-            lightweight artifacts, and fast iteration—grounded in Cloud architecture best practices,
-            FinOps discipline, DataOps/DevSecOps principles, and “build only what matters” product
-            thinking.
-          </p>
+          <p className="mt-4 text-muted">{t('consultPovText')}</p>
         </div>
       </section>
 
       {/* Ready to Move */}
       <section className="bg-surface py-24">
         <div className="mx-auto max-w-5xl px-4">
-          <h2 className="text-2xl font-semibold text-text">Ready to Move?</h2>
-          <p className="mt-4 text-muted">
-            Let’s turn ambiguity into action. Schedule a 30-minute discovery call—bring your goals and
-            top blockers; we’ll bring clear options, trade-offs, and an actionable next step. If there’s
-            a fit, we’ll kick off a two-week Strategy Sprint to build momentum fast.
-          </p>
+          <h2 className="text-2xl font-semibold text-text">{t('consultReadyHeading')}</h2>
+          <p className="mt-4 text-muted">{t('consultReadyText')}</p>
           <div className="mt-8">
             <Link
               href="/contact"
               className="inline-block rounded bg-mint px-6 py-3 font-medium text-bg shadow-soft"
             >
-              Get in touch
+              {t('consultReadyCta')}
             </Link>
           </div>
         </div>

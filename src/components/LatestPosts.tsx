@@ -1,13 +1,28 @@
 "use client"
 
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { posts } from '@/data/posts'
 import { useLanguage } from '@/lib/i18n'
+
+type Post = {
+  id: string
+  title: string
+  excerpt: string
+}
 
 export default function LatestPosts() {
   const { t } = useLanguage()
+  const [posts, setPosts] = useState<Post[]>([])
+
+  useEffect(() => {
+    fetch('/api/posts')
+      .then(r => r.json())
+      .then(data => setPosts(Array.isArray(data) ? data : []))
+      .catch(() => setPosts([]))
+  }, [])
+
   return (
-    <section className="bg-bg py-14">
+    <section className="bg-bg py-14 mb-24">
       <div className="mx-auto max-w-6xl px-4">
         <h2 className="mb-8 font-heading text-2xl font-semibold text-text">
           {t('latestPosts')}
@@ -15,8 +30,8 @@ export default function LatestPosts() {
         <div className="grid gap-6 sm:grid-cols-2">
           {posts.slice(0, 2).map(p => (
             <Link
-              key={p.slug}
-              href={`/blog/${p.slug}`}
+              key={p.id}
+              href={`/blog/${p.id}`}
               className="group rounded-xl2 border border-stroke/70 bg-surface p-6 shadow-soft transition hover:border-mint/60"
             >
               <h3 className="text-lg font-semibold text-text group-hover:text-mint">{p.title}</h3>
