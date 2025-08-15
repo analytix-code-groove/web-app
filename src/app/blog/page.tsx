@@ -1,9 +1,15 @@
 "use client"
 
+import { useEffect, useState } from 'react'
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { posts } from '@/data/posts'
 import { useLanguage } from '@/lib/i18n'
+
+type Post = {
+  id: string
+  title: string
+  excerpt: string
+}
 
 export const metadata: Metadata = {
   title: 'Blog | AnalytiX',
@@ -12,6 +18,15 @@ export const metadata: Metadata = {
 
 export default function BlogPage() {
   const { t } = useLanguage()
+  const [posts, setPosts] = useState<Post[]>([])
+
+  useEffect(() => {
+    fetch('/api/posts')
+      .then(r => r.json())
+      .then(data => setPosts(Array.isArray(data) ? data : []))
+      .catch(() => setPosts([]))
+  }, [])
+
   return (
     <main className="min-h-screen">
       <div className="mx-auto max-w-5xl px-4 py-16">
@@ -19,8 +34,8 @@ export default function BlogPage() {
         <div className="mt-8 grid gap-6 sm:grid-cols-2">
           {posts.map(p => (
             <Link
-              key={p.slug}
-              href={`/blog/${p.slug}`}
+              key={p.id}
+              href={`/blog/${p.id}`}
               className="rounded-xl2 border border-stroke/70 bg-surface p-6 transition hover:border-mint/60"
             >
               <h3 className="font-heading text-text">{p.title}</h3>

@@ -8,8 +8,8 @@ import { useLanguage } from '@/lib/i18n'
 
 export type Feature = {
   icon: string
-  title: string
-  description: string
+  titleKey: string
+  descKey: string
 }
 
 type Props = {
@@ -71,15 +71,15 @@ export default function ServiceLayout({
 
       <section className="bg-surface py-24">
         <div className="mx-auto grid max-w-5xl gap-12 px-4 md:grid-cols-3">
-          {features.map(({ icon, title, description }) => {
+          {features.map(({ icon, titleKey, descKey }) => {
             const Icon = (Icons as Record<string, IconType>)[icon]
             return (
-              <div key={title} className="text-center">
+              <div key={titleKey} className="text-center">
                 {Icon && (
                   <Icon className="mx-auto h-12 w-12 text-mint" aria-hidden="true" />
                 )}
-                <h3 className="mt-4 font-semibold text-text">{title}</h3>
-                <p className="mt-2 text-sm text-muted">{description}</p>
+                <h3 className="mt-4 font-semibold text-text">{t(titleKey)}</h3>
+                <p className="mt-2 text-sm text-muted">{t(descKey)}</p>
               </div>
             )
           })}

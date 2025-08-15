@@ -8,16 +8,7 @@ interface Params {
 }
 
 export function generateStaticParams() {
-  return services
-    .filter(
-      s =>
-        s.slug !== 'data-analytics' &&
-        s.slug !== 'ai' &&
-        s.slug !== 'apps' &&
-        s.slug !== 'consulting' &&
-        s.slug !== 'devops'
-    )
-    .map(s => ({ slug: s.slug }))
+  return services.map(s => ({ slug: s.slug }))
 }
 
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
@@ -30,9 +21,8 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   return { title, description }
 }
 
-export default async function ServicePage({ params }: { params: Promise<Params> }) {
-  const { slug } = await params
-  const service = getService(slug)
+export default function ServicePage({ params }: { params: Params }) {
+  const service = getService(params.slug)
   if (!service) notFound()
   return <ServiceLayout {...service} />
 }
