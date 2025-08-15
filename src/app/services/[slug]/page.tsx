@@ -9,6 +9,7 @@ export function generateStaticParams() {
         s.slug !== 'data-analytics' &&
         s.slug !== 'ai' &&
         s.slug !== 'apps' &&
+        s.slug !== 'consulting'
         s.slug !== 'devops'
     )
     .map(s => ({ slug: s.slug }))
