@@ -1,7 +1,11 @@
-import type { Feature } from '@/components/ServiceLayout'
-import { FiCpu, FiZap, FiActivity, FiDatabase, FiGitBranch, FiCheckCircle, FiPieChart, FiBarChart, FiTrendingUp, FiSmartphone, FiCode, FiMap, FiLayers, FiCompass, FiCloud, FiRefreshCw, FiLock } from 'react-icons/fi'
 import type { StaticImageData } from 'next/image'
 import pic1 from '@/images/services/data_engineering.jpg'
+
+export type Feature = {
+  icon: string
+  title: string
+  description: string
+}
 
 export type Service = {
   slug: string
@@ -23,19 +27,19 @@ export const services: ReadonlyArray<Service> = [
     imageAlt: 'Data engineering service illustration',
     features: [
       {
-        icon: FiDatabase,
+        icon: 'FiDatabase',
         title: 'Warehouses & Lakes',
         description:
           'Design and implement scalable data warehouses and lakes on any major platform — AWS, Azure, GCP, or on-prem — optimized for performance, governance, and analytics readiness.',
       },
       {
-        icon: FiGitBranch,
+        icon: 'FiGitBranch',
         title: 'Pipelines & Integration',
         description:
           'Build robust ETL/ELT pipelines using tools like Airflow, dbt, or native cloud orchestrators. We handle batch and streaming data, API integrations, and event-driven ingestion at any scale.',
       },
       {
-        icon: FiCheckCircle,
+        icon: 'FiCheckCircle',
         title: 'Quality & Reliability',
         description:
           'Implement validation, monitoring, and lineage tracking so your data remains accurate, trustworthy, and compliant. We ensure every dataset meets your defined SLOs.',
@@ -51,17 +55,17 @@ export const services: ReadonlyArray<Service> = [
       'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80',
     features: [
       {
-        icon: FiCpu,
+        icon: 'FiCpu',
         title: 'LLM Apps',
         description: 'Chatbots and copilots that accelerate your teams.',
       },
       {
-        icon: FiZap,
+        icon: 'FiZap',
         title: 'Automation',
         description: 'Event-driven workflows that eliminate busywork.',
       },
       {
-        icon: FiActivity,
+        icon: 'FiActivity',
         title: 'Monitoring',
         description: 'Track drift and performance to keep automation on target.',
       },
@@ -76,17 +80,17 @@ export const services: ReadonlyArray<Service> = [
       'https://images.unsplash.com/photo-1556157382-97eda2c9f7e9?auto=format&fit=crop&w=800&q=80',
     features: [
       {
-        icon: FiPieChart,
+        icon: 'FiPieChart',
         title: 'Dashboards',
         description: 'Real-time dashboards for operations and KPIs.',
       },
       {
-        icon: FiBarChart,
+        icon: 'FiBarChart',
         title: 'Visualization',
         description: 'Custom charts that surface trends and anomalies.',
       },
       {
-        icon: FiTrendingUp,
+        icon: 'FiTrendingUp',
         title: 'Insights',
         description: 'Guidance to turn metrics into decisive action.',
       },
@@ -101,17 +105,17 @@ export const services: ReadonlyArray<Service> = [
       'https://images.unsplash.com/photo-1517433456452-f9633a875f6f?auto=format&fit=crop&w=800&q=80',
     features: [
       {
-        icon: FiSmartphone,
+        icon: 'FiSmartphone',
         title: 'Frontends',
         description: 'Responsive interfaces built with modern frameworks.',
       },
       {
-        icon: FiCode,
+        icon: 'FiCode',
         title: 'APIs',
         description: 'Secure, documented endpoints for internal or public use.',
       },
       {
-        icon: FiActivity,
+        icon: 'FiActivity',
         title: 'Operations',
         description: 'Observability and SRE practices to keep services healthy.',
       },
@@ -126,17 +130,17 @@ export const services: ReadonlyArray<Service> = [
       'https://images.unsplash.com/photo-1551836022-02eeb4e36dd0?auto=format&fit=crop&w=800&q=80',
     features: [
       {
-        icon: FiMap,
+        icon: 'FiMap',
         title: 'Strategy',
         description: 'Assess your landscape to uncover opportunities and risks.',
       },
       {
-        icon: FiLayers,
+        icon: 'FiLayers',
         title: 'Architecture',
         description: 'Blueprint resilient, scalable systems aligned to goals.',
       },
       {
-        icon: FiCompass,
+        icon: 'FiCompass',
         title: 'Roadmaps',
         description: 'Prioritized technology paths that keep teams aligned.',
       },
@@ -151,19 +155,19 @@ export const services: ReadonlyArray<Service> = [
       'https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=800&q=80',
     features: [
       {
-        icon: FiCloud,
+        icon: 'FiCloud',
         title: 'IaC',
         description:
           'Provision reproducible environments with Terraform or CloudFormation.',
       },
       {
-        icon: FiRefreshCw,
+        icon: 'FiRefreshCw',
         title: 'CI/CD',
         description:
           'Automated testing and deployments for rapid, safe releases.',
       },
       {
-        icon: FiLock,
+        icon: 'FiLock',
         title: 'Security',
         description: 'Policy-as-code and guardrails baked into every pipeline.',
       },

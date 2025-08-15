@@ -2,11 +2,12 @@
 
 import Link from 'next/link'
 import Image, { type StaticImageData } from 'next/image'
-import { IconType } from 'react-icons'
+import * as Icons from 'react-icons/fi'
+import type { IconType } from 'react-icons'
 import { useLanguage } from '@/lib/i18n'
 
 export type Feature = {
-  icon: IconType
+  icon: string
   title: string
   description: string
 }
@@ -70,13 +71,18 @@ export default function ServiceLayout({
 
       <section className="bg-surface py-24">
         <div className="mx-auto grid max-w-5xl gap-12 px-4 md:grid-cols-3">
-          {features.map(({ icon: Icon, title, description }) => (
-            <div key={title} className="text-center">
-              <Icon className="mx-auto h-12 w-12 text-mint" aria-hidden="true" />
-              <h3 className="mt-4 font-semibold text-text">{title}</h3>
-              <p className="mt-2 text-sm text-muted">{description}</p>
-            </div>
-          ))}
+          {features.map(({ icon, title, description }) => {
+            const Icon = (Icons as Record<string, IconType>)[icon]
+            return (
+              <div key={title} className="text-center">
+                {Icon && (
+                  <Icon className="mx-auto h-12 w-12 text-mint" aria-hidden="true" />
+                )}
+                <h3 className="mt-4 font-semibold text-text">{title}</h3>
+                <p className="mt-2 text-sm text-muted">{description}</p>
+              </div>
+            )
+          })}
         </div>
       </section>
     </main>
