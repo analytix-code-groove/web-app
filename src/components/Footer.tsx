@@ -5,7 +5,9 @@ import Image from 'next/image'
 import { useLanguage } from '@/lib/i18n'
 import { FaLinkedin } from 'react-icons/fa'
 import { FaXTwitter } from 'react-icons/fa6'
-import icon from '@/images/logos/favicon.png'
+// Use the favicon bundled with the app instead of a missing asset
+// This ensures the logo resolves correctly in production
+import icon from '@/app/favicon.svg'
 
 const services = [
   { href: '/services/ai', label: 'aiAutomation' },
