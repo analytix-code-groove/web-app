@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { FiTrendingUp, FiLayers, FiShield, FiFileText } from 'react-icons/fi'
+import CoreCapability from '@/components/CoreCapability'
 
 export const metadata: Metadata = {
   title: 'IT Consulting | AnalytiX',
@@ -29,12 +31,28 @@ export default function ITConsultingServicePage() {
       <section className="bg-surface py-24">
         <div className="mx-auto max-w-5xl px-4">
           <h2 className="text-2xl font-semibold text-text">When to Bring Us In</h2>
-          <ul className="mt-8 list-disc space-y-4 pl-5 text-muted">
-            <li>You’re scaling—fast—and architecture or costs can’t keep up.</li>
-            <li>Critical initiatives are stuck between options, vendors, or teams.</li>
-            <li>Compliance, security, or data quality risks are piling up.</li>
-            <li>You need a pragmatic roadmap (not another 80-page deck).</li>
-          </ul>
+          <div className="mt-10 grid gap-8 sm:grid-cols-2">
+            <CoreCapability
+              icon={FiTrendingUp}
+              title="Scaling Fast"
+              description="Architecture or costs can’t keep up."
+            />
+            <CoreCapability
+              icon={FiLayers}
+              title="Stuck Initiatives"
+              description="Critical projects are caught between options or teams."
+            />
+            <CoreCapability
+              icon={FiShield}
+              title="Rising Risk"
+              description="Compliance or security concerns are piling up."
+            />
+            <CoreCapability
+              icon={FiFileText}
+              title="Need a Roadmap"
+              description="You want a pragmatic plan—not another 80-page deck."
+            />
+          </div>
         </div>
       </section>
 
@@ -73,28 +91,33 @@ export default function ITConsultingServicePage() {
       <section className="bg-surface py-24">
         <div className="mx-auto max-w-5xl px-4">
           <h2 className="text-2xl font-semibold text-text">How We Engage (Pick What Fits)</h2>
-          <ul className="mt-8 list-disc space-y-4 pl-5 text-muted">
-            <li>
-              <span className="font-medium text-text">Strategy Sprint (2 weeks):</span> sharpen goals,
-              kill bad options, back the right bets.
-            </li>
-            <li>
-              <span className="font-medium text-text">Architecture &amp; Roadmap (4–6 weeks):</span>
-              design the path and the plan.
-            </li>
-            <li>
-              <span className="font-medium text-text">Fractional Leadership:</span> interim CTO/Head of
-              Data/DevOps to steer execution.
-            </li>
-            <li>
-              <span className="font-medium text-text">Delivery Oversight:</span> governance, QA, and
-              vendor management to keep outcomes on track.
-            </li>
-            <li>
-              <span className="font-medium text-text">Vendor-Neutral RFP Support:</span> requirements,
-              scoring, and selection without bias.
-            </li>
-          </ul>
+          <div className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="rounded-xl2 border border-stroke/70 bg-bg p-6 shadow-soft">
+              <h3 className="font-medium text-text">Strategy Sprint</h3>
+              <span className="mt-1 inline-block rounded bg-mint px-2 py-1 text-xs text-bg">2 weeks</span>
+              <p className="mt-3 text-sm text-muted">Sharpen goals, kill bad options, back the right bets.</p>
+            </div>
+            <div className="rounded-xl2 border border-stroke/70 bg-bg p-6 shadow-soft">
+              <h3 className="font-medium text-text">Architecture & Roadmap</h3>
+              <span className="mt-1 inline-block rounded bg-mint px-2 py-1 text-xs text-bg">4–6 weeks</span>
+              <p className="mt-3 text-sm text-muted">Design the path and the plan.</p>
+            </div>
+            <div className="rounded-xl2 border border-stroke/70 bg-bg p-6 shadow-soft">
+              <h3 className="font-medium text-text">Fractional Leadership</h3>
+              <span className="mt-1 inline-block rounded bg-mint px-2 py-1 text-xs text-bg">Ongoing</span>
+              <p className="mt-3 text-sm text-muted">Interim CTO/Head of Data/DevOps to steer execution.</p>
+            </div>
+            <div className="rounded-xl2 border border-stroke/70 bg-bg p-6 shadow-soft">
+              <h3 className="font-medium text-text">Delivery Oversight</h3>
+              <span className="mt-1 inline-block rounded bg-mint px-2 py-1 text-xs text-bg">As needed</span>
+              <p className="mt-3 text-sm text-muted">Governance, QA, and vendor management to keep outcomes on track.</p>
+            </div>
+            <div className="rounded-xl2 border border-stroke/70 bg-bg p-6 shadow-soft">
+              <h3 className="font-medium text-text">Vendor-Neutral RFP Support</h3>
+              <span className="mt-1 inline-block rounded bg-mint px-2 py-1 text-xs text-bg">Project-based</span>
+              <p className="mt-3 text-sm text-muted">Requirements, scoring, and selection without bias.</p>
+            </div>
+          </div>
         </div>
       </section>
 

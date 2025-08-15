@@ -1,5 +1,8 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { FiRefreshCw, FiCheckCircle, FiShield, FiTarget, FiPenTool, FiBox, FiBarChart } from 'react-icons/fi'
+import CoreCapability from '@/components/CoreCapability'
+import StepTimeline from '@/components/StepTimeline'
 
 export const metadata: Metadata = {
   title: 'Automation & QA Services | AnalytiX',
@@ -58,32 +61,70 @@ export default function AutomationQaServicePage() {
         </div>
       </section>
 
+      {/* Core Capabilities */}
+      <section className="bg-surface py-24">
+        <div className="mx-auto max-w-5xl px-4">
+          <h2 className="text-2xl font-semibold text-text">Core Capabilities</h2>
+          <div className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            <CoreCapability
+              icon={FiRefreshCw}
+              title="Workflow Automation"
+              description="Eliminate repetitive tasks with smart orchestration."
+            />
+            <CoreCapability
+              icon={FiCheckCircle}
+              title="Test Automation"
+              description="Increase coverage and catch regressions early."
+            />
+            <CoreCapability
+              icon={FiShield}
+              title="Quality Gates"
+              description="Enforce standards before changes reach production."
+            />
+          </div>
+        </div>
+      </section>
+
       {/* Implementation Journey */}
       <section className="bg-surface py-24">
         <div className="mx-auto max-w-5xl px-4">
           <h2 className="text-2xl font-semibold text-text">Our Implementation Journey</h2>
-          <ol className="mt-8 list-decimal space-y-6 pl-5 text-muted">
-            <li>
-              <span className="font-medium text-text">Target what matters.</span> We pinpoint the highest-leverage
-              processes and failure points where automation and QA will move the needle.
-            </li>
-            <li>
-              <span className="font-medium text-text">Design for scale.</span> We architect maintainable workflows, test
-              suites, and data flows that grow with your product and team.
-            </li>
-            <li>
-              <span className="font-medium text-text">Build where it counts.</span> RPA for repetitive tasks, API/UI test
-              automation for coverage, and CI/CD hooks to keep quality continuous.
-            </li>
-            <li>
-              <span className="font-medium text-text">Harden reliability.</span> Performance, security, and regression
-              testing ensure releases are predictable—not hopeful.
-            </li>
-            <li>
-              <span className="font-medium text-text">Measure and improve.</span> Dashboards, SLIs/SLOs, and feedback
-              loops keep the system honest and getting better over time.
-            </li>
-          </ol>
+          <div className="mt-8 text-muted">
+            <StepTimeline
+              steps={[
+                {
+                  icon: FiTarget,
+                  title: 'Target what matters',
+                  description:
+                    'We pinpoint the highest-leverage processes and failure points where automation and QA will move the needle.',
+                },
+                {
+                  icon: FiPenTool,
+                  title: 'Design for scale',
+                  description:
+                    'We architect maintainable workflows, test suites, and data flows that grow with your product and team.',
+                },
+                {
+                  icon: FiBox,
+                  title: 'Build where it counts',
+                  description:
+                    'RPA for repetitive tasks, API/UI test automation for coverage, and CI/CD hooks to keep quality continuous.',
+                },
+                {
+                  icon: FiShield,
+                  title: 'Harden reliability',
+                  description:
+                    'Performance, security, and regression testing ensure releases are predictable—not hopeful.',
+                },
+                {
+                  icon: FiBarChart,
+                  title: 'Measure and improve',
+                  description:
+                    'Dashboards, SLIs/SLOs, and feedback loops keep the system honest and getting better over time.',
+                },
+              ]}
+            />
+          </div>
         </div>
       </section>
 

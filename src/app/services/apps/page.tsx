@@ -1,5 +1,8 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { FiList, FiCpu, FiBox, FiCode, FiShield, FiUpload, FiTrendingUp } from 'react-icons/fi'
+import StepTimeline from '@/components/StepTimeline'
+import CodeToggle from '@/components/CodeToggle'
 
 export const metadata: Metadata = {
   title: 'Apps & APIs Services | AnalytiX',
@@ -24,6 +27,7 @@ export default function AppsServicePage() {
             Let’s talk
           </Link>
         </div>
+        <CodeToggle />
       </section>
 
       {/* Why Modern Apps */}
@@ -65,36 +69,47 @@ export default function AppsServicePage() {
       <section className="bg-surface py-24">
         <div className="mx-auto max-w-5xl px-4">
           <h2 className="text-2xl font-semibold text-text">Our Implementation Journey</h2>
-          <ol className="mt-8 list-decimal space-y-6 pl-5 text-muted">
-            <li>
-              <span className="font-medium text-text">Define Requirements –</span> Collaborate with your stakeholders to
-              clarify goals, user needs, and success metrics.
-            </li>
-            <li>
-              <span className="font-medium text-text">Architect the Solution –</span> Design scalable, secure, and
-              maintainable application or API architectures.
-            </li>
-            <li>
-              <span className="font-medium text-text">Prototype & Validate –</span> Build functional prototypes to
-              confirm usability, workflows, and technical feasibility.
-            </li>
-            <li>
-              <span className="font-medium text-text">Develop & Integrate –</span> Implement the solution, integrating
-              with existing systems and third-party services.
-            </li>
-            <li>
-              <span className="font-medium text-text">Test & Secure –</span> Conduct rigorous QA, performance testing,
-              and security hardening.
-            </li>
-            <li>
-              <span className="font-medium text-text">Deploy & Launch –</span> Roll out with minimal disruption, ensuring
-              smooth adoption and clear documentation.
-            </li>
-            <li>
-              <span className="font-medium text-text">Monitor & Evolve –</span> Track performance, gather feedback, and
-              implement enhancements to keep pace with your needs.
-            </li>
-          </ol>
+          <div className="mt-8 text-muted">
+            <StepTimeline
+              steps={[
+                {
+                  icon: FiList,
+                  title: 'Define Requirements',
+                  description: 'Collaborate with stakeholders to clarify goals, user needs, and success metrics.',
+                },
+                {
+                  icon: FiCpu,
+                  title: 'Architect the Solution',
+                  description: 'Design scalable, secure, and maintainable application or API architectures.',
+                },
+                {
+                  icon: FiBox,
+                  title: 'Prototype & Validate',
+                  description: 'Build functional prototypes to confirm usability, workflows, and feasibility.',
+                },
+                {
+                  icon: FiCode,
+                  title: 'Develop & Integrate',
+                  description: 'Implement the solution and integrate with existing systems and third-party services.',
+                },
+                {
+                  icon: FiShield,
+                  title: 'Test & Secure',
+                  description: 'Conduct rigorous QA, performance testing, and security hardening.',
+                },
+                {
+                  icon: FiUpload,
+                  title: 'Deploy & Launch',
+                  description: 'Roll out with minimal disruption, ensuring smooth adoption and clear documentation.',
+                },
+                {
+                  icon: FiTrendingUp,
+                  title: 'Monitor & Evolve',
+                  description: 'Track performance, gather feedback, and implement enhancements to keep pace with your needs.',
+                },
+              ]}
+            />
+          </div>
         </div>
       </section>
 
