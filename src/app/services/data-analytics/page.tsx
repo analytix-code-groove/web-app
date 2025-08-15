@@ -1,5 +1,33 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import { FiDatabase, FiGitBranch, FiCheckCircle } from 'react-icons/fi'
+import CoreCapability from '@/components/CoreCapability'
+
+export const metadata: Metadata = {
+  title: 'Data & Analytics Services | AnalytiX',
+  description: 'From raw data to real results — faster, smarter, and at scale.',
+}
+
+const capabilities = [
+  {
+    icon: FiDatabase,
+    title: 'Warehouses & Lakes',
+    description:
+      'Scalable, optimized storage for analytics-ready data on AWS, Azure, GCP, or on-prem.',
+  },
+  {
+    icon: FiGitBranch,
+    title: 'ETL / ELT Pipelines',
+    description:
+      'Batch, streaming, and event-driven ingestion—reliable data delivered where it’s needed.',
+  },
+  {
+    icon: FiCheckCircle,
+    title: 'Quality & Governance',
+    description:
+      'Validation, lineage, monitoring, and policies that keep data trustworthy and compliant.',
+  },
+]
 
 export default function DataAnalyticsServicePage() {
   return (
@@ -43,35 +71,9 @@ export default function DataAnalyticsServicePage() {
         <div className="mx-auto max-w-5xl px-4">
           <h2 className="text-2xl font-semibold text-text">Core Capabilities</h2>
           <div className="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
-            <div className="flex items-start space-x-4">
-              <FiDatabase className="h-8 w-8 text-mint flex-shrink-0" />
-              <div>
-                <h3 className="font-medium text-text">Warehouses & Lakes</h3>
-                <p className="mt-1 text-muted">
-                  Scalable, optimized storage for analytics-ready data on AWS, Azure, GCP, or on-prem.
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-start space-x-4">
-              <FiGitBranch className="h-8 w-8 text-mint flex-shrink-0" />
-              <div>
-                <h3 className="font-medium text-text">ETL / ELT Pipelines</h3>
-                <p className="mt-1 text-muted">
-                  Batch, streaming, and event-driven ingestion—reliable data delivered where it’s needed.
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-start space-x-4">
-              <FiCheckCircle className="h-8 w-8 text-mint flex-shrink-0" />
-              <div>
-                <h3 className="font-medium text-text">Quality & Governance</h3>
-                <p className="mt-1 text-muted">
-                  Validation, lineage, monitoring, and policies that keep data trustworthy and compliant.
-                </p>
-              </div>
-            </div>
+            {capabilities.map(c => (
+              <CoreCapability key={c.title} {...c} />
+            ))}
           </div>
         </div>
       </section>
