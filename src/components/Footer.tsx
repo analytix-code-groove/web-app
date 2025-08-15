@@ -113,7 +113,7 @@ export default function Footer() {
           <p>© Analytixcg</p>
           <div className="flex items-center gap-4">
             <a
-              href="https://x.com"
+              href="https://x.com/analytixcg"
               aria-label="X"
               className="hover:text-text"
               target="_blank"
