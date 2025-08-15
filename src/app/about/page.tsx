@@ -1,13 +1,6 @@
 "use client"
 
-import type { Metadata } from 'next'
 import { useLanguage } from '@/lib/i18n'
-
-export const metadata: Metadata = {
-  title: 'About | Analytix Code Groove',
-  description:
-    'Discover Analytix Code Groove’s mission and values in empowering teams with data-driven applications.',
-}
 
 export default function AboutPage() {
   const { t } = useLanguage()
