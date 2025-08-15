@@ -23,6 +23,14 @@ const translations: Record<Language, Record<string, string>> = {
     seeServices: 'See services',
     readBlog: 'Read the blog',
     comingSoon: 'Coming soon...',
+    aboutIntro:
+      'Analytix Code Groove blends data expertise with modern software craftsmanship to turn ideas into scalable reality.',
+    missionHeading: 'Our Mission',
+    missionBody:
+      'Enable teams to groove with their data, transforming information into insight and action with clarity and speed.',
+    valuesHeading: 'What We Value',
+    valuesBody:
+      'Pragmatic engineering, transparent collaboration, and measurable outcomes that move businesses forward.',
     reachUsAt: 'Reach us at',
     moreInfoHeading: 'Why AnalytiX?',
     moreInfoBody:
@@ -82,6 +90,14 @@ const translations: Record<Language, Record<string, string>> = {
     seeServices: 'Ver servicios',
     readBlog: 'Leer el blog',
     comingSoon: 'Próximamente...',
+    aboutIntro:
+      'Analytix Code Groove combina el dominio de datos con la artesanía moderna de software. Ayudamos a los equipos a convertir ideas en productos fiables y escalables.',
+    missionHeading: 'Nuestra Misión',
+    missionBody:
+      'Permitir que las organizaciones fluyan con sus datos, transformando información en conocimiento y acción con claridad y rapidez.',
+    valuesHeading: 'Lo que Valoramos',
+    valuesBody:
+      'Creemos en la ingeniería pragmática, la colaboración transparente y los resultados medibles que impulsan a las empresas.',
     reachUsAt: 'Contáctanos en',
     moreInfoHeading: '¿Por qué AnalytiX?',
     moreInfoBody:
