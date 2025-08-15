@@ -9,10 +9,9 @@ import logo from '@/images/logos/desktop/logo_footer.png'
 
 const services = [
   { href: '/services/ai', label: 'aiAutomation' },
-  { href: '/services/analytics', label: 'analytics' },
   { href: '/services/apps', label: 'appsApis' },
   { href: '/services/devops', label: 'cloudDevops' },
-  { href: '/services/data', label: 'dataEngineering' },
+  { href: '/services/data-analytics', label: 'dataAnalytics' },
   { href: '/services/consulting', label: 'itConsulting' },
 ]
 

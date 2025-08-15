@@ -14,9 +14,9 @@ const links = [
     label: 'services',
     children: [
       {
-        href: '/services/data',
-        label: 'dataEngineering',
-        description: 'dataEngineeringDesc',
+        href: '/services/data-analytics',
+        label: 'dataAnalytics',
+        description: 'dataAnalyticsDesc',
         icon: (
           <svg
             viewBox="0 0 24 24"
@@ -44,25 +44,6 @@ const links = [
             className="h-5 w-5"
           >
             <path d="M17 16a4 4 0 0 0 0-8 6 6 0 0 0-11.8 1.46A4 4 0 0 0 6 20h11" />
-          </svg>
-        ),
-      },
-      {
-        href: '/services/analytics',
-        label: 'analytics',
-        description: 'analyticsDesc',
-        icon: (
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            className="h-5 w-5"
-          >
-            <path d="M3 3v18h18" />
-            <path d="M7 16V10" />
-            <path d="M12 16V4" />
-            <path d="M17 16v-2" />
           </svg>
         ),
       },
