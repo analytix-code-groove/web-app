@@ -1,4 +1,10 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
+
+export const metadata: Metadata = {
+  title: 'IT Consulting | AnalytiX',
+  description: 'Clarity, architecture, and momentum—when you need it.',
+}
 
 export default function ITConsultingServicePage() {
   return (

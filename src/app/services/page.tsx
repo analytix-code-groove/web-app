@@ -1,4 +1,10 @@
+import type { Metadata } from 'next'
 import ServiceCards from '@/components/ServiceCards'
+
+export const metadata: Metadata = {
+  title: 'Services | AnalytiX',
+  description: 'Explore the range of technology services offered by AnalytiX.',
+}
 
 export default function ServicesPage() {
   return (

@@ -1,9 +1,15 @@
 'use client'
 
+import type { Metadata } from 'next'
 import { useState } from 'react'
 import Link from 'next/link'
 
 import { createSupabaseBrowserClient } from '../../lib/supabase'
+
+export const metadata: Metadata = {
+  title: 'Sign Up | AnalytiX',
+  description: 'Create your AnalytiX account with email or social providers.',
+}
 
 export default function SignupPage() {
   const [email, setEmail] = useState('')

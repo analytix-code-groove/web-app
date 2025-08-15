@@ -1,3 +1,10 @@
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Forgot Password | AnalytiX',
+  description: 'Recover access to your AnalytiX account.',
+}
+
 export default function ForgotPasswordPage() {
   return (
     <main className="bg-bg flex min-h-screen items-center justify-center px-4">

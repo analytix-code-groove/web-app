@@ -1,5 +1,6 @@
 'use client'
 
+import type { Metadata } from 'next'
 import { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -9,6 +10,11 @@ import { useLanguage } from '@/lib/i18n'
 import { createSupabaseBrowserClient } from '@/lib/supabase'
 import supabaseConfig from '../../../supabase.local.json'
 import logo from '@/images/logos/desktop/logo_login.png'
+
+export const metadata: Metadata = {
+  title: 'Log In | AnalytiX',
+  description: 'Access your AnalytiX account to manage services and bookmarks.',
+}
 
 export default function LoginPage() {
   const [email, setEmail] = useState('')
