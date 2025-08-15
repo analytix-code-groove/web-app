@@ -3,7 +3,9 @@ import { getService, services } from '@/data/services'
 import { notFound } from 'next/navigation'
 
 export function generateStaticParams() {
-  return services.map(s => ({ slug: s.slug }))
+  return services
+    .filter(s => s.slug !== 'data-analytics')
+    .map(s => ({ slug: s.slug }))
 }
 
 interface Params {
