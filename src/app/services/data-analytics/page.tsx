@@ -1,9 +1,11 @@
 import Link from 'next/link'
+import { FiDatabase, FiGitBranch, FiCheckCircle } from 'react-icons/fi'
 
 export default function DataAnalyticsServicePage() {
   return (
     <main className="min-h-screen">
-      <section className="mx-auto max-w-5xl px-4 py-24">
+      {/* Hero */}
+      <section className="mx-auto max-w-5xl px-4 py-28">
         <h1 className="font-heading text-4xl font-semibold text-text">Data & Analytics Services</h1>
         <p className="mt-6 text-lg text-muted">
           From raw data to real results — faster, smarter, and at scale.
@@ -18,12 +20,11 @@ export default function DataAnalyticsServicePage() {
         </div>
       </section>
 
-      <section className="bg-surface py-16">
+      {/* Why Foundations */}
+      <section className="bg-surface py-24">
         <div className="mx-auto max-w-5xl px-4">
-          <h2 className="text-2xl font-semibold text-text">
-            Why Strong Data Foundations Matter
-          </h2>
-          <ul className="mt-6 list-disc space-y-3 pl-5 text-muted">
+          <h2 className="text-2xl font-semibold text-text">Why Strong Data Foundations Matter</h2>
+          <ul className="mt-8 list-disc space-y-4 pl-5 text-muted">
             <li>
               <span className="font-medium text-text">Streamlined Operations –</span> Keep data accurate, accessible, and ready to use, reducing wasted time on searching, cleaning, and reconciling information.
             </li>
@@ -37,7 +38,46 @@ export default function DataAnalyticsServicePage() {
         </div>
       </section>
 
-      <section className="py-16">
+      {/* Core Capabilities with Icons */}
+      <section className="py-24">
+        <div className="mx-auto max-w-5xl px-4">
+          <h2 className="text-2xl font-semibold text-text">Core Capabilities</h2>
+          <div className="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="flex items-start space-x-4">
+              <FiDatabase className="h-8 w-8 text-mint flex-shrink-0" />
+              <div>
+                <h3 className="font-medium text-text">Warehouses & Lakes</h3>
+                <p className="mt-1 text-muted">
+                  Scalable, optimized storage for analytics-ready data on AWS, Azure, GCP, or on-prem.
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-start space-x-4">
+              <FiGitBranch className="h-8 w-8 text-mint flex-shrink-0" />
+              <div>
+                <h3 className="font-medium text-text">ETL / ELT Pipelines</h3>
+                <p className="mt-1 text-muted">
+                  Batch, streaming, and event-driven ingestion—reliable data delivered where it’s needed.
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-start space-x-4">
+              <FiCheckCircle className="h-8 w-8 text-mint flex-shrink-0" />
+              <div>
+                <h3 className="font-medium text-text">Quality & Governance</h3>
+                <p className="mt-1 text-muted">
+                  Validation, lineage, monitoring, and policies that keep data trustworthy and compliant.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Approach */}
+      <section className="bg-surface py-24">
         <div className="mx-auto max-w-5xl px-4">
           <h2 className="text-2xl font-semibold text-text">
             Our Approach — From Data Chaos to Data Confidence
@@ -45,7 +85,7 @@ export default function DataAnalyticsServicePage() {
           <p className="mt-4 text-muted">
             Our proven methodology transforms your data operations in a clear, strategic progression—ensuring every step delivers measurable business value.
           </p>
-          <ol className="mt-6 list-decimal space-y-6 pl-5 text-muted">
+          <ol className="mt-8 list-decimal space-y-6 pl-5 text-muted">
             <li>
               <span className="font-medium text-text">Break Down Silos –</span> Eliminate data fragmentation by consolidating critical information into a unified, governed environment, giving teams fast, reliable access to trusted data.
             </li>
@@ -62,19 +102,20 @@ export default function DataAnalyticsServicePage() {
         </div>
       </section>
 
-      <section className="bg-surface py-16">
+      {/* Outcomes */}
+      <section className="py-24">
         <div className="mx-auto max-w-5xl px-4">
           <h2 className="text-2xl font-semibold text-text">What Our Service Enables</h2>
           <p className="mt-4 text-muted">
             When you partner with us, you don’t just get better data — you get a business that runs on insight.
           </p>
-          <ul className="mt-6 list-disc space-y-3 pl-5 text-muted">
-            <li>Faster Decisions: Eliminate delays caused by manual data prep.</li>
-            <li>Greater Agility: Respond instantly to market changes with real-time intelligence.</li>
-            <li>Lower Costs: Reduce inefficiencies, avoid compliance penalties, and cut data storage waste.</li>
-            <li>Innovation at Scale: Enable advanced analytics, AI, and automation across teams without bottlenecks.</li>
+          <ul className="mt-8 list-disc space-y-4 pl-5 text-muted">
+            <li><span className="font-medium text-text">Faster Decisions:</span> Eliminate delays caused by manual data prep.</li>
+            <li><span className="font-medium text-text">Greater Agility:</span> Respond instantly to market changes with real-time intelligence.</li>
+            <li><span className="font-medium text-text">Lower Costs:</span> Reduce inefficiencies, avoid compliance penalties, and cut data storage waste.</li>
+            <li><span className="font-medium text-text">Innovation at Scale:</span> Enable advanced analytics, AI, and automation across teams without bottlenecks.</li>
           </ul>
-          <p className="mt-8 text-lg text-text">
+          <p className="mt-10 text-lg text-text">
             Engage your data. Empower your people. Outpace your competition.
           </p>
           <p className="mt-2 text-muted">
@@ -85,4 +126,3 @@ export default function DataAnalyticsServicePage() {
     </main>
   )
 }
-
