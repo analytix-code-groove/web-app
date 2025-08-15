@@ -9,6 +9,7 @@ import logo from '@/images/logos/desktop/logo_footer.png'
 
 const services = [
   { href: '/services/ai', label: 'aiAutomation' },
+  { href: '/services/automation-qa', label: 'automationQa' },
   { href: '/services/apps', label: 'appsApis' },
   { href: '/services/devops', label: 'cloudDevops' },
   { href: '/services/data-analytics', label: 'dataAnalytics' },

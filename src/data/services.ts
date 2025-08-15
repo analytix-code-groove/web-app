@@ -87,6 +87,34 @@ export const services: ReadonlyArray<Service> = [
     ],
   },
   {
+    slug: 'automation-qa',
+    titleKey: 'automationQa',
+    descKey: 'automationQaDesc',
+    cardBlurbKey: 'automationQaCard',
+    imageSrc:
+      'https://images.unsplash.com/photo-1581090700227-4f9a6d3a3c0a?auto=format&fit=crop&w=800&q=80',
+    features: [
+      {
+        icon: 'FiSettings',
+        title: 'Workflow Automation',
+        description:
+          'Eliminate manual steps with tailored scripts and bots.',
+      },
+      {
+        icon: 'FiCheckSquare',
+        title: 'Test Automation',
+        description:
+          'Unit, integration, and end-to-end suites that catch regressions.',
+      },
+      {
+        icon: 'FiShield',
+        title: 'Quality Gates',
+        description:
+          'Policy checks and approvals baked into your pipelines.',
+      },
+    ],
+  },
+  {
     slug: 'apps',
     titleKey: 'appsApis',
     descKey: 'appsApisDesc',
