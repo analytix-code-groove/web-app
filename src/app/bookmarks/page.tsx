@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { createSupabaseBrowserClient } from '../../lib/supabase'
+import { useLanguage } from '@/lib/i18n'
 
 type Bookmark = {
   url: string
@@ -18,6 +19,7 @@ export default function BookmarksPage() {
   const [bookmarks, setBookmarks] = useState<Bookmark[]>([])
   const [url, setUrl] = useState('')
   const supabase = typeof window !== 'undefined' ? createSupabaseBrowserClient() : null
+  const { t } = useLanguage()
 
   const loadLocal = (): Bookmark[] => {
     try {
@@ -76,7 +78,7 @@ export default function BookmarksPage() {
 
   return (
     <main className="bg-bg min-h-screen p-4 text-text">
-      <h1 className="mb-4 text-2xl font-semibold">Bookmarks</h1>
+      <h1 className="mb-4 text-2xl font-semibold">{t('bookmarks')}</h1>
       <form onSubmit={addBookmark} className="mb-4 flex gap-2">
         <input
           type="url"
@@ -89,11 +91,11 @@ export default function BookmarksPage() {
           type="submit"
           className="rounded-xl2 bg-mint px-4 py-2 text-sm font-medium text-black shadow-soft transition hover:opacity-90"
         >
-          Add
+          {t('add')}
         </button>
       </form>
       {bookmarks.length === 0 ? (
-        <p className="text-sm text-text/80">No bookmarks yet.</p>
+        <p className="text-sm text-text/80">{t('noBookmarksYet')}</p>
       ) : (
         <ul className="space-y-2">
           {bookmarks.map(b => (
