@@ -31,8 +31,7 @@ const translations: Record<Language, Record<string, string>> = {
     analyticsDesc: 'Dashboards & visualization',
     analyticsCard: 'Dashboards that drive decisions.',
     aiAutomation: 'AI / Automation',
-    aiAutomationDesc:
-      'Harness the power of AI to streamline processes and boost productivity. We build intelligent workflows using Large Language Models (LLMs), autonomous agents, and task automation frameworks. From customer service bots to process orchestration and document processing, our solutions free up time, reduce errors, and enable your team to focus on high-value work.',
+    aiAutomationDesc: 'LLMs, agents & automation',
     aiAutomationCard: 'LLMs, agents, workflow automation.',
     appsApis: 'Apps & APIs',
     appsApisDesc: 'Scalable apps & APIs',
@@ -84,8 +83,7 @@ const translations: Record<Language, Record<string, string>> = {
     analyticsDesc: 'Paneles y visualización',
     analyticsCard: 'Paneles que impulsan decisiones.',
     aiAutomation: 'IA / Automatización',
-    aiAutomationDesc:
-      'Aprovecha el poder de la IA para simplificar procesos y aumentar la productividad. Construimos flujos de trabajo inteligentes usando modelos de lenguaje grande (LLMs), agentes autónomos y frameworks de automatización de tareas. Desde bots de atención al cliente hasta orquestación de procesos y procesamiento de documentos, nuestras soluciones liberan tiempo, reducen errores y permiten que tu equipo se concentre en el trabajo de mayor valor.',
+    aiAutomationDesc: 'LLMs, agentes y automatización',
     aiAutomationCard: 'LLMs, agentes, automatización de flujos.',
     appsApis: 'Apps y APIs',
     appsApisDesc: 'Apps y APIs escalables',
