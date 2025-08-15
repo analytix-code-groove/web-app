@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Hero from '@/components/Hero'
 import ServiceCards from '@/components/ServiceCards'
+import LatestPosts from '@/components/LatestPosts'
 
 export const metadata: Metadata = {
   title: 'Home | AnalytiX',
@@ -12,6 +13,7 @@ export default function Home() {
     <main>
       <Hero />
       <ServiceCards />
+      <LatestPosts />
     </main>
   )
 }

@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   title: 'AnalytiX | Code Groove',
   description: 'Where data meets flow.',
   icons: {
-    icon: '/favicon.svg',
+    icon: '/favicon.ico',
   },
   alternates: {
     types: {

@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { useLanguage } from '@/lib/i18n'
 import { FaLinkedin } from 'react-icons/fa'
 import { FaXTwitter } from 'react-icons/fa6'
-import logo from '@/images/logos/desktop/logo_footer.png'
+import icon from '@/images/logos/favicon.png'
 
 const services = [
   { href: '/services/ai', label: 'aiAutomation' },
@@ -34,9 +34,10 @@ export default function Footer() {
             <Link
               href="/"
               aria-label="Analytix Code Groove"
-              className="block w-[160px] md:shrink-0"
+              className="flex items-center gap-2 md:shrink-0"
             >
-              <Image src={logo} alt="Analytix Code Groove" width={160} height={46} />
+              <Image src={icon} alt="Analytix Code Groove" width={40} height={40} />
+              <span className="text-xl font-bold text-text">AnalytiX</span>
             </Link>
           </div>
 
