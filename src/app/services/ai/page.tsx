@@ -1,5 +1,8 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { FiSearch, FiShield, FiCheckCircle, FiBox, FiPlayCircle, FiRefreshCw, FiTrendingUp } from 'react-icons/fi'
+import StepTimeline from '@/components/StepTimeline'
+import CoreCapability from '@/components/CoreCapability'
 
 export const metadata: Metadata = {
   title: 'Generative AI Services | AnalytiX',
@@ -22,6 +25,25 @@ export default function GenerativeAIServicePage() {
           >
             Let’s talk
           </Link>
+        </div>
+      </section>
+
+      {/* Use Cases */}
+      <section className="bg-surface py-24">
+        <div className="mx-auto max-w-5xl px-4">
+          <h2 className="text-2xl font-semibold text-text">Sample Use Cases</h2>
+          <div className="mt-10 grid gap-6 sm:grid-cols-2">
+            <CoreCapability
+              icon={FiSearch}
+              title="Document Summarization"
+              description="Turn dense reports into bite-sized insights instantly."
+            />
+            <CoreCapability
+              icon={FiShield}
+              title="Secure Code Generation"
+              description="Speed up development with AI that respects your guardrails."
+            />
+          </div>
         </div>
       </section>
 
@@ -49,29 +71,42 @@ export default function GenerativeAIServicePage() {
       <section className="bg-surface py-24">
         <div className="mx-auto max-w-5xl px-4">
           <h2 className="text-2xl font-semibold text-text">Our Generative Implementation Journey</h2>
-          <ol className="mt-8 list-decimal space-y-6 pl-5 text-muted">
-            <li>
-              <span className="font-medium text-text">Identify opportunities –</span> Pinpoint the AI use cases with the greatest potential to drive business impact.
-            </li>
-            <li>
-              <span className="font-medium text-text">Assess feasibility –</span> Review scalability, security, and costs to select the most suitable models and approaches.
-            </li>
-            <li>
-              <span className="font-medium text-text">Validate with a pilot –</span> Test architecture, integrations, and tools to confirm performance and fit.
-            </li>
-            <li>
-              <span className="font-medium text-text">Build and integrate –</span> Develop and embed AI solutions seamlessly into your existing workflows.
-            </li>
-            <li>
-              <span className="font-medium text-text">Optimize results –</span> Enhance outcomes through prompt engineering, retrieval-augmented generation, and fine-tuning.
-            </li>
-            <li>
-              <span className="font-medium text-text">Go live –</span> Launch with minimal disruption and ensure strong user adoption.
-            </li>
-            <li>
-              <span className="font-medium text-text">Evolve continuously –</span> Monitor, gather feedback, and refine to sustain and grow value over time.
-            </li>
-          </ol>
+          <div className="mt-8 text-muted">
+            <StepTimeline
+              steps={[
+                {
+                  icon: FiSearch,
+                  title: 'Identify Opportunities',
+                  description: 'Pinpoint the AI use cases with the greatest potential to drive business impact.',
+                },
+                {
+                  icon: FiCheckCircle,
+                  title: 'Assess Feasibility',
+                  description: 'Review scalability, security, and costs to select the most suitable models and approaches.',
+                },
+                {
+                  icon: FiBox,
+                  title: 'Validate with a Pilot',
+                  description: 'Test architecture, integrations, and tools to confirm performance and fit.',
+                },
+                {
+                  icon: FiPlayCircle,
+                  title: 'Build & Integrate',
+                  description: 'Develop and embed AI solutions seamlessly into your existing workflows.',
+                },
+                {
+                  icon: FiTrendingUp,
+                  title: 'Optimize Results',
+                  description: 'Enhance outcomes through prompt engineering, retrieval-augmented generation, and fine-tuning.',
+                },
+                {
+                  icon: FiRefreshCw,
+                  title: 'Go Live & Evolve',
+                  description: 'Launch with minimal disruption and refine to sustain and grow value over time.',
+                },
+              ]}
+            />
+          </div>
         </div>
       </section>
 

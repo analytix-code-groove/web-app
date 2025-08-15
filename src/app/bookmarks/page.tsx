@@ -1,6 +1,5 @@
 'use client'
 
-import type { Metadata } from 'next'
 import { useEffect, useState } from 'react'
 import { createSupabaseBrowserClient } from '../../lib/supabase'
 
@@ -14,10 +13,6 @@ const merge = (local: Bookmark[], server: Bookmark[]): Bookmark[] => {
   return Array.from(map.values())
 }
 
-export const metadata: Metadata = {
-  title: 'Bookmarks | AnalytiX',
-  description: 'Save and manage your favorite links in AnalytiX.',
-}
 
 export default function BookmarksPage() {
   const [bookmarks, setBookmarks] = useState<Bookmark[]>([])

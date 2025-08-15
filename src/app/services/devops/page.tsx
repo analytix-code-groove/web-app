@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { FiSearch, FiShield, FiRefreshCw, FiCodesandbox, FiServer, FiUsers } from 'react-icons/fi'
+import CoreCapability from '@/components/CoreCapability'
 
 export const metadata: Metadata = {
   title: 'Cloud & DevOps Services | AnalytiX',
@@ -63,26 +65,50 @@ export default function CloudDevOpsServicePage() {
           <h2 className="text-2xl font-semibold text-text">
             How We Deliver (Clear, Actionable Focus)
           </h2>
-          <ol className="mt-8 list-decimal space-y-6 pl-5 text-muted">
-            <li>
-              <span className="font-medium text-text">Assess &amp; Align –</span> Understand your infrastructure, delivery challenges, and business priorities.
-            </li>
-            <li>
-              <span className="font-medium text-text">Design for Scale &amp; Security –</span> Architect cloud-native or hybrid solutions built for resilience and compliance.
-            </li>
-            <li>
-              <span className="font-medium text-text">Automate Delivery –</span> Implement CI/CD pipelines, automated testing, and deployment workflows.
-            </li>
-            <li>
-              <span className="font-medium text-text">Infrastructure as Code (IaC) –</span> Use tools like Terraform, CloudFormation, or Pulumi for repeatable, reliable provisioning.
-            </li>
-            <li>
-              <span className="font-medium text-text">Optimize &amp; Monitor –</span> Leverage observability, cost analysis, and performance tuning to ensure your environment evolves with your needs.
-            </li>
-            <li>
-              <span className="font-medium text-text">Embed DevOps Culture –</span> Coach teams to adopt best practices that sustain long-term agility and quality.
-            </li>
-          </ol>
+          <div className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            <CoreCapability
+              icon={FiSearch}
+              title="Assess & Align"
+              description="Understand your infrastructure, delivery challenges, and business priorities."
+            />
+            <CoreCapability
+              icon={FiShield}
+              title="Design for Scale"
+              description="Architect cloud-native or hybrid solutions built for resilience and compliance."
+            />
+            <CoreCapability
+              icon={FiRefreshCw}
+              title="Automate Delivery"
+              description="Implement CI/CD pipelines, automated testing, and deployment workflows."
+            />
+            <CoreCapability
+              icon={FiCodesandbox}
+              title="Infrastructure as Code"
+              description="Use tools like Terraform or Pulumi for repeatable, reliable provisioning."
+            />
+            <CoreCapability
+              icon={FiServer}
+              title="Optimize & Monitor"
+              description="Leverage observability and cost analysis to ensure your environment evolves with your needs."
+            />
+            <CoreCapability
+              icon={FiUsers}
+              title="Embed DevOps Culture"
+              description="Coach teams to adopt practices that sustain long-term agility and quality."
+            />
+          </div>
+          <div className="mt-10 flex justify-center">
+            <svg
+              className="h-32 w-48 text-stroke"
+              viewBox="0 0 200 100"
+              fill="none"
+              stroke="currentColor"
+            >
+              <rect x="10" y="40" width="60" height="20" rx="4" />
+              <rect x="130" y="40" width="60" height="20" rx="4" />
+              <path d="M70 50H130" />
+            </svg>
+          </div>
         </div>
       </section>
 
