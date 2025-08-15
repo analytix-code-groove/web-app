@@ -4,7 +4,9 @@ import { notFound } from 'next/navigation'
 
 export function generateStaticParams() {
   return services
-    .filter(s => s.slug !== 'data-analytics' && s.slug !== 'ai')
+    .filter(
+      s => s.slug !== 'data-analytics' && s.slug !== 'ai' && s.slug !== 'apps'
+    )
     .map(s => ({ slug: s.slug }))
 }
 
