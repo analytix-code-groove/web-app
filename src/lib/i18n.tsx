@@ -116,6 +116,18 @@ const translations: Record<Language, Record<string, string>> = {
     signUpNow: 'Sign Up Now',
     termsAgreement:
       "By continuing, you agree to Analytix's Terms of Service and Privacy Policy, and to receive periodic emails with updates.",
+    recoverPassword: 'Recover password',
+    sendResetLink: 'Send reset link',
+    backToLogin: 'Back to log in',
+    signUp: 'Sign up',
+    sendMagicLink: 'Send magic link',
+    signUpWithGoogle: 'Sign up with Google',
+    signUpWithGithub: 'Sign up with GitHub',
+    checkEmailForLink: 'Check your email for the signup link.',
+    alreadyHaveAccount: 'Already have an account?',
+    bookmarks: 'Bookmarks',
+    add: 'Add',
+    noBookmarksYet: 'No bookmarks yet.',
   },
   es: {
     about: 'Acerca de',
@@ -233,6 +245,18 @@ const translations: Record<Language, Record<string, string>> = {
     signUpNow: 'Regístrate ahora',
     termsAgreement:
       'Al continuar, aceptas los Términos de Servicio y la Política de Privacidad de Analytix, y autorizas el envío de correos electrónicos periódicos con actualizaciones.',
+    recoverPassword: 'Recuperar contraseña',
+    sendResetLink: 'Enviar enlace de restablecimiento',
+    backToLogin: 'Volver a iniciar sesión',
+    signUp: 'Registrarse',
+    sendMagicLink: 'Enviar enlace mágico',
+    signUpWithGoogle: 'Registrarse con Google',
+    signUpWithGithub: 'Registrarse con GitHub',
+    checkEmailForLink: 'Revisa tu correo para el enlace de registro.',
+    alreadyHaveAccount: '¿Ya tienes una cuenta?',
+    bookmarks: 'Marcadores',
+    add: 'Agregar',
+    noBookmarksYet: 'Aún no hay marcadores.',
   },
 }
 
