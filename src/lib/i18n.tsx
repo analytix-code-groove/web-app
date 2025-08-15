@@ -7,9 +7,9 @@ type Language = 'en' | 'es'
 const translations: Record<Language, Record<string, string>> = {
   en: {
     about: 'About',
-    dataEngineering: 'Data Engineering',
-    dataEngineeringDesc: 'ETL pipelines & warehouses',
-    dataEngineeringCard: 'Pipelines, orchestration, quality, SLOs.',
+    dataAnalytics: 'Data & Analytics',
+    dataAnalyticsDesc: 'Platforms, pipelines & dashboards',
+    dataAnalyticsCard: 'Warehouses, ETL, visualization, insights.',
     cloudDevops: 'Cloud & DevOps',
     cloudDevopsDesc: 'Infra automation & reliability',
     cloudDevopsCard: 'AWS, IaC, CI/CD, cost-safe scaling.',
@@ -27,9 +27,6 @@ const translations: Record<Language, Record<string, string>> = {
     flow: 'Flow',
     heroParagraph:
       'We build reliable data platforms and production-grade apps—fast, observable, secure. Less friction, more groove.',
-    analytics: 'Analytics',
-    analyticsDesc: 'Dashboards & visualization',
-    analyticsCard: 'Dashboards that drive decisions.',
     aiAutomation: 'AI / Automation',
     aiAutomationDesc: 'LLMs, agents & automation',
     aiAutomationCard: 'LLMs, agents, workflow automation.',
@@ -59,9 +56,9 @@ const translations: Record<Language, Record<string, string>> = {
   },
   es: {
     about: 'Acerca de',
-    dataEngineering: 'Ingeniería de Datos',
-    dataEngineeringDesc: 'Pipelines ETL y almacenes',
-    dataEngineeringCard: 'Pipelines, orquestación, calidad, SLOs.',
+    dataAnalytics: 'Datos y Analítica',
+    dataAnalyticsDesc: 'Plataformas, pipelines y dashboards',
+    dataAnalyticsCard: 'Almacenes, ETL, visualización e insights.',
     cloudDevops: 'Nube y DevOps',
     cloudDevopsDesc: 'Infra automatizada y confiable',
     cloudDevopsCard: 'AWS, IaC, CI/CD, escalado rentable.',
@@ -79,9 +76,6 @@ const translations: Record<Language, Record<string, string>> = {
     flow: 'Flow',
     heroParagraph:
       'Construimos plataformas de datos confiables y aplicaciones de producción: rápidas, observables y seguras. Menos fricción, más ritmo.',
-    analytics: 'Analítica',
-    analyticsDesc: 'Paneles y visualización',
-    analyticsCard: 'Paneles que impulsan decisiones.',
     aiAutomation: 'IA / Automatización',
     aiAutomationDesc: 'LLMs, agentes y automatización',
     aiAutomationCard: 'LLMs, agentes, automatización de flujos.',

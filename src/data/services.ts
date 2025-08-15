@@ -19,12 +19,12 @@ export type Service = {
 
 export const services: ReadonlyArray<Service> = [
   {
-    slug: 'data',
-    titleKey: 'dataEngineering',
-    descKey: 'dataEngineeringDesc',
-    cardBlurbKey: 'dataEngineeringCard',
+    slug: 'data-analytics',
+    titleKey: 'dataAnalytics',
+    descKey: 'dataAnalyticsDesc',
+    cardBlurbKey: 'dataAnalyticsCard',
     imageSrc: pic1,
-    imageAlt: 'Data engineering service illustration',
+    imageAlt: 'Data & Analytics service illustration',
     features: [
       {
         icon: 'FiDatabase',
@@ -43,6 +43,21 @@ export const services: ReadonlyArray<Service> = [
         title: 'Quality & Reliability',
         description:
           'Implement validation, monitoring, and lineage tracking so your data remains accurate, trustworthy, and compliant. We ensure every dataset meets your defined SLOs.',
+      },
+      {
+        icon: 'FiPieChart',
+        title: 'Dashboards',
+        description: 'Real-time dashboards for operations and KPIs.',
+      },
+      {
+        icon: 'FiBarChart',
+        title: 'Visualization',
+        description: 'Custom charts that surface trends and anomalies.',
+      },
+      {
+        icon: 'FiTrendingUp',
+        title: 'Insights',
+        description: 'Guidance to turn metrics into decisive action.',
       },
     ],
   },
@@ -68,31 +83,6 @@ export const services: ReadonlyArray<Service> = [
         icon: 'FiActivity',
         title: 'Monitoring',
         description: 'Track drift and performance to keep automation on target.',
-      },
-    ],
-  },
-  {
-    slug: 'analytics',
-    titleKey: 'analytics',
-    descKey: 'analyticsDesc',
-    cardBlurbKey: 'analyticsCard',
-    imageSrc:
-      'https://images.unsplash.com/photo-1556157382-97eda2c9f7e9?auto=format&fit=crop&w=800&q=80',
-    features: [
-      {
-        icon: 'FiPieChart',
-        title: 'Dashboards',
-        description: 'Real-time dashboards for operations and KPIs.',
-      },
-      {
-        icon: 'FiBarChart',
-        title: 'Visualization',
-        description: 'Custom charts that surface trends and anomalies.',
-      },
-      {
-        icon: 'FiTrendingUp',
-        title: 'Insights',
-        description: 'Guidance to turn metrics into decisive action.',
       },
     ],
   },
