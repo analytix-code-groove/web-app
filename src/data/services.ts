@@ -87,34 +87,6 @@ export const services: ReadonlyArray<Service> = [
     ],
   },
   {
-    slug: 'automation-qa',
-    titleKey: 'automationQa',
-    descKey: 'automationQaDesc',
-    cardBlurbKey: 'automationQaCard',
-    imageSrc:
-      'https://images.unsplash.com/photo-1581090700227-4f9a6d3a3c0a?auto=format&fit=crop&w=800&q=80',
-    features: [
-      {
-        icon: 'FiSettings',
-        title: 'Workflow Automation',
-        description:
-          'Eliminate manual steps with tailored scripts and bots.',
-      },
-      {
-        icon: 'FiCheckSquare',
-        title: 'Test Automation',
-        description:
-          'Unit, integration, and end-to-end suites that catch regressions.',
-      },
-      {
-        icon: 'FiShield',
-        title: 'Quality Gates',
-        description:
-          'Policy checks and approvals baked into your pipelines.',
-      },
-    ],
-  },
-  {
     slug: 'apps',
     titleKey: 'appsApis',
     descKey: 'appsApisDesc',
@@ -140,27 +112,30 @@ export const services: ReadonlyArray<Service> = [
     ],
   },
   {
-    slug: 'consulting',
-    titleKey: 'itConsulting',
-    descKey: 'itConsultingDesc',
-    cardBlurbKey: 'itConsultingCard',
+    slug: 'automation-qa',
+    titleKey: 'automationQa',
+    descKey: 'automationQaDesc',
+    cardBlurbKey: 'automationQaCard',
     imageSrc:
-      'https://images.unsplash.com/photo-1551836022-02eeb4e36dd0?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1581090700227-4f9a6d3a3c0a?auto=format&fit=crop&w=800&q=80',
     features: [
       {
-        icon: 'FiMap',
-        title: 'Strategy',
-        description: 'Assess your landscape to uncover opportunities and risks.',
+        icon: 'FiSettings',
+        title: 'Workflow Automation',
+        description:
+          'Eliminate manual steps with tailored scripts and bots.',
       },
       {
-        icon: 'FiLayers',
-        title: 'Architecture',
-        description: 'Blueprint resilient, scalable systems aligned to goals.',
+        icon: 'FiCheckSquare',
+        title: 'Test Automation',
+        description:
+          'Unit, integration, and end-to-end suites that catch regressions.',
       },
       {
-        icon: 'FiCompass',
-        title: 'Roadmaps',
-        description: 'Prioritized technology paths that keep teams aligned.',
+        icon: 'FiShield',
+        title: 'Quality Gates',
+        description:
+          'Policy checks and approvals baked into your pipelines.',
       },
     ],
   },
@@ -191,6 +166,31 @@ export const services: ReadonlyArray<Service> = [
       },
     ],
   },
+  {
+    slug: 'consulting',
+    titleKey: 'itConsulting',
+    descKey: 'itConsultingDesc',
+    cardBlurbKey: 'itConsultingCard',
+    imageSrc:
+      'https://images.unsplash.com/photo-1551836022-02eeb4e36dd0?auto=format&fit=crop&w=800&q=80',
+    features: [
+      {
+        icon: 'FiMap',
+        title: 'Strategy',
+        description: 'Assess your landscape to uncover opportunities and risks.',
+      },
+      {
+        icon: 'FiLayers',
+        title: 'Architecture',
+        description: 'Blueprint resilient, scalable systems aligned to goals.',
+      },
+      {
+        icon: 'FiCompass',
+        title: 'Roadmaps',
+        description: 'Prioritized technology paths that keep teams aligned.',
+      },
+    ],
+  }
 ]
 
 export function getService(slug: string) {
