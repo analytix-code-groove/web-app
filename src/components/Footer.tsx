@@ -116,7 +116,7 @@ export default function Footer() {
               <FaXTwitter size={18} />
             </a>
             <a
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/company/analytixcg"
               aria-label="LinkedIn"
               className="hover:text-text"
               target="_blank"

@@ -2,33 +2,43 @@
 
 import ServiceLayout from '@/components/ServiceLayout'
 import { FiDatabase, FiGitBranch, FiCheckCircle } from 'react-icons/fi'
+import type { IconType } from 'react-icons'
+import pic1 from '@/images/services/data_engineering.jpg'
+
+type Feature = { icon: IconType; title: string; description: string }
 
 export default function DataEngineeringPage() {
-  const features = [
+  const features: ReadonlyArray<Feature> = [
     {
       icon: FiDatabase,
-      title: 'Warehouses',
-      description: 'Scalable warehouses and lakes tuned for your analytics.',
+      title: 'Warehouses & Lakes',
+      description:
+        'Design and implement scalable data warehouses and lakes on any major platform — AWS, Azure, GCP, or on-prem — optimized for performance, governance, and analytics readiness.',
     },
     {
       icon: FiGitBranch,
-      title: 'Pipelines',
-      description: 'Event-driven ETL/ELT orchestrated with modern tooling.',
+      title: 'Pipelines & Integration',
+      description:
+        'Build robust ETL/ELT pipelines using tools like Airflow, dbt, or native cloud orchestrators. We handle batch and streaming data, API integrations, and event-driven ingestion at any scale.',
     },
     {
       icon: FiCheckCircle,
-      title: 'Quality',
-      description: 'Validation, lineage, and monitoring to keep data reliable.',
+      title: 'Quality & Reliability',
+      description:
+        'Implement validation, monitoring, and lineage tracking so your data remains accurate, trustworthy, and compliant. We ensure every dataset meets your defined SLOs.',
     },
   ]
 
   return (
     <ServiceLayout
       titleKey="dataEngineering"
-      descKey="dataEngineeringDesc"
+      // if you keep descKey for i18n:
+      // descKey="dataEngineeringDesc"
+      // if you want direct text:
+      descKey="dataEngineeringDesc" // this should map to a translation containing your full description
       features={features}
-      imageSrc="https://images.unsplash.com/photo-1518779578993-ec3579fee39f?auto=format&fit=crop&w=800&q=80"
+      imageSrc={pic1}
+      imageAlt="Data engineering service illustration"
     />
   )
 }
-

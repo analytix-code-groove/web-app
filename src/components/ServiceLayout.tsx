@@ -1,25 +1,35 @@
 'use client'
 
 import Link from 'next/link'
-import Image from 'next/image'
+import Image, { type StaticImageData } from 'next/image'
 import { IconType } from 'react-icons'
 import { useLanguage } from '@/lib/i18n'
 
-interface Feature {
+export type Feature = {
   icon: IconType
   title: string
   description: string
 }
 
-interface Props {
+type Props = {
   titleKey: string
   descKey: string
-  features: Feature[]
-  imageSrc?: string
+  features: ReadonlyArray<Feature>
+  imageSrc?: string | StaticImageData
+  imageAlt?: string
+  darkenImage?: boolean
 }
 
-export default function ServiceLayout({ titleKey, descKey, features, imageSrc }: Props) {
+export default function ServiceLayout({
+  titleKey,
+  descKey,
+  features,
+  imageSrc,
+  imageAlt,
+  darkenImage = true,
+}: Props) {
   const { t } = useLanguage()
+
   return (
     <main className="min-h-screen">
       <section className="mx-auto grid max-w-5xl items-center gap-8 px-4 py-24 md:grid-cols-2">
@@ -35,22 +45,34 @@ export default function ServiceLayout({ titleKey, descKey, features, imageSrc }:
             </Link>
           </div>
         </div>
+
         <div className="relative hidden h-72 md:block">
           {imageSrc && (
-            <Image
-              src={imageSrc}
-              alt={t(titleKey)}
-              fill
-              className="rounded-xl object-cover shadow-soft"
-            />
+            <>
+              <Image
+                src={imageSrc}
+                alt={imageAlt ?? t(titleKey)}
+                fill
+                sizes="(min-width: 768px) 32rem, 100vw"
+                className="rounded-xl object-cover shadow-soft"
+                priority
+              />
+              {darkenImage && (
+                <div
+                  className="absolute inset-0 rounded-xl bg-black/55"
+                  aria-hidden="true"
+                />
+              )}
+            </>
           )}
         </div>
       </section>
+
       <section className="bg-surface py-24">
         <div className="mx-auto grid max-w-5xl gap-12 px-4 md:grid-cols-3">
           {features.map(({ icon: Icon, title, description }) => (
             <div key={title} className="text-center">
-              <Icon className="mx-auto h-12 w-12 text-mint" />
+              <Icon className="mx-auto h-12 w-12 text-mint" aria-hidden="true" />
               <h3 className="mt-4 font-semibold text-text">{title}</h3>
               <p className="mt-2 text-sm text-muted">{description}</p>
             </div>
@@ -60,4 +82,3 @@ export default function ServiceLayout({ titleKey, descKey, features, imageSrc }:
     </main>
   )
 }
-
