@@ -2,8 +2,8 @@ import type { StaticImageData } from 'next/image'
 
 export type Feature = {
   icon: string
-  title: string
-  description: string
+  titleKey: string
+  descKey: string
 }
 
 export type Service = {
@@ -26,36 +26,33 @@ export const services: ReadonlyArray<Service> = [
     features: [
       {
         icon: 'FiDatabase',
-        title: 'Warehouses & Lakes',
-        description:
-          'Design and implement scalable data warehouses and lakes on any major platform — AWS, Azure, GCP, or on-prem — optimized for performance, governance, and analytics readiness.',
+        titleKey: 'warehousesLakesTitle',
+        descKey: 'warehousesLakesDesc',
       },
       {
         icon: 'FiGitBranch',
-        title: 'Pipelines & Integration',
-        description:
-          'Build robust ETL/ELT pipelines using tools like Airflow, dbt, or native cloud orchestrators. We handle batch and streaming data, API integrations, and event-driven ingestion at any scale.',
+        titleKey: 'pipelinesIntegrationTitle',
+        descKey: 'pipelinesIntegrationDesc',
       },
       {
         icon: 'FiCheckCircle',
-        title: 'Quality & Reliability',
-        description:
-          'Implement validation, monitoring, and lineage tracking so your data remains accurate, trustworthy, and compliant. We ensure every dataset meets your defined SLOs.',
+        titleKey: 'qualityReliabilityTitle',
+        descKey: 'qualityReliabilityDesc',
       },
       {
         icon: 'FiPieChart',
-        title: 'Dashboards',
-        description: 'Real-time dashboards for operations and KPIs.',
+        titleKey: 'dashboardsTitle',
+        descKey: 'dashboardsDesc',
       },
       {
         icon: 'FiBarChart',
-        title: 'Visualization',
-        description: 'Custom charts that surface trends and anomalies.',
+        titleKey: 'visualizationTitle',
+        descKey: 'visualizationDesc',
       },
       {
         icon: 'FiTrendingUp',
-        title: 'Insights',
-        description: 'Guidance to turn metrics into decisive action.',
+        titleKey: 'insightsTitle',
+        descKey: 'insightsDesc',
       },
     ],
   },
@@ -69,18 +66,18 @@ export const services: ReadonlyArray<Service> = [
     features: [
       {
         icon: 'FiCpu',
-        title: 'LLM Apps',
-        description: 'Chatbots and copilots that accelerate your teams.',
+        titleKey: 'llmAppsTitle',
+        descKey: 'llmAppsDesc',
       },
       {
         icon: 'FiZap',
-        title: 'Automation',
-        description: 'Event-driven workflows that eliminate busywork.',
+        titleKey: 'aiAutomationFeatureTitle',
+        descKey: 'aiAutomationFeatureDesc',
       },
       {
         icon: 'FiActivity',
-        title: 'Monitoring',
-        description: 'Track drift and performance to keep automation on target.',
+        titleKey: 'aiMonitoringTitle',
+        descKey: 'aiMonitoringDesc',
       },
     ],
   },
@@ -94,18 +91,18 @@ export const services: ReadonlyArray<Service> = [
     features: [
       {
         icon: 'FiSmartphone',
-        title: 'Frontends',
-        description: 'Responsive interfaces built with modern frameworks.',
+        titleKey: 'frontendsTitle',
+        descKey: 'frontendsDesc',
       },
       {
         icon: 'FiCode',
-        title: 'APIs',
-        description: 'Secure, documented endpoints for internal or public use.',
+        titleKey: 'apisTitle',
+        descKey: 'apisDesc',
       },
       {
         icon: 'FiActivity',
-        title: 'Operations',
-        description: 'Observability and SRE practices to keep services healthy.',
+        titleKey: 'operationsTitle',
+        descKey: 'operationsDesc',
       },
     ],
   },
@@ -119,21 +116,18 @@ export const services: ReadonlyArray<Service> = [
     features: [
       {
         icon: 'FiSettings',
-        title: 'Workflow Automation',
-        description:
-          'Eliminate manual steps with tailored scripts and bots.',
+        titleKey: 'workflowAutomationTitle',
+        descKey: 'workflowAutomationDesc',
       },
       {
         icon: 'FiCheckSquare',
-        title: 'Test Automation',
-        description:
-          'Unit, integration, and end-to-end suites that catch regressions.',
+        titleKey: 'testAutomationTitle',
+        descKey: 'testAutomationDesc',
       },
       {
         icon: 'FiShield',
-        title: 'Quality Gates',
-        description:
-          'Policy checks and approvals baked into your pipelines.',
+        titleKey: 'qualityGatesTitle',
+        descKey: 'qualityGatesDesc',
       },
     ],
   },
@@ -147,20 +141,18 @@ export const services: ReadonlyArray<Service> = [
     features: [
       {
         icon: 'FiCloud',
-        title: 'IaC',
-        description:
-          'Provision reproducible environments with Terraform or CloudFormation.',
+        titleKey: 'iacTitle',
+        descKey: 'iacDesc',
       },
       {
         icon: 'FiRefreshCw',
-        title: 'CI/CD',
-        description:
-          'Automated testing and deployments for rapid, safe releases.',
+        titleKey: 'cicdTitle',
+        descKey: 'cicdDesc',
       },
       {
         icon: 'FiLock',
-        title: 'Security',
-        description: 'Policy-as-code and guardrails baked into every pipeline.',
+        titleKey: 'devopsSecurityTitle',
+        descKey: 'devopsSecurityDesc',
       },
     ],
   },
@@ -174,18 +166,18 @@ export const services: ReadonlyArray<Service> = [
     features: [
       {
         icon: 'FiMap',
-        title: 'Strategy',
-        description: 'Assess your landscape to uncover opportunities and risks.',
+        titleKey: 'strategyTitle',
+        descKey: 'strategyDesc',
       },
       {
         icon: 'FiLayers',
-        title: 'Architecture',
-        description: 'Blueprint resilient, scalable systems aligned to goals.',
+        titleKey: 'architectureTitle',
+        descKey: 'architectureDesc',
       },
       {
         icon: 'FiCompass',
-        title: 'Roadmaps',
-        description: 'Prioritized technology paths that keep teams aligned.',
+        titleKey: 'roadmapsTitle',
+        descKey: 'roadmapsDesc',
       },
     ],
   }
