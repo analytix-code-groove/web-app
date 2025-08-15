@@ -13,14 +13,16 @@ export default function LatestPosts() {
           {t('latestPosts')}
         </h2>
         <div className="grid gap-6 sm:grid-cols-2">
-          {posts.map(p => (
-            <article key={p.slug} className="rounded-xl2 border border-stroke/70 bg-surface p-6 shadow-soft">
-              <h3 className="text-lg font-semibold text-text">{p.title}</h3>
+          {posts.slice(0, 2).map(p => (
+            <Link
+              key={p.slug}
+              href={`/blog/${p.slug}`}
+              className="group rounded-xl2 border border-stroke/70 bg-surface p-6 shadow-soft transition hover:border-mint/60"
+            >
+              <h3 className="text-lg font-semibold text-text group-hover:text-mint">{p.title}</h3>
               <p className="mt-2 text-sm text-muted">{p.excerpt}</p>
-              <Link href={`/blog/${p.slug}`} className="mt-4 inline-block text-sm text-mint">
-                {t('readMore')}
-              </Link>
-            </article>
+              <span className="mt-4 inline-block text-sm text-mint">{t('readMore')}</span>
+            </Link>
           ))}
         </div>
       </div>

@@ -22,6 +22,11 @@ const translations: Record<Language, Record<string, string>> = {
     letsTalk: "Let’s talk",
     seeServices: 'See services',
     readBlog: 'Read the blog',
+    comingSoon: 'Coming soon...',
+    reachUsAt: 'Reach us at',
+    moreInfoHeading: 'Why AnalytiX?',
+    moreInfoBody:
+      'From data foundations to AI, we guide you from idea to production with a battle-tested team.',
     latestPosts: 'Latest posts',
     readMore: 'Read more →',
     whereData: 'Where Data',
@@ -76,6 +81,11 @@ const translations: Record<Language, Record<string, string>> = {
     letsTalk: 'Hablemos',
     seeServices: 'Ver servicios',
     readBlog: 'Leer el blog',
+    comingSoon: 'Próximamente...',
+    reachUsAt: 'Contáctanos en',
+    moreInfoHeading: '¿Por qué AnalytiX?',
+    moreInfoBody:
+      'Desde bases de datos hasta IA, te ayudamos a llevar las ideas a producción con un equipo experimentado.',
     latestPosts: 'Últimas publicaciones',
     readMore: 'Leer más →',
     whereData: 'Where Data',
