@@ -5,9 +5,7 @@ import Image from 'next/image'
 import { useLanguage } from '@/lib/i18n'
 import { FaLinkedin } from 'react-icons/fa'
 import { FaXTwitter } from 'react-icons/fa6'
-// Use the favicon bundled with the app instead of a missing asset
-// This ensures the logo resolves correctly in production
-import icon from '@/app/favicon.svg'
+import logoFooter from '@/images/logos/desktop/logo_footer.png' // updated logo import
 
 const services = [
   { href: '/services/ai', label: 'aiAutomation' },
@@ -38,8 +36,13 @@ export default function Footer() {
               aria-label="Analytix Code Groove"
               className="flex items-center gap-2 md:shrink-0"
             >
-              <Image src={icon} alt="Analytix Code Groove" width={40} height={40} />
-              <span className="text-xl font-bold text-text">AnalytiX</span>
+              <Image
+                src={logoFooter}
+                alt="Analytix Code Groove"
+                width={120} // adjust width as needed
+                height={40}
+                priority
+              />
             </Link>
           </div>
 
@@ -105,7 +108,7 @@ export default function Footer() {
         {/* Divider */}
         <div className="mt-8 h-px w-full bg-stroke/60" />
 
-        {/* Bottom bar: © on the left, socials on the right */}
+        {/* Bottom bar */}
         <div className="mt-4 flex items-center justify-between text-xs text-muted">
           <p>© Analytixcg</p>
           <div className="flex items-center gap-4">

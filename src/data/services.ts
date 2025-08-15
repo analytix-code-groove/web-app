@@ -1,5 +1,4 @@
 import type { StaticImageData } from 'next/image'
-import pic1 from '@/images/services/data_engineering.jpg'
 
 export type Feature = {
   icon: string
@@ -23,7 +22,6 @@ export const services: ReadonlyArray<Service> = [
     titleKey: 'dataAnalytics',
     descKey: 'dataAnalyticsDesc',
     cardBlurbKey: 'dataAnalyticsCard',
-    imageSrc: pic1,
     imageAlt: 'Data & Analytics service illustration',
     features: [
       {
