@@ -1,10 +1,13 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
+import { posts } from '@/data/posts'
+
+export const metadata: Metadata = {
+  title: 'Blog | AnalytiX',
+  description: 'Insights on data engineering, cloud, and automation from the AnalytiX team.',
+}
 
 export default function BlogPage() {
-  const posts = [
-    { slug: 'databricks-pipeline-slos', title: 'SLOs for Data Pipelines', excerpt: 'Designing reliability you can measure.' },
-    { slug: 'aws-step-functions-observability', title: 'Observability for Step Functions', excerpt: 'Metrics that matter.' },
-  ]
   return (
     <main className="min-h-screen">
       <div className="mx-auto max-w-5xl px-4 py-16">

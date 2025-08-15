@@ -1,4 +1,10 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
+
+export const metadata: Metadata = {
+  title: 'Generative AI Services | AnalytiX',
+  description: 'Where automation meets creativity to solve real-world challenges.',
+}
 
 export default function GenerativeAIServicePage() {
   return (

@@ -1,3 +1,10 @@
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'About | AnalytiX',
+  description: 'Learn more about AnalytiX and our mission to align data with execution.',
+}
+
 export default function AboutPage() {
   return (
     <main className="min-h-screen">
