@@ -1,11 +1,14 @@
 'use client'
 import Link from 'next/link'
 import Image from 'next/image'
-import { usePathname } from 'next/navigation'
-import { useRef, useState } from 'react'
+import { usePathname, useRouter } from 'next/navigation'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { useLanguage } from '@/lib/i18n'
+import { createSupabaseBrowserClient } from '@/lib/supabase'
+import type { User } from '@supabase/supabase-js'
 import logoDesktop from '@/images/logos/desktop/logo_navbar.png'
 import logoMobile from '@/images/logos/mobile/logo_navbar.png'
+import avatarPlaceholder from '@/images/avatar-placeholder.svg'
 
 const links = [
   { href: '/about', label: 'about' },
@@ -129,9 +132,37 @@ const links = [
 
 export default function Navbar() {
   const pathname = usePathname()
+  const router = useRouter()
   const [servicesOpen, setServicesOpen] = useState(false)
+  const [userMenuOpen, setUserMenuOpen] = useState(false)
+  const [user, setUser] = useState<User | null>(null)
   const timeoutRef = useRef<NodeJS.Timeout | null>(null)
   const { t, lang, setLang } = useLanguage()
+  const supabase = useMemo(() => createSupabaseBrowserClient(), [])
+
+  useEffect(() => {
+    const getUser = async () => {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser()
+      setUser(user)
+    }
+    getUser()
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null)
+    })
+    return () => {
+      subscription.unsubscribe()
+    }
+  }, [supabase])
+
+  const handleSignOut = async () => {
+    await supabase.auth.signOut()
+    setUser(null)
+    router.push('/')
+  }
 
   const openMenu = () => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current)
@@ -243,12 +274,44 @@ export default function Navbar() {
           >
             {lang === 'en' ? 'ES' : 'EN'}
           </button>
-          <Link
-            href="/login"
-            className="text-sm text-text/80 transition-colors hover:text-text"
-          >
-            {t('login')}
-          </Link>
+          {user ? (
+            <div
+              className="relative"
+              onMouseEnter={() => setUserMenuOpen(true)}
+              onMouseLeave={() => setUserMenuOpen(false)}
+            >
+              <Image
+                src={user.user_metadata?.avatar_url || avatarPlaceholder}
+                alt="User avatar"
+                width={32}
+                height={32}
+                className="h-8 w-8 rounded-full object-cover"
+              />
+              {userMenuOpen && (
+                <div className="absolute right-0 mt-2 w-40 rounded-md border border-stroke/60 bg-surface p-2 shadow-soft">
+                  <Link
+                    href="/settings"
+                    className="block rounded px-4 py-2 text-sm text-text/80 hover:bg-mint/10 hover:text-text"
+                  >
+                    {t('settings')}
+                  </Link>
+                  <button
+                    onClick={handleSignOut}
+                    className="block w-full text-left rounded px-4 py-2 text-sm text-text/80 hover:bg-mint/10 hover:text-text"
+                  >
+                    {t('signOut')}
+                  </button>
+                </div>
+              )}
+            </div>
+          ) : (
+            <Link
+              href="/login"
+              className="text-sm text-text/80 transition-colors hover:text-text"
+            >
+              {t('login')}
+            </Link>
+          )}
           <Link
             href="/contact"
             className="hidden rounded-xl2 bg-mint px-4 py-2 text-sm font-medium text-black shadow-soft hover:opacity-90 sm:inline"
