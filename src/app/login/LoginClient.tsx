@@ -26,10 +26,17 @@ export default function LoginClient() {
 
   const handleProviderLogin = (provider: 'google' | 'github') => async () => {
     const supabase = createSupabaseBrowserClient()
+    const clientId =
+      provider === 'github'
+        ? supabaseConfig.GITHUB_CLIENT_ID
+        : supabaseConfig.GOOGLE_CLIENT_ID
+    const scopes = provider === 'github' ? 'read:user user:email' : undefined
     const { error } = await supabase.auth.signInWithOAuth({
       provider,
       options: {
         redirectTo: supabaseConfig.SUPABASE_CALLBACK_URL,
+        queryParams: { client_id: clientId },
+        ...(scopes ? { scopes } : {}),
       },
     })
     if (error) setMessage(error.message)
