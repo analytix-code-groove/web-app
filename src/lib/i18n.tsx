@@ -32,6 +32,15 @@ const translations: Record<Language, Record<string, string>> = {
     valuesBody:
       'We champion innovation, creativity, dedication, and expertise. Energetic and modern, developer-focused and committed, Code Groove is the trusted crosspoint where technology meets imagination and data meets business.',
     reachUsAt: 'Reach us at',
+    contactIntro: 'Let us know how we can help',
+    name: 'Name',
+    namePlaceholder: 'Your name',
+    reason: 'Reason',
+    message: 'Message',
+    messagePlaceholder: 'Your message',
+    general: 'General inquiry',
+    support: 'Support',
+    sendMessage: 'Send message',
     moreInfoHeading: 'Why AnalytiX?',
     moreInfoBody:
       'From data foundations to AI, we guide you from idea to production with a battle-tested team.',
@@ -159,6 +168,15 @@ const translations: Record<Language, Record<string, string>> = {
     valuesBody:
       'Impulsamos la innovación, la creatividad, la dedicación y la experiencia. Enérgico y enfocado en los desarrolladores, Code Groove es el punto de cruce confiable donde la tecnología se encuentra con la imaginación y los datos con el negocio.',
     reachUsAt: 'Contáctanos en',
+    contactIntro: 'Cuéntanos cómo podemos ayudarte',
+    name: 'Nombre',
+    namePlaceholder: 'Tu nombre',
+    reason: 'Motivo',
+    message: 'Mensaje',
+    messagePlaceholder: 'Tu mensaje',
+    general: 'Consulta general',
+    support: 'Soporte',
+    sendMessage: 'Enviar mensaje',
     moreInfoHeading: '¿Por qué AnalytiX?',
     moreInfoBody:
       'Desde bases de datos hasta IA, te ayudamos a llevar las ideas a producción con un equipo experimentado.',
