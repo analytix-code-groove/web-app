@@ -52,3 +52,39 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Publishing blog posts
+
+Posts can be created from the `/blog/new` page which provides fields for the title, excerpt, Markdown body and an optional image upload. The image is stored in the Supabase `posts` storage bucket under a folder for the current user's UUID and automatically linked to the post.
+
+You can also manage posts through the `/api/posts` endpoints. To publish a new article programmatically, send a `POST` request with the post data:
+
+```bash
+curl -X POST http://localhost:3000/api/posts \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "slug": "my-first-post",
+    "title": "My First Post",
+    "excerpt": "Short summary shown on the blog list",
+    "body_md": "# Hello world\nThis is my first post!",
+    "image_url": "https://your-project.supabase.co/storage/v1/object/public/posts/<user-id>/hello.png"
+  }'
+```
+
+### Uploading images
+
+Images uploaded from the `/blog/new` page are stored automatically. To upload images manually use the `posts` bucket and place files inside a folder matching the author's UUID, e.g. `posts/013d5128-6a52-4e6e-bd9f-b8e2c4477339/image.png`.
+
+Example using the Supabase JavaScript client:
+
+```ts
+const file = /* File or Blob */
+const { data, error } = await supabase.storage
+  .from('posts')
+  .upload(`${user.id}/hello.png`, file, { upsert: true })
+const {
+  data: { publicUrl }
+} = supabase.storage.from('posts').getPublicUrl(`${user.id}/hello.png`)
+```
+
+Use the `publicUrl` as the `image_url` field when creating the post via the API. The image will appear above the article content on its dedicated page.
