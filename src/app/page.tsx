@@ -5,7 +5,7 @@ import MoreInfo from '@/components/MoreInfo'
 import LatestPosts from '@/components/LatestPosts'
 
 export const metadata: Metadata = {
-  title: 'Home | AnalytiX',
+  title: 'Analytix Code Groove',
   description: 'Discover our data, AI, and cloud services designed to move your business forward.',
 }
 
