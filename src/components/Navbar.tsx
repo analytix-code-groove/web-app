@@ -137,6 +137,7 @@ export default function Navbar() {
   const [userMenuOpen, setUserMenuOpen] = useState(false)
   const [user, setUser] = useState<User | null>(null)
   const timeoutRef = useRef<NodeJS.Timeout | null>(null)
+  const userTimeoutRef = useRef<NodeJS.Timeout | null>(null)
   const { t, lang, setLang } = useLanguage()
   const supabase = useMemo(() => createSupabaseBrowserClient(), [])
 
@@ -172,6 +173,16 @@ export default function Navbar() {
   const closeMenu = () => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current)
     timeoutRef.current = setTimeout(() => setServicesOpen(false), 100)
+  }
+
+  const openUserMenu = () => {
+    if (userTimeoutRef.current) clearTimeout(userTimeoutRef.current)
+    setUserMenuOpen(true)
+  }
+
+  const closeUserMenu = () => {
+    if (userTimeoutRef.current) clearTimeout(userTimeoutRef.current)
+    userTimeoutRef.current = setTimeout(() => setUserMenuOpen(false), 100)
   }
   return (
     <header className="sticky top-0 z-50 border-b border-stroke/60 bg-surface/70 backdrop-blur">
@@ -277,8 +288,8 @@ export default function Navbar() {
           {user ? (
             <div
               className="relative"
-              onMouseEnter={() => setUserMenuOpen(true)}
-              onMouseLeave={() => setUserMenuOpen(false)}
+              onMouseEnter={openUserMenu}
+              onMouseLeave={closeUserMenu}
             >
               <Image
                 src={user.user_metadata?.avatar_url || avatarPlaceholder}
@@ -288,7 +299,11 @@ export default function Navbar() {
                 className="h-8 w-8 rounded-full object-cover"
               />
               {userMenuOpen && (
-                <div className="absolute right-0 mt-2 w-40 rounded-md border border-stroke/60 bg-surface p-2 shadow-soft">
+                <div
+                  onMouseEnter={openUserMenu}
+                  onMouseLeave={closeUserMenu}
+                  className="absolute right-0 mt-2 w-40 rounded-md border border-stroke/60 bg-surface p-2 shadow-soft"
+                >
                   <Link
                     href="/settings"
                     className="block rounded px-4 py-2 text-sm text-text/80 hover:bg-mint/10 hover:text-text"
