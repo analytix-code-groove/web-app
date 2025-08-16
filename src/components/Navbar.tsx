@@ -9,6 +9,7 @@ import type { User } from '@supabase/supabase-js'
 import logoDesktop from '@/images/logos/desktop/logo_navbar.png'
 import logoMobile from '@/images/logos/mobile/logo_navbar.png'
 import avatarPlaceholder from '@/images/avatar-placeholder.svg'
+import { FiMail, FiSettings, FiLogOut } from 'react-icons/fi'
 
 const links = [
   { href: '/about', label: 'about' },
@@ -302,18 +303,24 @@ export default function Navbar() {
                 <div
                   onMouseEnter={openUserMenu}
                   onMouseLeave={closeUserMenu}
-                  className="absolute right-0 mt-2 w-40 rounded-md border border-stroke/60 bg-surface p-2 shadow-soft"
+                  className="absolute right-0 mt-2 w-56 rounded-md border border-stroke/60 bg-surface p-2 shadow-soft"
                 >
+                  <div className="flex items-center gap-2 rounded px-4 py-2 text-sm text-text">
+                    <FiMail className="h-4 w-4" />
+                    {user.email}
+                  </div>
                   <Link
                     href="/settings"
-                    className="block rounded px-4 py-2 text-sm text-text/80 hover:bg-mint/10 hover:text-text"
+                    className="flex items-center gap-2 rounded px-4 py-2 text-sm text-text/80 hover:bg-mint/10 hover:text-text"
                   >
-                    {t('settings')}
+                    <FiSettings className="h-4 w-4" />
+                    {t('accountPreferences')}
                   </Link>
                   <button
                     onClick={handleSignOut}
-                    className="block w-full text-left rounded px-4 py-2 text-sm text-text/80 hover:bg-mint/10 hover:text-text"
+                    className="flex w-full items-center gap-2 rounded px-4 py-2 text-left text-sm text-text/80 hover:bg-mint/10 hover:text-text"
                   >
+                    <FiLogOut className="h-4 w-4" />
                     {t('signOut')}
                   </button>
                 </div>
