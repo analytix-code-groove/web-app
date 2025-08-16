@@ -28,7 +28,6 @@ export default function Footer() {
   return (
     <footer className="border-t border-stroke/60 bg-surface/70 backdrop-blur">
       <div className="mx-auto max-w-6xl px-4 py-12">
-
         {/* Top row: two columns; center-align vertically so logo is centered */}
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 md:items-center">
           {/* Left column: logo */}
@@ -38,33 +37,35 @@ export default function Footer() {
             </Link>
           </div>
 
-          {/* Right column: links, padded to line up with card text */}
+          {/* Right column: links, use a 4-col grid with fixed column widths for visual equality */}
           <div className="px-6">
-            {/* One flex row with uniform gaps -> equal spacing between ALL columns */}
-            <div className="flex justify-between gap-x-8 items-start">
-              {/* Services (heading + two equal columns) */}
-              <div>
+            <div className="grid grid-cols-4 gap-x-8 items-start">
+              {/* Services col 1 */}
+              <div className="w-[11rem]">
                 <h3 className="mb-1.5 text-[14px] font-semibold text-text">{t('services')}</h3>
-                <div className="flex gap-x-8">
-                  <ul className="space-y-1 text-[12px] leading-5 text-muted">
-                    {serviceLinks.slice(0, 3).map(s => (
-                      <li key={s.href}>
-                        <Link href={s.href} className="transition-colors hover:text-text">{s.name}</Link>
-                      </li>
-                    ))}
-                  </ul>
-                  <ul className="space-y-1 text-[12px] leading-5 text-muted">
-                    {serviceLinks.slice(3).map(s => (
-                      <li key={s.href}>
-                        <Link href={s.href} className="transition-colors hover:text-text">{s.name}</Link>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                <ul className="space-y-1 text-[12px] leading-5 text-muted">
+                  {serviceLinks.slice(0, 3).map(s => (
+                    <li key={s.href}>
+                      <Link href={s.href} className="transition-colors hover:text-text">{s.name}</Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Services col 2 (same width as every other column) */}
+              <div className="w-[11rem] pt-[26px]">
+                {/* pt aligns top line with the first list under the Services heading */}
+                <ul className="space-y-1 text-[12px] leading-5 text-muted">
+                  {serviceLinks.slice(3).map(s => (
+                    <li key={s.href}>
+                      <Link href={s.href} className="transition-colors hover:text-text">{s.name}</Link>
+                    </li>
+                  ))}
+                </ul>
               </div>
 
               {/* Company */}
-              <div>
+              <div className="w-[11rem]">
                 <h3 className="mb-1.5 text-[14px] font-semibold text-text">{t('company')}</h3>
                 <ul className="space-y-1 text-[12px] leading-5 text-muted">
                   {company.map(c => (
@@ -76,7 +77,7 @@ export default function Footer() {
               </div>
 
               {/* Resources */}
-              <div>
+              <div className="w-[11rem]">
                 <h3 className="mb-1.5 text-[14px] font-semibold text-text">{t('Resources')}</h3>
                 <ul className="space-y-1 text-[12px] leading-5 text-muted">
                   <li>
