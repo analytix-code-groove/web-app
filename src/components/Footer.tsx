@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { useLanguage } from '@/lib/i18n'
 import { FaLinkedin } from 'react-icons/fa'
 import { FaXTwitter } from 'react-icons/fa6'
-import logoFooter from '@/images/logos/desktop/logo_footer.png' // updated logo import
+import logoFooter from '@/images/logos/desktop/logo_footer.png'
 
 const services = [
   { href: '/services/ai', label: 'aiAutomation' },
@@ -28,76 +28,59 @@ export default function Footer() {
   return (
     <footer className="border-t border-stroke/60 bg-surface/70 backdrop-blur">
       <div className="mx-auto max-w-6xl px-4 py-12">
-        <div className="flex flex-col items-center gap-y-8 md:flex-row md:items-center">
-          {/* Logo */}
-          <div className="flex justify-center md:w-1/2 md:justify-start">
-            <Link
-              href="/"
-              aria-label="Analytix Code Groove"
-              className="flex items-center gap-2 md:shrink-0"
-            >
-              <Image
-                src={logoFooter}
-                alt="Analytix Code Groove"
-                width={120} // adjust width as needed
-                height={40}
-                priority
-              />
+
+        {/* Top row: two columns; center-align vertically so logo is centered */}
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 md:items-center">
+          {/* Left column: logo */}
+          <div className="flex justify-center md:justify-start">
+            <Link href="/" aria-label="Analytix Code Groove" className="flex items-center gap-2 md:shrink-0">
+              <Image src={logoFooter} alt="Analytix Code Groove" width={120} height={40} priority />
             </Link>
           </div>
 
-          {/* Link groups */}
-          <div className="flex justify-center md:w-1/2 md:justify-start">
-            <div className="flex flex-nowrap items-start gap-x-10">
-              {/* Services (two internal columns) */}
-              <div className="grid w-[260px] shrink-0 grid-cols-[auto_auto] gap-x-2">
-                <h3 className="col-span-2 mb-1.5 text-[14px] font-semibold text-text">
-                  {t('services')}
-                </h3>
-
-                <ul className="list-none pl-0 space-y-1 text-[12px] leading-5 text-muted">
-                  {serviceLinks.slice(0, 3).map(s => (
-                    <li key={s.href}>
-                      <Link href={s.href} className="transition-colors hover:text-text">
-                        {s.name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-
-                <ul className="list-none pl-0 space-y-1 text-[12px] leading-5 text-muted">
-                  {serviceLinks.slice(3).map(s => (
-                    <li key={s.href}>
-                      <Link href={s.href} className="transition-colors hover:text-text">
-                        {s.name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
+          {/* Right column: links, padded to line up with card text */}
+          <div className="px-6">
+            {/* One flex row with uniform gaps -> equal spacing between ALL columns */}
+            <div className="flex justify-between gap-x-8 items-start">
+              {/* Services (heading + two equal columns) */}
+              <div>
+                <h3 className="mb-1.5 text-[14px] font-semibold text-text">{t('services')}</h3>
+                <div className="flex gap-x-8">
+                  <ul className="space-y-1 text-[12px] leading-5 text-muted">
+                    {serviceLinks.slice(0, 3).map(s => (
+                      <li key={s.href}>
+                        <Link href={s.href} className="transition-colors hover:text-text">{s.name}</Link>
+                      </li>
+                    ))}
+                  </ul>
+                  <ul className="space-y-1 text-[12px] leading-5 text-muted">
+                    {serviceLinks.slice(3).map(s => (
+                      <li key={s.href}>
+                        <Link href={s.href} className="transition-colors hover:text-text">{s.name}</Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
 
               {/* Company */}
-              <div className="w-[150px] shrink-0">
+              <div>
                 <h3 className="mb-1.5 text-[14px] font-semibold text-text">{t('company')}</h3>
                 <ul className="space-y-1 text-[12px] leading-5 text-muted">
                   {company.map(c => (
                     <li key={c.href}>
-                      <Link href={c.href} className="transition-colors hover:text-text">
-                        {t(c.label)}
-                      </Link>
+                      <Link href={c.href} className="transition-colors hover:text-text">{t(c.label)}</Link>
                     </li>
                   ))}
                 </ul>
               </div>
 
               {/* Resources */}
-              <div className="w-[150px] shrink-0">
+              <div>
                 <h3 className="mb-1.5 text-[14px] font-semibold text-text">{t('Resources')}</h3>
                 <ul className="space-y-1 text-[12px] leading-5 text-muted">
                   <li>
-                    <Link href="/blog" className="transition-colors hover:text-text">
-                      {t('blog')}
-                    </Link>
+                    <Link href="/blog" className="transition-colors hover:text-text">{t('blog')}</Link>
                   </li>
                 </ul>
               </div>
@@ -111,7 +94,7 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="mt-4 flex items-center justify-between text-xs text-muted">
           <p>© Analytixcg</p>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2">
             <a
               href="https://x.com/analytixcg"
               aria-label="X"
