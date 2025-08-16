@@ -24,13 +24,13 @@ const translations: Record<Language, Record<string, string>> = {
     readBlog: 'Read the blog',
     comingSoon: 'Coming soon...',
     aboutIntro:
-      'Analytix Code Groove blends data expertise with modern software craftsmanship to turn ideas into scalable reality.',
+      'At Analytix Code Groove, we combine structured engineering with creative problem-solving to deliver technology that moves with precision and style. Complex challenges become smooth, scalable solutions—helping businesses operate faster, stay resilient, and make smarter decisions.',
     missionHeading: 'Our Mission',
     missionBody:
-      'Enable teams to groove with their data, transforming information into insight and action with clarity and speed.',
+      "Whether you're modernizing infrastructure, harnessing the power of AI, or turning data into insight, we build solutions engineered for performance and ready for the future—where data meets flow.",
     valuesHeading: 'What We Value',
     valuesBody:
-      'Pragmatic engineering, transparent collaboration, and measurable outcomes that move businesses forward.',
+      'Energetic and modern, developer-focused, and creatively adaptive, Code Groove is the crosspoint where tech meets creativity and data meets business.',
     reachUsAt: 'Reach us at',
     moreInfoHeading: 'Why AnalytiX?',
     moreInfoBody:
@@ -148,13 +148,13 @@ const translations: Record<Language, Record<string, string>> = {
     readBlog: 'Leer el blog',
     comingSoon: 'Próximamente...',
     aboutIntro:
-      'Analytix Code Groove combina el dominio de datos con la artesanía moderna de software. Ayudamos a los equipos a convertir ideas en productos fiables y escalables.',
+      'En Analytix Code Groove combinamos ingeniería estructurada con resolución creativa de problemas para entregar tecnología que se mueve con precisión y estilo. Los desafíos complejos se vuelven soluciones fluidas y escalables que ayudan a las empresas a operar más rápido, mantenerse resilientes y tomar decisiones más inteligentes.',
     missionHeading: 'Nuestra Misión',
     missionBody:
-      'Permitir que las organizaciones fluyan con sus datos, transformando información en conocimiento y acción con claridad y rapidez.',
+      'Ya sea modernizando infraestructura, aprovechando el poder de la IA o convirtiendo datos en conocimiento, construimos soluciones diseñadas para el rendimiento y preparadas para el futuro, donde los datos se encuentran con el flujo.',
     valuesHeading: 'Lo que Valoramos',
     valuesBody:
-      'Creemos en la ingeniería pragmática, la colaboración transparente y los resultados medibles que impulsan a las empresas.',
+      'Enérgicos y modernos, enfocados en los desarrolladores y creativamente adaptables, Code Groove es el punto de cruce donde la tecnología se une con la creatividad y los datos con el negocio.',
     reachUsAt: 'Contáctanos en',
     moreInfoHeading: '¿Por qué AnalytiX?',
     moreInfoBody:
