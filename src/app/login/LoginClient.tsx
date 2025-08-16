@@ -7,7 +7,6 @@ import { FaGithub, FaGoogle, FaTimes } from 'react-icons/fa'
 import { useRouter } from 'next/navigation'
 import { useLanguage } from '@/lib/i18n'
 import { createSupabaseBrowserClient } from '@/lib/supabase'
-import supabaseConfig from '../../../supabase.local.json'
 import logo from '@/images/logos/desktop/logo_login.png'
 
 export default function LoginClient() {
@@ -26,17 +25,7 @@ export default function LoginClient() {
 
   const handleProviderLogin = (provider: 'google' | 'github') => async () => {
     const supabase = createSupabaseBrowserClient()
-    const clientId =
-      provider === 'github'
-        ? supabaseConfig.GITHUB_CLIENT_ID
-        : supabaseConfig.GOOGLE_CLIENT_ID
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider,
-      options: {
-        redirectTo: supabaseConfig.SUPABASE_CALLBACK_URL,
-        queryParams: { client_id: clientId },
-      },
-    })
+    const { error } = await supabase.auth.signInWithOAuth({ provider })
     if (error) setMessage(error.message)
   }
 
