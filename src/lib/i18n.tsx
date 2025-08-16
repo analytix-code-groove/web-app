@@ -128,6 +128,8 @@ const translations: Record<Language, Record<string, string>> = {
     bookmarks: 'Bookmarks',
     add: 'Add',
     noBookmarksYet: 'No bookmarks yet.',
+    settings: 'Settings',
+    signOut: 'Sign Out',
   },
   es: {
     about: 'Acerca de',
@@ -257,6 +259,8 @@ const translations: Record<Language, Record<string, string>> = {
     bookmarks: 'Marcadores',
     add: 'Agregar',
     noBookmarksYet: 'Aún no hay marcadores.',
+    settings: 'Configuración',
+    signOut: 'Cerrar sesión',
   },
 }
 
