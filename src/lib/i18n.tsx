@@ -41,6 +41,8 @@ const translations: Record<Language, Record<string, string>> = {
     general: 'General inquiry',
     support: 'Support',
     sendMessage: 'Send message',
+    messageSent: 'Message sent successfully.',
+    messageError: 'Failed to send message. Please try again.',
     moreInfoHeading: 'Why AnalytiX?',
     moreInfoBody:
       'From data foundations to AI, we guide you from idea to production with a battle-tested team.',
@@ -177,6 +179,8 @@ const translations: Record<Language, Record<string, string>> = {
     general: 'Consulta general',
     support: 'Soporte',
     sendMessage: 'Enviar mensaje',
+    messageSent: 'Mensaje enviado correctamente.',
+    messageError: 'No se pudo enviar el mensaje. Inténtalo de nuevo.',
     moreInfoHeading: '¿Por qué AnalytiX?',
     moreInfoBody:
       'Desde bases de datos hasta IA, te ayudamos a llevar las ideas a producción con un equipo experimentado.',

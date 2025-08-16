@@ -9,16 +9,29 @@ export default function ContactClient() {
   const [email, setEmail] = useState('')
   const [reason, setReason] = useState('general')
   const [message, setMessage] = useState('')
+  const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle')
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    const to = reason === 'support' ? 'support@analytixcg.com' : 'info@analytixcg.com'
-    const subject =
-      reason === 'support'
-        ? `Support request from ${name}`
-        : `Contact from ${name}`
-    const body = `${message}\n\nFrom: ${name}${email ? ` <${email}>` : ''}`
-    window.location.href = `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
+    setStatus('idle')
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, reason, message }),
+      })
+      if (res.ok) {
+        setStatus('success')
+        setName('')
+        setEmail('')
+        setReason('general')
+        setMessage('')
+      } else {
+        setStatus('error')
+      }
+    } catch {
+      setStatus('error')
+    }
   }
 
   return (
@@ -62,6 +75,12 @@ export default function ContactClient() {
           >
             {t('sendMessage')}
           </button>
+          {status === 'success' && (
+            <p className="text-sm text-green-600">{t('messageSent')}</p>
+          )}
+          {status === 'error' && (
+            <p className="text-sm text-red-600">{t('messageError')}</p>
+          )}
         </form>
       </section>
     </main>
