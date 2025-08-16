@@ -7,7 +7,7 @@ export default function ContactClient() {
   const { t } = useLanguage()
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
-  const [reason, setReason] = useState('info')
+  const [reason, setReason] = useState('general')
   const [message, setMessage] = useState('')
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -46,7 +46,7 @@ export default function ContactClient() {
             onChange={e => setReason(e.target.value)}
             className="w-full rounded-md border border-stroke/60 bg-bg px-3 py-2 text-sm text-text focus:border-mint focus:outline-none"
           >
-            <option value="info">{t('general')}</option>
+            <option value="general">{t('general')}</option>
             <option value="support">{t('support')}</option>
           </select>
           <textarea
