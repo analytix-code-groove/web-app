@@ -11,7 +11,7 @@ interface Params {
 export async function generateMetadata({ params }: { params: Promise<Params> }): Promise<Metadata> {
   const { slug } = await params
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
-  const res = await fetch(`${baseUrl}/api/posts/${slug}`, { cache: 'no-store' })
+  const res = await fetch(`${baseUrl}/posts/${slug}`, { cache: 'no-store' })
   if (!res.ok) {
     return { title: 'Post not found' }
   }
@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
 export default async function BlogPostPage({ params }: { params: Promise<Params> }) {
   const { slug } = await params
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
-  const res = await fetch(`${baseUrl}/api/posts/${slug}`, { cache: 'no-store' })
+  const res = await fetch(`${baseUrl}/posts/${slug}`, { cache: 'no-store' })
   if (!res.ok) notFound()
   const post = await res.json()
   return (

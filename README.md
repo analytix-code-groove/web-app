@@ -57,10 +57,10 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 
 Posts can be created from the `/blog/new` page which provides fields for the title, excerpt, Markdown body and an optional image upload. The image is stored in the Supabase `posts` storage bucket under a folder for the current user's UUID and automatically linked to the post.
 
-You can also manage posts through the `/api/posts` endpoints. To publish a new article programmatically, send a `POST` request with the post data:
+You can also manage posts through the `/posts` endpoints. To publish a new article programmatically, send a `POST` request with the post data:
 
 ```bash
-curl -X POST http://localhost:3000/api/posts \
+curl -X POST http://localhost:3000/posts \
   -H 'Content-Type: application/json' \
   -d '{
     "slug": "my-first-post",

@@ -41,7 +41,7 @@ export default function NewPostPage() {
         .trim()
         .replace(/[^a-z0-9]+/g, '-')
         .replace(/(^-|-$)/g, '')
-      const res = await fetch('/api/posts', {
+      const res = await fetch('/posts', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ slug, title, excerpt, body_md: body, image_url }),
