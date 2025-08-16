@@ -286,6 +286,12 @@ export default function Navbar() {
           >
             {lang === 'en' ? 'ES' : 'EN'}
           </button>
+          <Link
+            href="/contact"
+            className="hidden rounded-xl2 bg-mint px-4 py-2 text-sm font-medium text-black shadow-soft hover:opacity-90 sm:inline"
+          >
+            {t('letsTalk')}
+          </Link>
           {user ? (
             <div
               className="relative"
@@ -334,12 +340,6 @@ export default function Navbar() {
               {t('login')}
             </Link>
           )}
-          <Link
-            href="/contact"
-            className="hidden rounded-xl2 bg-mint px-4 py-2 text-sm font-medium text-black shadow-soft hover:opacity-90 sm:inline"
-          >
-            {t('letsTalk')}
-          </Link>
         </div>
       </nav>
     </header>
