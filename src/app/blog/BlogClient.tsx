@@ -1,11 +1,33 @@
 'use client'
 
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { posts } from '@/data/posts'
 import { useLanguage } from '@/lib/i18n'
+
+type Post = {
+  slug: string
+  title: string
+  excerpt: string
+}
 
 export default function BlogClient() {
   const { t } = useLanguage()
+  const [posts, setPosts] = useState<Post[]>([])
+
+  useEffect(() => {
+    async function load() {
+      try {
+        const res = await fetch('/api/posts')
+        if (res.ok) {
+          setPosts(await res.json())
+        }
+      } catch {
+        // ignore errors for now
+      }
+    }
+    load()
+  }, [])
+
   return (
     <main className="min-h-screen">
       <div className="mx-auto max-w-5xl px-4 py-16">

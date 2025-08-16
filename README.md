@@ -52,3 +52,36 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Publishing blog posts
+
+Blog posts can be managed through the `/api/posts` endpoints. To publish a new article, send a `POST` request with the post data:
+
+```bash
+curl -X POST http://localhost:3000/api/posts \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "slug": "my-first-post",
+    "title": "My First Post",
+    "excerpt": "Short summary shown on the blog list",
+    "body_md": "# Hello world\nThis is my first post!",
+    "image_url": "https://your-project.supabase.co/storage/v1/object/public/blog-images/hello.png"
+  }'
+```
+
+### Uploading images
+
+1. Create a `blog-images` bucket in the Supabase Storage dashboard.
+2. Upload your image to the bucket, e.g. using the Supabase JavaScript client:
+
+```ts
+const file = /* File or Blob */
+const { data, error } = await supabase.storage
+  .from('blog-images')
+  .upload('hello.png', file)
+const {
+  data: { publicUrl }
+} = supabase.storage.from('blog-images').getPublicUrl('hello.png')
+```
+
+3. Use the `publicUrl` as the `image_url` field when creating the post. The image will appear above the article content on its dedicated page.
