@@ -26,22 +26,20 @@ export default function LoginClient() {
 
   const handleProviderLogin = (provider: 'google' | 'github') => async () => {
     const supabase = createSupabaseBrowserClient()
-    const clientId =
-      provider === 'github'
-        ? supabaseConfig.GITHUB_CLIENT_ID
-        : supabaseConfig.GOOGLE_CLIENT_ID
-    const scopes = provider === 'github' ? 'read:user user:email' : undefined
+    const options: { scopes?: string } = {}
+  
+    if (provider === 'github') {
+      options.scopes = 'read:user user:email'
+    }
+  
     const { error } = await supabase.auth.signInWithOAuth({
       provider,
-      options: {
-        redirectTo: supabaseConfig.SUPABASE_CALLBACK_URL,
-        queryParams: { client_id: clientId },
-        ...(scopes ? { scopes } : {}),
-      },
+      options, // no redirectTo, no queryParams
     })
+  
     if (error) setMessage(error.message)
   }
-
+  
   return (
     <main className="relative grid min-h-screen grid-cols-1 lg:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center bg-bg px-4">
       {/* Close */}
