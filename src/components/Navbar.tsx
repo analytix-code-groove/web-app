@@ -9,7 +9,7 @@ import type { User } from '@supabase/supabase-js'
 import logoDesktop from '@/images/logos/desktop/logo_navbar.png'
 import logoMobile from '@/images/logos/mobile/logo_navbar.png'
 import avatarPlaceholder from '@/images/avatar-placeholder.svg'
-import { FiMail, FiSettings, FiLogOut } from 'react-icons/fi'
+import { FiSettings, FiLogOut } from 'react-icons/fi'
 
 const links = [
   { href: '/about', label: 'about' },
@@ -305,32 +305,37 @@ export default function Navbar() {
                 height={32}
                 className="h-8 w-8 rounded-full object-cover"
               />
-              {userMenuOpen && (
-                <div
-                  onMouseEnter={openUserMenu}
-                  onMouseLeave={closeUserMenu}
-                  className="absolute right-0 mt-2 w-56 rounded-md border border-stroke/60 bg-surface p-2 shadow-soft"
-                >
-                  <div className="flex items-center gap-2 rounded px-4 py-2 text-sm text-text">
-                    <FiMail className="h-4 w-4" />
-                    {user.email}
+                {userMenuOpen && (
+                  <div
+                    onMouseEnter={openUserMenu}
+                    onMouseLeave={closeUserMenu}
+                    className="absolute right-0 mt-2 w-56 rounded-md border border-stroke/60 bg-surface p-2 text-xs shadow-soft"
+                  >
+                    <div className="px-4 py-1 text-left text-sm font-medium text-text">
+                      {user.user_metadata?.full_name ||
+                        user.user_metadata?.name ||
+                        user.user_metadata?.user_name ||
+                        user.email}
+                    </div>
+                    <div className="px-4 py-1 text-left text-text/80">{user.email}</div>
+                    <div className="my-1 border-t border-stroke/60" />
+                    <Link
+                      href="/settings"
+                      className="flex items-center gap-2 px-4 py-2 text-text/80 hover:bg-mint/10 hover:text-text"
+                    >
+                      <FiSettings className="h-3 w-3" />
+                      {t('accountPreferences')}
+                    </Link>
+                    <div className="my-1 border-t border-stroke/60" />
+                    <button
+                      onClick={handleSignOut}
+                      className="flex w-full items-center gap-2 px-4 py-2 text-left text-text/80 hover:bg-mint/10 hover:text-text"
+                    >
+                      <FiLogOut className="h-3 w-3" />
+                      {t('signOut')}
+                    </button>
                   </div>
-                  <Link
-                    href="/settings"
-                    className="flex items-center gap-2 rounded px-4 py-2 text-sm text-text/80 hover:bg-mint/10 hover:text-text"
-                  >
-                    <FiSettings className="h-4 w-4" />
-                    {t('accountPreferences')}
-                  </Link>
-                  <button
-                    onClick={handleSignOut}
-                    className="flex w-full items-center gap-2 rounded px-4 py-2 text-left text-sm text-text/80 hover:bg-mint/10 hover:text-text"
-                  >
-                    <FiLogOut className="h-4 w-4" />
-                    {t('signOut')}
-                  </button>
-                </div>
-              )}
+                )}
             </div>
           ) : (
             <Link
