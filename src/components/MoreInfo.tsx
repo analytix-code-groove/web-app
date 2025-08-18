@@ -38,14 +38,6 @@ export default function MoreInfo() {
             </li>
           ))}
         </ul>
-        <div className="mt-10 text-center">
-          <Link
-            href="/contact"
-            className="font-heading font-semibold text-mint hover:underline"
-          >
-            {t('contact')}
-          </Link>
-        </div>
       </div>
     </section>
   )
