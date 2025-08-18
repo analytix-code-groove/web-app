@@ -45,7 +45,7 @@ const translations: Record<Language, Record<string, string>> = {
     messageError: 'Failed to send message. Please try again.',
     moreInfoHeading: 'Why AnalytiX?',
     moreInfoBody:
-      'From data foundations to AI, we guide you from idea to production with a battle-tested team.',
+      'From data foundations to AI, we take ideas to production. Explore our core services below and see how our battle-tested team helps you build, automate, and scale.',
     latestPosts: 'Latest posts',
     readMore: 'Read more →',
     whereData: 'Where Data',
@@ -183,7 +183,7 @@ const translations: Record<Language, Record<string, string>> = {
     messageError: 'No se pudo enviar el mensaje. Inténtalo de nuevo.',
     moreInfoHeading: '¿Por qué AnalytiX?',
     moreInfoBody:
-      'Desde bases de datos hasta IA, te ayudamos a llevar las ideas a producción con un equipo experimentado.',
+      'Desde bases de datos hasta IA, llevamos tus ideas a producción. Explora nuestros servicios y descubre cómo nuestro equipo experimentado te ayuda a construir, automatizar y escalar.',
     latestPosts: 'Últimas publicaciones',
     readMore: 'Leer más →',
     whereData: 'Where Data',
