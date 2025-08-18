@@ -2,8 +2,9 @@
 
 import { services } from '@/data/services'
 import { useLanguage } from '@/lib/i18n'
-import Image from 'next/image'
 import Link from 'next/link'
+import * as Icons from 'react-icons/fi'
+import type { IconType } from 'react-icons'
 
 export default function ServicesClient() {
   const { t } = useLanguage()
@@ -20,16 +21,15 @@ export default function ServicesClient() {
             href={`/services/${s.slug}`}
             className="group overflow-hidden rounded-xl2 border border-stroke/70 bg-surface shadow-soft transition hover:border-mint/60"
           >
-            {s.imageSrc && (
-              <Image
-                src={s.imageSrc}
-                alt={s.imageAlt ?? ''}
-                width={800}
-                height={400}
-                className="h-48 w-full object-cover"
-              />
-            )}
             <div className="p-6">
+              <div className="mb-4 flex gap-4">
+                {(s.cardIcons ?? s.features.slice(0, 3).map(f => f.icon)).map(iconName => {
+                  const Icon = (Icons as Record<string, IconType>)[iconName]
+                  return Icon ? (
+                    <Icon key={iconName} aria-hidden="true" className="h-10 w-10 text-mint" />
+                  ) : null
+                })}
+              </div>
               <h2 className="font-heading text-xl font-semibold text-text group-hover:text-mint">
                 {t(s.titleKey)}
               </h2>
