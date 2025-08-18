@@ -7,7 +7,6 @@ import { FaGithub, FaGoogle, FaTimes } from 'react-icons/fa'
 import { useRouter } from 'next/navigation'
 import { useLanguage } from '@/lib/i18n'
 import { createSupabaseBrowserClient } from '@/lib/supabase'
-import supabaseConfig from '../../../supabase.local.json'
 import logo from '@/images/logos/desktop/logo_login.png'
 
 export default function LoginClient() {
@@ -53,15 +52,17 @@ export default function LoginClient() {
 
       {/* Left logo (hidden below lg) */}
       <div className="hidden lg:flex items-center justify-center overflow-hidden">
-        <Image
-          src={logo}
-          alt="Analytix Code Groove"
-          width={280}
-          height={70}
-          loading="lazy"
-          sizes="(min-width: 1024px) 33vw, 0px"
-          className="h-16 w-auto max-w-full"
-        />
+        <Link href="/">
+          <Image
+            src={logo}
+            alt="Analytix Code Groove"
+            width={280}
+            height={70}
+            loading="lazy"
+            sizes="(min-width: 1024px) 33vw, 0px"
+            className="h-16 w-auto max-w-full"
+          />
+        </Link>
       </div>
 
       {/* Card */}
