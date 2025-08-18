@@ -14,7 +14,7 @@ export default function ServicesClient() {
         <h1 className="font-heading text-3xl font-semibold text-text">{t('services')}</h1>
       </div>
 
-      <section className="mx-auto mb-24 max-w-5xl space-y-12 px-4">
+      <section className="mx-auto mb-24 max-w-5xl space-y-24 px-4">
         {services.map((s, idx) => (
           <Link
             key={s.slug}
