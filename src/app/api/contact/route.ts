@@ -28,12 +28,15 @@ function env(name: string) {
   return String(v)
 }
 
+// Hardcoded recipients
+const EMAIL_TO_SUPPORT = 'support@analytixcg.com'
+const EMAIL_TO_INFO = 'info@analytixcg.com'
+
 export async function POST(req: Request) {
   try {
     const { name = '', email = '', reason = 'general', message = '' } = await req.json()
 
-    const to =
-      reason === 'support' ? env('EMAIL_TO_SUPPORT') : env('EMAIL_TO_INFO')
+    const to = reason === 'support' ? EMAIL_TO_SUPPORT : EMAIL_TO_INFO
 
     const transporter = nodemailer.createTransport({
       host: env('SMTP_HOST'),
@@ -51,7 +54,7 @@ export async function POST(req: Request) {
           ? `Support request from ${name || 'Website'}`
           : `Contact from ${name || 'Website'}`,
       text: `${message}\n\nFrom: ${name}${email ? ` <${email}>` : ''}`,
-      replyTo: email || undefined,       // <-- replies go to the visitor
+      replyTo: email || undefined,
       headers: { 'X-Source': 'website', 'X-Form': 'contact' },
     })
 
