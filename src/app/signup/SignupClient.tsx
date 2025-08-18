@@ -1,12 +1,12 @@
 "use client"
 
-import { useState, useEffect, useCallback, useMemo } from 'react'
-import type { User } from '@supabase/supabase-js'
+import { useState, useEffect, useMemo } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { FaGithub, FaGoogle, FaTimes } from 'react-icons/fa'
 import { useLanguage } from '@/lib/i18n'
 import { createSupabaseBrowserClient } from '@/lib/supabase'
+import { ensureProfile } from '@/lib/profile'
 import logo from '@/images/logos/desktop/logo_login.png'
 
 export default function SignupClient() {
@@ -15,38 +15,15 @@ export default function SignupClient() {
   const { t } = useLanguage()
   const supabase = useMemo(() => createSupabaseBrowserClient(), [])
 
-  const ensureProfile = useCallback(
-    async (user: User) => {
-      const fullName =
-        user.user_metadata?.full_name ||
-        user.user_metadata?.name ||
-        user.user_metadata?.user_name ||
-        user.email
-      const avatarUrl = user.user_metadata?.avatar_url || user.user_metadata?.picture || null
-      const {
-        data: { session },
-      } = await supabase.auth.getSession()
-      await fetch('/api/profiles', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${session?.access_token ?? ''}`,
-        },
-        body: JSON.stringify({ full_name: fullName, avatar_url: avatarUrl }),
-      })
-    },
-    [supabase]
-  )
-
   useEffect(() => {
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
       const u = session?.user
-      if (u) ensureProfile(u)
+      if (u) ensureProfile(supabase, u)
     })
     return () => subscription.unsubscribe()
-  }, [supabase, ensureProfile])
+  }, [supabase])
 
   const handleEmailSignup = async (e: React.FormEvent) => {
     e.preventDefault()
