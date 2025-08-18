@@ -45,7 +45,7 @@ const translations: Record<Language, Record<string, string>> = {
     messageError: 'Failed to send message. Please try again.',
     moreInfoHeading: 'Why AnalytiX?',
     moreInfoBody:
-      'From data foundations to scalable apps, we take ideas to production. Explore our core services below and see how they power industries like healthcare, energy, agriculture, and finance.',
+      'From data foundations to scalable apps, we take ideas to production. Explore our core services and see how they power industries like healthcare, energy, agriculture, and finance.',
     industriesHeading: 'Industries we serve',
     healthcareIndustry: 'Healthcare',
     healthcareIndustryDesc:
