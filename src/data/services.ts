@@ -14,6 +14,7 @@ export type Service = {
   features: ReadonlyArray<Feature>
   imageSrc?: string | StaticImageData
   imageAlt?: string
+  cardIcons?: ReadonlyArray<string>
 }
 
 export const services: ReadonlyArray<Service> = [
@@ -23,6 +24,7 @@ export const services: ReadonlyArray<Service> = [
     descKey: 'dataAnalyticsDesc',
     cardBlurbKey: 'dataAnalyticsCard',
     imageAlt: 'Data & Analytics service illustration',
+    cardIcons: ['FiDatabase', 'FiPieChart', 'FiBarChart'],
     features: [
       {
         icon: 'FiDatabase',
@@ -63,6 +65,7 @@ export const services: ReadonlyArray<Service> = [
     cardBlurbKey: 'aiAutomationCard',
     imageSrc:
       'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80',
+    cardIcons: ['FiCpu', 'FiZap', 'FiActivity'],
     features: [
       {
         icon: 'FiCpu',
@@ -88,6 +91,7 @@ export const services: ReadonlyArray<Service> = [
     cardBlurbKey: 'appsApisCard',
     imageSrc:
       'https://images.unsplash.com/photo-1517433456452-f9633a875f6f?auto=format&fit=crop&w=800&q=80',
+    cardIcons: ['FiSmartphone', 'FiCode', 'FiActivity'],
     features: [
       {
         icon: 'FiSmartphone',
@@ -113,6 +117,7 @@ export const services: ReadonlyArray<Service> = [
     cardBlurbKey: 'automationQaCard',
     imageSrc:
       'https://images.unsplash.com/photo-1581090700227-4f9a6d3a3c0a?auto=format&fit=crop&w=800&q=80',
+    cardIcons: ['FiSettings', 'FiCheckSquare', 'FiShield'],
     features: [
       {
         icon: 'FiSettings',
@@ -138,6 +143,7 @@ export const services: ReadonlyArray<Service> = [
     cardBlurbKey: 'cloudDevopsCard',
     imageSrc:
       'https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=800&q=80',
+    cardIcons: ['FiCloud', 'FiRefreshCw', 'FiLock'],
     features: [
       {
         icon: 'FiCloud',
@@ -163,6 +169,7 @@ export const services: ReadonlyArray<Service> = [
     cardBlurbKey: 'itConsultingCard',
     imageSrc:
       'https://images.unsplash.com/photo-1551836022-02eeb4e36dd0?auto=format&fit=crop&w=800&q=80',
+    cardIcons: ['FiMap', 'FiLayers', 'FiCompass'],
     features: [
       {
         icon: 'FiMap',
