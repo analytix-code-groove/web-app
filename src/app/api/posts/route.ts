@@ -13,7 +13,11 @@ export async function GET() {
 
 // POST /api/posts - create a new post
 export async function POST(req: Request) {
-  const supabase = createSupabaseServerClient()
+  const authHeader = req.headers.get('Authorization')
+  const token = authHeader?.startsWith('Bearer ')
+    ? authHeader.slice(7)
+    : undefined
+  const supabase = createSupabaseServerClient(token)
   const {
     data: { user },
   } = await supabase.auth.getUser()
