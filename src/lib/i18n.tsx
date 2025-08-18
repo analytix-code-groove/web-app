@@ -155,6 +155,12 @@ const translations: Record<Language, Record<string, string>> = {
     settings: 'Settings',
     signOut: 'Logout',
     accountPreferences: 'Account Preferences',
+    profileInformation: 'Profile Information',
+    firstName: 'First name',
+    lastName: 'Last name',
+    cancel: 'Cancel',
+    save: 'Save',
+    accountIdentities: 'Account Identities',
   },
   es: {
     about: 'Acerca de',
@@ -311,6 +317,12 @@ const translations: Record<Language, Record<string, string>> = {
     settings: 'Configuración',
     signOut: 'Cerrar sesión',
     accountPreferences: 'Preferencias de cuenta',
+    profileInformation: 'Información del perfil',
+    firstName: 'Nombre',
+    lastName: 'Apellido',
+    cancel: 'Cancelar',
+    save: 'Guardar',
+    accountIdentities: 'Identidades de la cuenta',
   },
 }
 
