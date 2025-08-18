@@ -1,8 +1,9 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import Link from 'next/link'
 import { useLanguage } from '@/lib/i18n'
+import { createSupabaseBrowserClient } from '@/lib/supabase'
 
 type Post = {
   slug: string
@@ -13,6 +14,8 @@ type Post = {
 export default function BlogClient() {
   const { t } = useLanguage()
   const [posts, setPosts] = useState<Post[]>([])
+  const [canCreate, setCanCreate] = useState(false)
+  const supabase = useMemo(() => createSupabaseBrowserClient(), [])
 
   useEffect(() => {
     async function load() {
@@ -21,17 +24,37 @@ export default function BlogClient() {
         if (res.ok) {
           setPosts(await res.json())
         }
+        const {
+          data: { user },
+        } = await supabase.auth.getUser()
+        if (user) {
+          const { data } = await supabase
+            .from('profiles', { schema: 'api' })
+            .select('role')
+            .eq('id', user.id)
+            .single()
+          if (data && (data.role === 'author' || data.role === 'admin')) {
+            setCanCreate(true)
+          }
+        }
       } catch {
         // ignore errors for now
       }
     }
     load()
-  }, [])
+  }, [supabase])
 
   return (
     <main className="min-h-screen">
       <div className="mx-auto max-w-5xl px-4 py-16">
-        <h1 className="font-heading text-3xl font-semibold text-text">{t('blog')}</h1>
+        <div className="flex items-center justify-between">
+          <h1 className="font-heading text-3xl font-semibold text-text">{t('blog')}</h1>
+          {canCreate && (
+            <Link href="/blog/new" className="text-sm text-mint hover:underline">
+              {t('newPost')}
+            </Link>
+          )}
+        </div>
         <div className="mt-8 grid gap-6 sm:grid-cols-2">
           {posts.map(p => (
             <Link

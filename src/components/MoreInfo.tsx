@@ -1,7 +1,6 @@
 "use client"
 
 import { useLanguage } from '@/lib/i18n'
-import Link from 'next/link'
 import { FiActivity, FiZap, FiFeather, FiDollarSign } from 'react-icons/fi'
 
 export default function MoreInfo() {

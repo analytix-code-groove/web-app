@@ -2,7 +2,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useLanguage } from '@/lib/i18n'
 import { createSupabaseBrowserClient } from '@/lib/supabase'
 import type { User } from '@supabase/supabase-js'
@@ -142,23 +142,41 @@ export default function Navbar() {
   const { t, lang, setLang } = useLanguage()
   const supabase = useMemo(() => createSupabaseBrowserClient(), [])
 
+  const ensureProfile = useCallback(
+    async (user: User) => {
+      const fullName =
+        user.user_metadata?.full_name ||
+        user.user_metadata?.name ||
+        user.user_metadata?.user_name ||
+        user.email
+      const avatarUrl = user.user_metadata?.avatar_url || user.user_metadata?.picture || null
+      await supabase
+        .from('profiles', { schema: 'api' })
+        .upsert({ id: user.id, full_name: fullName, avatar_url: avatarUrl }, { onConflict: 'id' })
+    },
+    [supabase]
+  )
+
   useEffect(() => {
     const getUser = async () => {
       const {
         data: { user },
       } = await supabase.auth.getUser()
+      if (user) await ensureProfile(user)
       setUser(user)
     }
     getUser()
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null)
+      const u = session?.user ?? null
+      if (u) ensureProfile(u)
+      setUser(u)
     })
     return () => {
       subscription.unsubscribe()
     }
-  }, [supabase])
+  }, [supabase, ensureProfile])
 
   const handleSignOut = async () => {
     await supabase.auth.signOut()
