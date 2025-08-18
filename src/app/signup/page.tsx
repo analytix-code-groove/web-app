@@ -3,7 +3,7 @@ import SignupClient from './SignupClient'
 
 export const metadata: Metadata = {
   title: 'Sign Up | Analytix Code Groove',
-  description: 'Create your AnalytiX account to access services and bookmarks.',
+  description: 'Create your Analytix account to access services and bookmarks.',
 }
 
 export default function SignupPage() {
