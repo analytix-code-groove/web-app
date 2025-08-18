@@ -22,7 +22,7 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 ## Auth Configuration
 
-Create a `supabase.local.json` file under `src/lib` with your Supabase project credentials and OAuth provider keys:
+Create a `supabase.local.json` file in the project root with your Supabase project credentials, OAuth provider keys, and SMTP settings used by the contact form:
 
 ```
 {
@@ -34,9 +34,19 @@ Create a `supabase.local.json` file under `src/lib` with your Supabase project c
   "GOOGLE_APP_NAME": "AnalytixCG (Dev)",
   "GOOGLE_CLIENT_ID": "your-client-id",
   "GOOGLE_CLIENT_SECRET": "your-client-secret",
-  "SUPABASE_CALLBACK_URL": "https://your-project.supabase.co/auth/v1/callback"
+  "SUPABASE_CALLBACK_URL": "https://your-project.supabase.co/auth/v1/callback",
+  "SMTP_HOST": "smtp.office365.com",
+  "SMTP_PORT": 587,
+  "SMTP_SECURE": false,
+  "SMTP_USER": "your-smtp-username",
+  "SMTP_PASS": "your-smtp-password",
+  "SMTP_FROM": "Analytix Code Groove <info@example.com>",
+  "EMAIL_TO_SUPPORT": "support@example.com",
+  "EMAIL_TO_INFO": "info@example.com"
 }
 ```
+
+The file is ignored by Git and any values it defines are used only when corresponding environment variables are absent.
 
 ## Learn More
 
