@@ -1,16 +1,23 @@
 import { NextResponse } from 'next/server'
 import { createSupabaseServerClient } from '@/lib/supabase'
 
-// GET /api/profiles - return the current user's profile
-export async function GET(req: Request) {
+// Extract the authenticated user from the request Authorization header.
+async function getUser(req: Request) {
   const supabase = createSupabaseServerClient()
   const authHeader = req.headers.get('Authorization')
   const token = authHeader?.startsWith('Bearer ')
     ? authHeader.slice(7)
     : undefined
+  if (!token) return { supabase, user: null }
   const {
     data: { user },
   } = await supabase.auth.getUser(token)
+  return { supabase, user }
+}
+
+// GET /api/profiles - return the current user's profile
+export async function GET(req: Request) {
+  const { supabase, user } = await getUser(req)
   if (!user) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
@@ -27,14 +34,7 @@ export async function GET(req: Request) {
 
 // POST /api/profiles - create or update the current user's profile
 export async function POST(req: Request) {
-  const supabase = createSupabaseServerClient()
-  const authHeader = req.headers.get('Authorization')
-  const token = authHeader?.startsWith('Bearer ')
-    ? authHeader.slice(7)
-    : undefined
-  const {
-    data: { user },
-  } = await supabase.auth.getUser(token)
+  const { supabase, user } = await getUser(req)
   if (!user) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
@@ -52,14 +52,7 @@ export async function POST(req: Request) {
 
 // PUT /api/profiles - update fields on the current user's profile
 export async function PUT(req: Request) {
-  const supabase = createSupabaseServerClient()
-  const authHeader = req.headers.get('Authorization')
-  const token = authHeader?.startsWith('Bearer ')
-    ? authHeader.slice(7)
-    : undefined
-  const {
-    data: { user },
-  } = await supabase.auth.getUser(token)
+  const { supabase, user } = await getUser(req)
   if (!user) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
@@ -78,14 +71,7 @@ export async function PUT(req: Request) {
 
 // DELETE /api/profiles - remove the current user's profile
 export async function DELETE(req: Request) {
-  const supabase = createSupabaseServerClient()
-  const authHeader = req.headers.get('Authorization')
-  const token = authHeader?.startsWith('Bearer ')
-    ? authHeader.slice(7)
-    : undefined
-  const {
-    data: { user },
-  } = await supabase.auth.getUser(token)
+  const { supabase, user } = await getUser(req)
   if (!user) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
