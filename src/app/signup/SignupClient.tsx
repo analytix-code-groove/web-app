@@ -11,6 +11,7 @@ import logo from '@/images/logos/desktop/logo_login.png'
 
 export default function SignupClient() {
   const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
   const [message, setMessage] = useState('')
   const { t } = useLanguage()
   const supabase = useMemo(() => createSupabaseBrowserClient(), [])
@@ -27,8 +28,9 @@ export default function SignupClient() {
 
   const handleEmailSignup = async (e: React.FormEvent) => {
     e.preventDefault()
-    const { error } = await supabase.auth.signInWithOtp({ email })
-    setMessage(error ? error.message : t('checkEmailForLink'))
+    const { data, error } = await supabase.auth.signUp({ email, password })
+    if (!error && data.user) await ensureProfile(supabase, data.user)
+    setMessage(error ? error.message : t('signUpSuccess'))
   }
 
   const handleProviderSignup = (provider: 'google' | 'github') => async () => {
@@ -110,11 +112,23 @@ export default function SignupClient() {
               required
             />
 
+            <label htmlFor="password" className="text-xs text-muted">{t('password')}</label>
+            <input
+              id="password"
+              type="password"
+              autoComplete="new-password"
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+              placeholder={t('passwordPlaceholder')}
+              className="w-full rounded-md border border-stroke/60 bg-bg px-3 py-2 text-sm text-text placeholder:text-muted focus:border-mint focus:outline-none"
+              required
+            />
+
             <button
               type="submit"
               className="mt-4 rounded-xl2 bg-mint px-4 py-2 text-sm font-medium text-black shadow-soft transition hover:opacity-90"
             >
-              {t('sendMagicLink')}
+              {t('createAccount')}
             </button>
           </form>
 
