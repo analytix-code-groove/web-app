@@ -23,7 +23,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
   const service = getService(params.slug)
   const name = service?.slug.replace(/-/g, ' ') ?? 'service'
-  const title = `${name.charAt(0).toUpperCase() + name.slice(1)} | AnalytiX`
+  const title = `${name.charAt(0).toUpperCase() + name.slice(1)} | Analytix Code Groove`
   const description = service
     ? `Learn more about our ${name} offering.`
     : 'Service details.'

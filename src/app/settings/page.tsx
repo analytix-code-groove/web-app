@@ -4,7 +4,7 @@ import type { Metadata } from 'next'
 import { useLanguage } from '@/lib/i18n'
 
 export const metadata: Metadata = {
-  title: 'Settings | AnalytiX',
+  title: 'Settings | Analytix Code Groove',
   description: 'User settings',
 }
 

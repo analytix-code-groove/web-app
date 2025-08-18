@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
     return { title: 'Post not found' }
   }
   const post = await res.json()
-  return { title: `${post.title} | AnalytiX`, description: post.excerpt }
+  return { title: `${post.title} | Analytix Code Groove`, description: post.excerpt }
 }
 
 export default async function BlogPostPage({ params }: { params: Promise<Params> }) {

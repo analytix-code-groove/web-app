@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import BlogClient from './BlogClient'
 
 export const metadata: Metadata = {
-  title: 'Blog | AnalytiX',
+  title: 'Blog | Analytix Code Groove',
   description: 'Insights on data engineering, cloud, and automation from the AnalytiX team.',
 }
 
