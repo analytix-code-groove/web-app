@@ -150,9 +150,17 @@ export default function Navbar() {
         user.user_metadata?.user_name ||
         user.email
       const avatarUrl = user.user_metadata?.avatar_url || user.user_metadata?.picture || null
-      await supabase
-        .from('profiles', { schema: 'api' })
-        .upsert({ id: user.id, full_name: fullName, avatar_url: avatarUrl }, { onConflict: 'id' })
+      const {
+        data: { session },
+      } = await supabase.auth.getSession()
+      await fetch('/api/profiles', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${session?.access_token ?? ''}`,
+        },
+        body: JSON.stringify({ full_name: fullName, avatar_url: avatarUrl }),
+      })
     },
     [supabase]
   )
