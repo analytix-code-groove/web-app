@@ -11,7 +11,7 @@ export async function GET() {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
   const { data, error } = await supabase
-    .from('profiles', { schema: 'api' })
+    .from('api.profiles')
     .select('*')
     .eq('id', user.id)
     .single()
@@ -32,7 +32,7 @@ export async function POST(req: Request) {
   }
   const body = await req.json()
   const { data, error } = await supabase
-    .from('profiles', { schema: 'api' })
+    .from('api.profiles')
     .upsert({ id: user.id, ...body }, { onConflict: 'id' })
     .select()
     .single()
@@ -53,7 +53,7 @@ export async function PUT(req: Request) {
   }
   const body = await req.json()
   const { data, error } = await supabase
-    .from('profiles', { schema: 'api' })
+    .from('api.profiles')
     .update(body)
     .eq('id', user.id)
     .select()
@@ -74,7 +74,7 @@ export async function DELETE() {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
   const { error } = await supabase
-    .from('profiles', { schema: 'api' })
+    .from('api.profiles')
     .delete()
     .eq('id', user.id)
   if (error) {
