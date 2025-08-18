@@ -3,15 +3,15 @@ import { createSupabaseServerClient } from '@/lib/supabase'
 
 // Extract the authenticated user from the request Authorization header.
 async function getUser(req: Request) {
-  const supabase = createSupabaseServerClient()
   const authHeader = req.headers.get('Authorization')
   const token = authHeader?.startsWith('Bearer ')
     ? authHeader.slice(7)
     : undefined
+  const supabase = createSupabaseServerClient(token)
   if (!token) return { supabase, user: null }
   const {
     data: { user },
-  } = await supabase.auth.getUser(token)
+  } = await supabase.auth.getUser()
   return { supabase, user }
 }
 
