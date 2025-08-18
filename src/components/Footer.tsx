@@ -97,7 +97,7 @@ export default function Footer() {
           <p>© Analytixcg</p>
           <div className="flex items-center gap-2">
             <a
-              href="https://x.com/analytixcg"
+              href="https://x.com/Analytixcg"
               aria-label="X"
               className="hover:text-text"
               target="_blank"
@@ -106,7 +106,7 @@ export default function Footer() {
               <FaXTwitter size={18} />
             </a>
             <a
-              href="https://www.linkedin.com/company/analytixcg"
+              href="https://www.linkedin.com/company/Analytixcg"
               aria-label="LinkedIn"
               className="hover:text-text"
               target="_blank"

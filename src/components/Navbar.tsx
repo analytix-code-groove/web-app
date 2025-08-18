@@ -188,16 +188,16 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 border-b border-stroke/60 bg-surface/70 backdrop-blur">
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3">
-        <Link href="/" aria-label="AnalytiX Code Groove" className="flex items-center">
+        <Link href="/" aria-label="Analytix Code Groove" className="flex items-center">
           <Image
             src={logoMobile}
-            alt="AnalytiX Code Groove"
+            alt="Analytix Code Groove"
             className="h-8 w-auto md:hidden"
             priority
           />
           <Image
             src={logoDesktop}
-            alt="AnalytiX Code Groove"
+            alt="Analytix Code Groove"
             className="hidden h-8 w-auto md:block"
             priority
           />

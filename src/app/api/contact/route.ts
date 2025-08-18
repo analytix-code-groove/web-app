@@ -30,8 +30,8 @@ function env(name: string, defaultValue?: string) {
 }
 
 // Hardcoded recipients
-const EMAIL_TO_SUPPORT = 'support@analytixcg.com'
-const EMAIL_TO_INFO = 'info@analytixcg.com'
+const EMAIL_TO_SUPPORT = 'support@Analytixcg.com'
+const EMAIL_TO_INFO = 'info@Analytixcg.com'
 
 export async function POST(req: Request) {
   try {
