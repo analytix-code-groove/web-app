@@ -1,6 +1,7 @@
 "use client"
 
-import { useState } from 'react'
+import { useState, useEffect, useCallback, useMemo } from 'react'
+import type { User } from '@supabase/supabase-js'
 import Image from 'next/image'
 import Link from 'next/link'
 import { FaGithub, FaGoogle, FaTimes } from 'react-icons/fa'
@@ -12,16 +13,48 @@ export default function SignupClient() {
   const [email, setEmail] = useState('')
   const [message, setMessage] = useState('')
   const { t } = useLanguage()
+  const supabase = useMemo(() => createSupabaseBrowserClient(), [])
+
+  const ensureProfile = useCallback(
+    async (user: User) => {
+      const fullName =
+        user.user_metadata?.full_name ||
+        user.user_metadata?.name ||
+        user.user_metadata?.user_name ||
+        user.email
+      const avatarUrl = user.user_metadata?.avatar_url || user.user_metadata?.picture || null
+      const {
+        data: { session },
+      } = await supabase.auth.getSession()
+      await fetch('/api/profiles', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${session?.access_token ?? ''}`,
+        },
+        body: JSON.stringify({ full_name: fullName, avatar_url: avatarUrl }),
+      })
+    },
+    [supabase]
+  )
+
+  useEffect(() => {
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      const u = session?.user
+      if (u) ensureProfile(u)
+    })
+    return () => subscription.unsubscribe()
+  }, [supabase, ensureProfile])
 
   const handleEmailSignup = async (e: React.FormEvent) => {
     e.preventDefault()
-    const supabase = createSupabaseBrowserClient()
     const { error } = await supabase.auth.signInWithOtp({ email })
     setMessage(error ? error.message : t('checkEmailForLink'))
   }
 
   const handleProviderSignup = (provider: 'google' | 'github') => async () => {
-    const supabase = createSupabaseBrowserClient()
     const { error } = await supabase.auth.signInWithOAuth({ provider })
     if (error) setMessage(error.message)
   }
