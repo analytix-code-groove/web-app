@@ -45,7 +45,20 @@ const translations: Record<Language, Record<string, string>> = {
     messageError: 'Failed to send message. Please try again.',
     moreInfoHeading: 'Why AnalytiX?',
     moreInfoBody:
-      'From data foundations to AI, we guide you from idea to production with a battle-tested team.',
+      'From data foundations to scalable apps, we take ideas to production. Explore our core services below and see how they power industries like healthcare, energy, agriculture, and finance.',
+    industriesHeading: 'Industries we serve',
+    healthcareIndustry: 'Healthcare',
+    healthcareIndustryDesc:
+      'Improve patient outcomes with secure data flows and compliant systems.',
+    energyIndustry: 'Energy',
+    energyIndustryDesc:
+      'Enhance exploration and grid operations with real-time analytics.',
+    agroIndustry: 'Agriculture',
+    agroIndustryDesc:
+      'Boost yields and traceability through connected data platforms.',
+    financialIndustry: 'Financial',
+    financialIndustryDesc:
+      'Strengthen risk management and compliance with reliable systems.',
     latestPosts: 'Latest posts',
     readMore: 'Read more →',
     whereData: 'Where Data',
@@ -183,7 +196,20 @@ const translations: Record<Language, Record<string, string>> = {
     messageError: 'No se pudo enviar el mensaje. Inténtalo de nuevo.',
     moreInfoHeading: '¿Por qué AnalytiX?',
     moreInfoBody:
-      'Desde bases de datos hasta IA, te ayudamos a llevar las ideas a producción con un equipo experimentado.',
+      'Desde bases de datos hasta apps escalables, llevamos tus ideas a producción. Explora nuestros servicios y descubre cómo impulsan industrias como salud, energía, agro y finanzas.',
+    industriesHeading: 'Industrias que atendemos',
+    healthcareIndustry: 'Salud',
+    healthcareIndustryDesc:
+      'Mejora la atención al paciente con flujos de datos seguros y sistemas conformes.',
+    energyIndustry: 'Energía',
+    energyIndustryDesc:
+      'Optimiza la exploración y las operaciones de la red con analítica en tiempo real.',
+    agroIndustry: 'Agro',
+    agroIndustryDesc:
+      'Aumenta el rendimiento y la trazabilidad con plataformas de datos conectadas.',
+    financialIndustry: 'Finanzas',
+    financialIndustryDesc:
+      'Refuerza la gestión de riesgos y el cumplimiento con sistemas confiables.',
     latestPosts: 'Últimas publicaciones',
     readMore: 'Leer más →',
     whereData: 'Where Data',
