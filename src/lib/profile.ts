@@ -43,7 +43,8 @@ export async function ensureProfile(
   //   ON api.profiles FOR ALL
   //   USING (id = auth.uid()) WITH CHECK (id = auth.uid());
   const { error } = await supabase
-    .from('api.profiles')
+    .schema('api')
+    .from('profiles')
     .upsert(
       {
         id: user.id,
