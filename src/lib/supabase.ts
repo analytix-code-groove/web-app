@@ -1,11 +1,13 @@
 import { createClient, type SupabaseClient } from '@supabase/supabase-js'
+import supabaseConfig from '../../supabase.local.json'
 
 /**
  * Create a Supabase client for use in the browser. Uses the public anon key.
  */
 export function createSupabaseBrowserClient(): SupabaseClient {
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? supabaseConfig.SUPABASE_URL
+  const supabaseAnonKey =
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? supabaseConfig.SUPABASE_ANON_KEY
 
   if (!supabaseUrl || !supabaseAnonKey) {
     throw new Error('Missing Supabase environment variables')
@@ -15,21 +17,17 @@ export function createSupabaseBrowserClient(): SupabaseClient {
 }
 
 /**
- * Create a Supabase client for server-side user requests. This uses the anon
- * key and optionally attaches the user's access token to the request headers so
- * that Row Level Security (RLS) policies apply per user.
+ * Create a Supabase client for server-side usage. This uses the service role
+ * key which has elevated privileges and should only run on the server.
  */
-export function createSupabaseServerClient(accessToken?: string): SupabaseClient {
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+export function createSupabaseServerClient(): SupabaseClient {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? supabaseConfig.SUPABASE_URL
+  const supabaseServiceKey =
+    process.env.SUPABASE_SERVICE_ROLE_KEY ?? supabaseConfig.SUPABASE_SERVICE_ROLE_KEY
 
-  if (!supabaseUrl || !supabaseAnonKey) {
+  if (!supabaseUrl || !supabaseServiceKey) {
     throw new Error('Missing Supabase environment variables')
   }
 
-  return createClient(supabaseUrl, supabaseAnonKey, {
-    global: {
-      headers: accessToken ? { Authorization: `Bearer ${accessToken}` } : {},
-    },
-  })
+  return createClient(supabaseUrl, supabaseServiceKey)
 }
