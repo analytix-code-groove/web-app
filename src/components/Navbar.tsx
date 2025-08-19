@@ -154,9 +154,9 @@ export default function Navbar() {
     getUser()
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
+    } = supabase.auth.onAuthStateChange(async (_event, session) => {
       const u = session?.user ?? null
-      if (u) ensureProfile(supabase, u)
+      if (u) await ensureProfile(supabase, u)
       setUser(u)
     })
     return () => {

@@ -52,11 +52,12 @@ export async function ensureProfile(
       },
       { onConflict: 'id' }
     )
-    .select('id')
-    .single()
 
   if (error) {
-    console.error('[ensureProfile] Upsert failed:', error)
+    console.error(
+      '[ensureProfile] Upsert failed:',
+      (error as { message?: string })?.message ?? error
+    )
     return
   }
 
