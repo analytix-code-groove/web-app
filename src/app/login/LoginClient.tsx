@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect, useMemo, useCallback } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { FaGithub, FaGoogle, FaTimes } from 'react-icons/fa'
@@ -18,20 +18,26 @@ export default function LoginClient() {
   const { t } = useLanguage()
   const supabase = useMemo(() => createSupabaseBrowserClient(), [])
 
+  const syncProfile = useCallback(async () => {
+    const {
+      data: { session },
+    } = await supabase.auth.getSession()
+    if (session?.user) await ensureProfile(supabase, session.user)
+  }, [supabase])
+
   useEffect(() => {
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
-      const u = session?.user
-      if (u) ensureProfile(supabase, u)
+    } = supabase.auth.onAuthStateChange(() => {
+      syncProfile()
     })
     return () => subscription.unsubscribe()
-  }, [supabase])
+  }, [supabase, syncProfile])
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
-    const { data, error } = await supabase.auth.signInWithPassword({ email, password })
-    if (!error && data.user) await ensureProfile(supabase, data.user)
+    const { error } = await supabase.auth.signInWithPassword({ email, password })
+    if (!error) await syncProfile()
     setMessage(error ? error.message : '')
   }
 

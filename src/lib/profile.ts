@@ -43,7 +43,8 @@ export async function ensureProfile(
   //   ON api.profiles FOR ALL
   //   USING (id = auth.uid()) WITH CHECK (id = auth.uid());
   const { error } = await supabase
-    .from('api.profiles')
+    .schema('api')
+    .from('profiles')
     .upsert(
       {
         id: user.id,
@@ -52,11 +53,12 @@ export async function ensureProfile(
       },
       { onConflict: 'id' }
     )
-    .select('id')
-    .single()
 
   if (error) {
-    console.error('[ensureProfile] Upsert failed:', error)
+    console.error(
+      '[ensureProfile] Upsert failed:',
+      (error as { message?: string })?.message ?? error
+    )
     return
   }
 
