@@ -10,6 +10,25 @@ function slugify(s: string) {
   return s.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
 }
 
+export async function GET() {
+  try {
+    const supabase = createSupabaseServerClient()
+    const { data, error } = await supabase
+      .schema('content')
+      .from('posts')
+      .select('slug,title,excerpt,cover_url,published_at')
+      .eq('status', 'published')
+      .order('published_at', { ascending: false })
+    if (error) {
+      return NextResponse.json({ error: error.message }, { status: 500 })
+    }
+    return NextResponse.json({ items: data ?? [] })
+  } catch (e) {
+    const message = e instanceof Error ? e.message : 'Unexpected error'
+    return NextResponse.json({ error: message }, { status: 500 })
+  }
+}
+
 export async function POST(req: Request) {
   try {
     const { supabase, user } = await getUserFromRequest(req)
@@ -90,8 +109,9 @@ export async function POST(req: Request) {
     }
 
     return NextResponse.json(inserted, { status: 201 })
-  } catch (e: any) {
+  } catch (e) {
     console.error('[POST /api/posts] unhandled:', e)
-    return NextResponse.json({ error: e?.message ?? 'Unexpected error' }, { status: 500 })
+    const message = e instanceof Error ? e.message : 'Unexpected error'
+    return NextResponse.json({ error: message }, { status: 500 })
   }
 }

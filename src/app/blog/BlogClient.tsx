@@ -45,6 +45,8 @@ export default function BlogClient() {
     load()
   }, [supabase])
 
+  const [firstPost, ...otherPosts] = posts
+
   return (
     <main className="min-h-screen">
       <div className="mx-auto max-w-5xl px-4 py-16">
@@ -59,18 +61,33 @@ export default function BlogClient() {
             </Link>
           </div>
         )}
-        <div className="mt-8 grid gap-6 sm:grid-cols-2">
-          {posts.map(p => (
+        <div className="mt-8 space-y-8">
+          {firstPost && (
             <Link
-              key={p.slug}
-              href={`/blog/${p.slug}`}
-              className="rounded-xl2 border border-stroke/70 bg-surface p-6 transition hover:border-mint/60"
+              key={firstPost.slug}
+              href={`/blog/${firstPost.slug}`}
+              className="block rounded-xl2 border border-stroke/70 bg-surface p-8 shadow-soft transition hover:border-mint/60"
             >
-              <h3 className="font-heading text-text">{p.title}</h3>
-              <p className="mt-2 text-sm text-muted">{p.excerpt}</p>
-              <span className="mt-3 block text-sm text-mint">{t('readMore')}</span>
+              <h2 className="text-2xl font-semibold text-text">{firstPost.title}</h2>
+              <p className="mt-2 text-sm text-muted">{firstPost.excerpt}</p>
+              <span className="mt-4 inline-block text-sm text-mint">{t('readMore')}</span>
             </Link>
-          ))}
+          )}
+          {otherPosts.length > 0 && (
+            <div className="space-y-6">
+              {otherPosts.map(p => (
+                <Link
+                  key={p.slug}
+                  href={`/blog/${p.slug}`}
+                  className="block rounded-xl2 border border-stroke/70 bg-surface p-6 transition hover:border-mint/60"
+                >
+                  <h3 className="font-heading text-text">{p.title}</h3>
+                  <p className="mt-2 text-sm text-muted">{p.excerpt}</p>
+                  <span className="mt-3 block text-sm text-mint">{t('readMore')}</span>
+                </Link>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </main>
