@@ -35,15 +35,23 @@ export async function GET(req: Request) {
 
   // Optional tag filter (via join table)
   if (tag) {
-    // Filter posts that have the given tag slug
-      q = q.in(
-        'slug',
-        supabase
-          .schema('content')
-          .from('vw_post_tags') // create a view (post_slug, tag_slug) or switch to rpc
-          .select('post_slug')
-          .eq('tag_slug', tag) as unknown as string[]
-      )
+    const { data: tagRows, error: tagErr } = await supabase
+      .schema('content')
+      .from('vw_post_tags')
+      .select('post_slug')
+      .eq('tag_slug', tag)
+    if (tagErr) return NextResponse.json({ error: tagErr.message }, { status: 500 })
+    const slugs = tagRows?.map(r => r.post_slug) ?? []
+    if (slugs.length === 0) {
+      return NextResponse.json({
+        items: [],
+        page,
+        pageSize,
+        total: 0,
+        totalPages: 1,
+      })
+    }
+    q = q.in('slug', slugs)
   }
 
   const { data, error, count } = await q
@@ -67,17 +75,6 @@ export async function POST(req: Request) {
   const { supabase, user } = await getUserFromRequest(req)
   if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
-  const { data: profile, error: profErr } = await supabase
-    .schema('api')
-    .from('profiles')
-    .select('role')
-    .eq('id', user.id)
-    .single()
-
-  if (profErr) return NextResponse.json({ error: profErr.message }, { status: 500 })
-  if (!profile || (profile.role !== 'author' && profile.role !== 'admin')) {
-    return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
-  }
 
   // Parse body
   const body = await req.json()
@@ -99,21 +96,6 @@ export async function POST(req: Request) {
   const now = new Date().toISOString()
   const published_at = status === 'published' ? now : null
 
-  // Guard: unique slug (409)
-  {
-    const { data: existing, error: existErr } = await supabase
-      .schema('content')
-      .from('posts')
-      .select('slug')
-      .eq('slug', slug)
-      .maybeSingle()
-
-    if (existErr) return NextResponse.json({ error: existErr.message }, { status: 500 })
-    if (existing) {
-      return NextResponse.json({ error: 'Slug already exists', slug }, { status: 409 })
-    }
-  }
-
   // Insert post
   const { data: inserted, error: insErr } = await supabase
     .schema('content')
@@ -132,6 +114,9 @@ export async function POST(req: Request) {
     .single()
 
   if (insErr) {
+    if (insErr.code === '23505') {
+      return NextResponse.json({ error: 'Slug already exists', slug }, { status: 409 })
+    }
     if (insErr.message?.includes('row-level security')) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }

@@ -72,12 +72,11 @@ export async function ensureProfile(
  * - Calls ensureProfile for the returned user
  */
 export async function getCurrentUser(
-  supabase: SupabaseClient,
-  token?: string
+  supabase: SupabaseClient
 ): Promise<User | null> {
   const {
     data: { user },
-  } = await supabase.auth.getUser(token)
+  } = await supabase.auth.getUser()
   if (user) await ensureProfile(supabase, user)
   return user
 }
@@ -91,7 +90,7 @@ export async function getUserFromRequest(req: Request) {
   const token = authHeader?.startsWith('Bearer ')
     ? authHeader.slice(7)
     : undefined
-  const supabase = createSupabaseServerClient()
-  const user = token ? await getCurrentUser(supabase, token) : null
+  const supabase = createSupabaseServerClient(token)
+  const user = token ? await getCurrentUser(supabase) : null
   return { supabase, user }
 }
