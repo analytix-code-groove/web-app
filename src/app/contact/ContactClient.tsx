@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { useLanguage } from '@/lib/i18n'
 
-export default function ContactClient() {
+export function ContactClient() {
   const { t } = useLanguage()
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -86,4 +86,6 @@ export default function ContactClient() {
     </main>
   )
 }
+
+export default ContactClient
 

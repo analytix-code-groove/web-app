@@ -34,7 +34,8 @@ export default function BlogClient() {
           const user = await getCurrentUser(supabase)
           if (user) {
           const { data } = await supabase
-            .from('profiles', { schema: 'api' })
+            .schema('api')
+            .from('profiles')
             .select('role')
             .eq('id', user.id)
             .single()

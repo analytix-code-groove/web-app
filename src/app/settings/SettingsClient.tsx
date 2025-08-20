@@ -39,7 +39,7 @@ export default function SettingsClient() {
           const provider = user.app_metadata?.provider
           if (provider === 'github' || provider === 'google') {
             const { data } = await supabase.auth.getUserIdentities()
-            const linked = data.identities.find(
+            const linked = data?.identities?.find(
               i => i.provider === provider && i.user_id === user.id,
             )
             setIdentity(linked ?? null)
