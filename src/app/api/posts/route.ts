@@ -2,6 +2,14 @@ import { NextResponse } from 'next/server'
 import { createSupabaseServerClient } from '@/lib/supabase'
 import { getUserFromRequest } from '@/lib/profile'
 
+function slugify(str: string) {
+  return str
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '')
+}
+
 // GET /api/posts - public: list all published posts
 export async function GET() {
   const supabase = createSupabaseServerClient()
@@ -33,13 +41,14 @@ export async function POST(req: Request) {
   }
 
   const body = await req.json()
+  const { tags = [], ...rest } = body
   const post = {
-    ...body,
+    ...rest,
     author_id: user.id,
     status: body.status ?? 'draft',
   }
 
-  const { data, error } = await supabase
+  const { data: inserted, error } = await supabase
     .schema('content')
     .from('posts')
     .insert(post)
@@ -54,5 +63,36 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: error.message }, { status: 500 })
   }
 
-  return NextResponse.json(data, { status: 201 })
+  if (tags.length > 0) {
+    const tagRecords = tags.map((name: string) => ({
+      slug: slugify(name),
+      name,
+    }))
+    const tagSlugs = tagRecords.map(t => t.slug)
+    const { error: tagErr } = await supabase
+      .schema('content')
+      .from('tags')
+      .upsert(tagRecords, { onConflict: 'slug' })
+    if (tagErr) {
+      return NextResponse.json({ error: tagErr.message }, { status: 500 })
+    }
+    const { data: rows, error: fetchErr } = await supabase
+      .schema('content')
+      .from('tags')
+      .select('id, slug')
+      .in('slug', tagSlugs)
+    if (fetchErr || !rows) {
+      return NextResponse.json({ error: fetchErr?.message ?? 'Tag fetch failed' }, { status: 500 })
+    }
+    const postTags = rows.map(r => ({ post_slug: inserted.slug, tag_id: r.id }))
+    const { error: linkErr } = await supabase
+      .schema('content')
+      .from('post_tags')
+      .insert(postTags)
+    if (linkErr) {
+      return NextResponse.json({ error: linkErr.message }, { status: 500 })
+    }
+  }
+
+  return NextResponse.json(inserted, { status: 201 })
 }

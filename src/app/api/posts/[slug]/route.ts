@@ -6,6 +6,7 @@ import { createSupabaseServerClient } from '@/lib/supabase'
 export async function GET(_req: Request, context: any) {
   const supabase = createSupabaseServerClient()
   const { data, error } = await supabase
+    .schema('content')
     .from('posts')
     .select('*')
     .eq('slug', context.params.slug)
