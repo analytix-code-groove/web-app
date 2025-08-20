@@ -6,7 +6,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { useLanguage } from '@/lib/i18n'
 import { createSupabaseBrowserClient } from '@/lib/supabase'
 import type { User } from '@supabase/supabase-js'
-import { ensureProfile } from '@/lib/profile'
+import { ensureProfile, getCurrentUser } from '@/lib/profile'
 import logoDesktop from '@/images/logos/desktop/logo_navbar.png'
 import logoMobile from '@/images/logos/mobile/logo_navbar.png'
 import avatarPlaceholder from '@/images/avatar-placeholder.svg'
@@ -144,14 +144,11 @@ export default function Navbar() {
   const supabase = useMemo(() => createSupabaseBrowserClient(), [])
 
   useEffect(() => {
-    const getUser = async () => {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser()
-      if (user) await ensureProfile(supabase, user)
+    const loadUser = async () => {
+      const user = await getCurrentUser(supabase)
       setUser(user)
     }
-    getUser()
+    loadUser()
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange(async (_event, session) => {

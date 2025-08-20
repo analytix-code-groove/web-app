@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { createSupabaseServerClient } from '@/lib/supabase'
+import { getCurrentUser } from '@/lib/profile'
 
 // Extract the authenticated user from the request Authorization header.
 async function getUser(req: Request) {
@@ -9,11 +10,9 @@ async function getUser(req: Request) {
     : undefined
   const supabase = createSupabaseServerClient(token)
   if (!token) return { supabase, user: null }
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
-  return { supabase, user }
-}
+    const user = await getCurrentUser(supabase)
+    return { supabase, user }
+  }
 
 // GET /api/profiles - return the current user's profile
 export async function GET(req: Request) {

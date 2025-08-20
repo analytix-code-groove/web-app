@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useLanguage } from '@/lib/i18n'
 import { createSupabaseBrowserClient } from '@/lib/supabase'
+import { getCurrentUser } from '@/lib/profile'
 
 type Post = {
   slug: string
@@ -30,10 +31,8 @@ export default function BlogClient() {
         if (res.ok) {
           setPosts(await res.json())
         }
-        const {
-          data: { user },
-        } = await supabase.auth.getUser()
-        if (user) {
+          const user = await getCurrentUser(supabase)
+          if (user) {
           const { data } = await supabase
             .from('profiles', { schema: 'api' })
             .select('role')
