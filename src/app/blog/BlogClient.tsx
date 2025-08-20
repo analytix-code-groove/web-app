@@ -19,28 +19,29 @@ export default function BlogClient() {
   const supabase = useMemo(() => createSupabaseBrowserClient(), [])
 
   useEffect(() => {
-    async function load() {
-      try {
-        const res = await fetch('/api/posts')
-        if (res.ok) {
-          setPosts(await res.json())
-        }
-        const user = await getCurrentUser(supabase)
-        if (user) {
-          const { data } = await supabase
-            .schema('api')
-            .from('profiles')
-            .select('role')
-            .eq('id', user.id)
-            .single()
-          if (data && (data.role === 'author' || data.role === 'admin')) {
-            setCanCreate(true)
+      async function load() {
+        try {
+          const res = await fetch('/api/posts')
+          if (res.ok) {
+            const { items } = await res.json()
+            setPosts(items ?? [])
           }
+          const user = await getCurrentUser(supabase)
+          if (user) {
+            const { data } = await supabase
+              .schema('api')
+              .from('profiles')
+              .select('role')
+              .eq('id', user.id)
+              .single()
+            if (data && (data.role === 'author' || data.role === 'admin')) {
+              setCanCreate(true)
+            }
+          }
+        } catch {
+          // ignore errors for now
         }
-      } catch {
-        // ignore errors for now
       }
-    }
     load()
   }, [supabase])
 
