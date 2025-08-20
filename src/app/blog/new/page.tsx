@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, FormEvent } from 'react'
+import { useState, FormEvent, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
@@ -16,6 +16,26 @@ export default function NewPostPage() {
   const [imageFile, setImageFile] = useState<File | null>(null)
   const [preview, setPreview] = useState(false)
   const [loading, setLoading] = useState(false)
+
+  useEffect(() => {
+    async function verify() {
+      const user = await getCurrentUser(supabase)
+      if (!user) {
+        router.push('/blog')
+        return
+      }
+      const { data } = await supabase
+        .schema('api')
+        .from('profiles')
+        .select('role')
+        .eq('id', user.id)
+        .single()
+      if (!data || (data.role !== 'author' && data.role !== 'admin')) {
+        router.push('/blog')
+      }
+    }
+    verify()
+  }, [supabase, router])
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault()

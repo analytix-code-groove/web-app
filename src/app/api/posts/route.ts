@@ -22,6 +22,16 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
+  const { data: profile } = await supabase
+    .schema('api')
+    .from('profiles')
+    .select('role')
+    .eq('id', user.id)
+    .single()
+  if (!profile || (profile.role !== 'author' && profile.role !== 'admin')) {
+    return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
+  }
+
   const body = await req.json()
   const post = {
     ...body,
