@@ -58,6 +58,18 @@ returns boolean language sql stable as $$
   );
 $$;
 
+-- Helper: is_author_or_admin()
+create or replace function api.is_author_or_admin()
+returns boolean
+language sql
+stable
+as $$
+  select exists (
+    select 1 from api.profiles p
+    where p.id = auth.uid() and p.role in ('author','admin')
+  );
+$$;
+
 -- RLS for profiles
 alter table api.profiles enable row level security;
 
@@ -168,8 +180,6 @@ create table if not exists content.posts (
   updated_at timestamptz not null default now()
 );
 
-create index if not exists ix_posts_status_pub on content.posts (status, published_at desc);
-
 drop trigger if exists trg_posts_updated on content.posts;
 create trigger trg_posts_updated
 before update on content.posts
@@ -181,42 +191,172 @@ create table if not exists content.post_tags (
   primary key (post_slug, tag_id)
 );
 
--- RLS for blog
+-- VIEW for easy tag filtering
+drop view if exists content.vw_post_tags;
+create view content.vw_post_tags as
+select
+  pt.post_slug,
+  t.slug as tag_slug,
+  t.name as tag_name
+from content.post_tags pt
+join content.tags t on t.id = pt.tag_id;
+
+-- =========================================================
+-- RLS: TAGS
+-- =========================================================
 alter table content.tags enable row level security;
+
+-- Public can read all tags
+drop policy if exists tags_public_read on content.tags;
+create policy tags_public_read
+on content.tags for select
+using (true);
+
+-- Authors/Admins can insert/update tags (admin can also delete; see below)
+drop policy if exists tags_author_upsert on content.tags;
+create policy tags_author_upsert
+on content.tags for insert
+to authenticated
+with check (api.is_author_or_admin());
+
+drop policy if exists tags_author_update on content.tags;
+create policy tags_author_update
+on content.tags for update
+to authenticated
+using (api.is_author_or_admin())
+with check (api.is_author_or_admin());
+
+-- Admins can delete tags (optional)
+drop policy if exists tags_admin_delete on content.tags;
+create policy tags_admin_delete
+on content.tags for delete
+to authenticated
+using (api.is_admin());
+
+-- Helpful indexes
+create index if not exists idx_tags_slug on content.tags (slug);
+
+-- =========================================================
+-- RLS: POSTS
+-- =========================================================
 alter table content.posts enable row level security;
+
+-- Public read: only published posts
+drop policy if exists posts_public_read on content.posts;
+create policy posts_public_read
+on content.posts for select
+using (status = 'published');
+
+-- Authenticated authors/admins: can read their own (admins can read all)
+drop policy if exists posts_author_read_own on content.posts;
+create policy posts_author_read_own
+on content.posts for select
+to authenticated
+using (api.is_author_or_admin() and (author_id = auth.uid() or api.is_admin()));
+
+-- Authors insert their own posts
+drop policy if exists posts_author_insert on content.posts;
+create policy posts_author_insert
+on content.posts for insert
+to authenticated
+with check (api.is_author_or_admin() and author_id = auth.uid());
+
+-- Authors update their own; admins any
+drop policy if exists posts_author_update on content.posts;
+create policy posts_author_update
+on content.posts for update
+to authenticated
+using (api.is_author_or_admin() and (author_id = auth.uid() or api.is_admin()))
+with check (api.is_author_or_admin() and (author_id = auth.uid() or api.is_admin()));
+
+-- Authors delete their own; admins any (optional)
+drop policy if exists posts_author_delete on content.posts;
+create policy posts_author_delete
+on content.posts for delete
+to authenticated
+using (api.is_author_or_admin() and (author_id = auth.uid() or api.is_admin()));
+
+-- Helpful indexes
+create index if not exists ix_posts_status_pub on content.posts (status, published_at desc);
+create index if not exists idx_posts_author on content.posts (author_id);
+
+-- =========================================================
+-- RLS: POST_TAGS (join table)
+-- =========================================================
 alter table content.post_tags enable row level security;
 
-drop policy if exists "tags_public_read" on content.tags;
-create policy "tags_public_read"
-on content.tags for select using (true);
-
-drop policy if exists "posts_public_read" on content.posts;
-create policy "posts_public_read"
-on content.posts for select using (status = 'published');
-
-drop policy if exists "post_tags_public_read" on content.post_tags;
-create policy "post_tags_public_read"
+-- Public can read tag links ONLY for published posts (hides draft associations)
+drop policy if exists post_tags_public_read on content.post_tags;
+create policy post_tags_public_read
 on content.post_tags for select
-using (exists (
-  select 1 from content.posts p
-  where p.slug = post_slug and p.status = 'published'
-));
+using (
+  exists (
+    select 1 from content.posts p
+    where p.slug = post_slug and p.status = 'published'
+  )
+);
 
-drop policy if exists "tags_admin_write" on content.tags;
-create policy "tags_admin_write"
-on content.tags for all to authenticated
-using (api.is_admin()) with check (api.is_admin());
+-- Authors can link/unlink tags for their own posts; admins any
+drop policy if exists post_tags_author_insert on content.post_tags;
+create policy post_tags_author_insert
+on content.post_tags for insert
+to authenticated
+with check (
+  api.is_author_or_admin()
+  and (
+    exists (select 1 from content.posts p
+            where p.slug = post_slug and (p.author_id = auth.uid() or api.is_admin()))
+  )
+);
 
-drop policy if exists "posts_admin_write_or_author_self" on content.posts;
-create policy "posts_admin_write_or_author_self"
-on content.posts for all to authenticated
-using (api.is_admin() or author_id = auth.uid())
-with check (api.is_admin() or author_id = auth.uid());
+drop policy if exists post_tags_author_delete on content.post_tags;
+create policy post_tags_author_delete
+on content.post_tags for delete
+to authenticated
+using (
+  api.is_author_or_admin()
+  and (
+    exists (select 1 from content.posts p
+            where p.slug = post_slug and (p.author_id = auth.uid() or api.is_admin()))
+  )
+);
 
-drop policy if exists "post_tags_admin_write" on content.post_tags;
-create policy "post_tags_admin_write"
-on content.post_tags for all to authenticated
-using (api.is_admin()) with check (api.is_admin());
+-- Helpful indexes
+create index if not exists idx_post_tags_post on content.post_tags (post_slug);
+create index if not exists idx_post_tags_tag on content.post_tags (tag_id);
+
+-- =========================================================
+-- (Optional) Publish gate: only admins can set status='published'
+-- =========================================================
+-- Uncomment to enforce: authors can’t publish; only admins can.
+-- This leverages WITH CHECK on UPDATE/INSERT to block non-admin publishes.
+
+-- drop policy if exists posts_admin_publish_only on content.posts;
+-- create policy posts_admin_publish_only
+-- on content.posts for update
+-- to authenticated
+-- with check (
+--   case
+--     when new.status = 'published' then api.is_admin()
+--     else api.is_author_or_admin()
+--   end
+-- );
+
+-- NOTE: In Postgres RLS, referencing NEW.* directly in policy expressions
+-- isn’t supported; the above pattern is illustrative. To strictly enforce,
+-- prefer a BEFORE UPDATE trigger:
+-- create or replace function content.enforce_admin_publish()
+-- returns trigger language plpgsql as $$
+-- begin
+--   if new.status = 'published' and not api.is_admin() then
+--     raise exception 'Only admins can publish';
+--   end if;
+--   return new;
+-- end $$;
+-- drop trigger if exists trg_posts_admin_publish on content.posts;
+ -- create trigger trg_posts_admin_publish
+ -- before insert or update on content.posts
+ -- for each row execute function content.enforce_admin_publish();
 
 -- =========================================================
 -- Bookmarks
