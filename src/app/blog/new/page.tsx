@@ -53,26 +53,6 @@ export default function NewPostPage() {
     setImagePreview(null)
   }, [imageFile])
 
-  useEffect(() => {
-    async function verify() {
-      const user = await getCurrentUser(supabase)
-      if (!user) {
-        router.push('/blog')
-        return
-      }
-      const { data } = await supabase
-        .schema('api')
-        .from('profiles')
-        .select('role')
-        .eq('id', user.id)
-        .single()
-      if (!data || (data.role !== 'author' && data.role !== 'admin')) {
-        router.push('/blog')
-      }
-    }
-    verify()
-  }, [supabase, router])
-
   async function handleSubmit(e: FormEvent) {
     e.preventDefault()
     setLoading(true)
@@ -96,18 +76,19 @@ export default function NewPostPage() {
         .trim()
         .replace(/[^a-z0-9]+/g, '-')
         .replace(/(^-|-$)/g, '')
-      const res = await fetch('/api/posts', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          slug,
-          title,
-          excerpt,
-          body_md: body,
-          cover_url,
-          tags: tagList,
-        }),
-      })
+        const res = await fetch('/api/posts', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            slug,
+            title,
+            excerpt,
+            body_md: body,
+            cover_url,
+            tags: tagList,
+            status: 'published',
+          }),
+        })
       if (res.ok) {
         router.push(`/blog/${slug}`)
       }
