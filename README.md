@@ -78,7 +78,7 @@ curl -X POST http://localhost:3000/api/posts \
     "excerpt": "Short summary shown on the blog list",
     "tags": ["nextjs", "supabase"],
     "body_md": "# Hello world\nThis is my first post!",
-    "image_url": "https://your-project.supabase.co/storage/v1/object/public/posts/<user-id>/hello.png"
+    "cover_url": "https://your-project.supabase.co/storage/v1/object/public/posts/<user-id>/hello.png"
   }'
 ```
 
@@ -107,5 +107,5 @@ const {
 } = supabase.storage.from('posts').getPublicUrl(`${user.id}/hello.png`)
 ```
 
-Use the `publicUrl` as the `image_url` field when creating the post via the API. The image will appear above the article content on its dedicated page.
+Use the `publicUrl` as the `cover_url` field when creating the post via the API. The image will appear above the article content on its dedicated page.
 To show images inside the article itself, include their URLs in the Markdown body using the `![alt](url)` syntax at the desired location.
