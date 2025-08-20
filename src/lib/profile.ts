@@ -64,3 +64,18 @@ export async function ensureProfile(
 
   ensuredProfiles.add(user.id)
 }
+
+/**
+ * Retrieve the current authenticated user and ensure their profile exists.
+ * - Uses supabase.auth.getUser()
+ * - Calls ensureProfile for the returned user
+ */
+export async function getCurrentUser(
+  supabase: SupabaseClient
+): Promise<User | null> {
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
+  if (user) await ensureProfile(supabase, user)
+  return user
+}

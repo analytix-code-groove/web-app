@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { createSupabaseBrowserClient } from '@/lib/supabase'
+import { getCurrentUser } from '@/lib/profile'
 
 export default function NewPostPage() {
   const router = useRouter()
@@ -22,11 +23,9 @@ export default function NewPostPage() {
     try {
       let image_url: string | undefined
       if (imageFile) {
-        const {
-          data: { user },
-        } = await supabase.auth.getUser()
-        if (!user) throw new Error('Not authenticated')
-        const filePath = `${user.id}/${Date.now()}-${imageFile.name}`
+          const user = await getCurrentUser(supabase)
+          if (!user) throw new Error('Not authenticated')
+          const filePath = `${user.id}/${Date.now()}-${imageFile.name}`
         const { error: uploadError } = await supabase.storage
           .from('posts')
           .upload(filePath, imageFile, { upsert: true })
