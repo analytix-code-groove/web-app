@@ -79,9 +79,9 @@ export default function NewPostPage() {
     try {
       let image_url: string | undefined
       if (imageFile) {
-          const user = await getCurrentUser(supabase)
-          if (!user) throw new Error('Not authenticated')
-          const filePath = `${user.id}/${Date.now()}-${imageFile.name}`
+        const user = await getCurrentUser(supabase)
+        if (!user) throw new Error('Not authenticated')
+        const filePath = `${user.id}/${Date.now()}-${imageFile.name}`
         const { error: uploadError } = await supabase.storage
           .from('posts')
           .upload(filePath, imageFile, { upsert: true })
@@ -188,9 +188,11 @@ export default function NewPostPage() {
                 <img src={imagePreview} alt="preview" className="mt-4 rounded" />
               )}
               <p className="mt-4 text-muted">{excerpt}</p>
-              <ReactMarkdown className="mt-4" remarkPlugins={[remarkGfm]}>
-                {body}
-              </ReactMarkdown>
+              <div className="mt-4 prose prose-sm dark:prose-invert max-w-none">
+                <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                  {body}
+                </ReactMarkdown>
+              </div>
               {tagList.length > 0 && (
                 <ul className="mt-4 flex flex-wrap gap-2">
                   {tagList.map(t => (
