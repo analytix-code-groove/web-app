@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, FormEvent } from 'react'
+import { useState, FormEvent, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
@@ -14,8 +14,44 @@ export default function NewPostPage() {
   const [excerpt, setExcerpt] = useState('')
   const [body, setBody] = useState('')
   const [imageFile, setImageFile] = useState<File | null>(null)
+  const [tags, setTags] = useState('')
   const [preview, setPreview] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [imagePreview, setImagePreview] = useState<string | null>(null)
+
+  const tagList = tags
+    .split(',')
+    .map(t => t.trim())
+    .filter(Boolean)
+
+  useEffect(() => {
+    async function verify() {
+      const user = await getCurrentUser(supabase)
+      if (!user) {
+        router.push('/blog')
+        return
+      }
+      const { data } = await supabase
+        .schema('api')
+        .from('profiles')
+        .select('role')
+        .eq('id', user.id)
+        .single()
+      if (!data || (data.role !== 'author' && data.role !== 'admin')) {
+        router.push('/blog')
+      }
+    }
+    verify()
+  }, [supabase, router])
+
+  useEffect(() => {
+    if (imageFile) {
+      const url = URL.createObjectURL(imageFile)
+      setImagePreview(url)
+      return () => URL.revokeObjectURL(url)
+    }
+    setImagePreview(null)
+  }, [imageFile])
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault()
@@ -40,10 +76,17 @@ export default function NewPostPage() {
         .trim()
         .replace(/[^a-z0-9]+/g, '-')
         .replace(/(^-|-$)/g, '')
-      const res = await fetch('/posts', {
+      const res = await fetch('/api/posts', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ slug, title, excerpt, body_md: body, image_url }),
+        body: JSON.stringify({
+          slug,
+          title,
+          excerpt,
+          body_md: body,
+          image_url,
+          tags: tagList,
+        }),
       })
       if (res.ok) {
         router.push(`/blog/${slug}`)
@@ -84,9 +127,24 @@ export default function NewPostPage() {
           />
         </div>
         <div>
+          <label className="block text-sm text-muted" htmlFor="tags">
+            Tags (comma separated)
+          </label>
+          <input
+            id="tags"
+            type="text"
+            value={tags}
+            onChange={e => setTags(e.target.value)}
+            className="mt-1 w-full rounded-md border border-stroke bg-surface px-3 py-2"
+          />
+        </div>
+        <div>
           <label className="block text-sm text-muted" htmlFor="body">
             Body (Markdown)
           </label>
+          <p className="mt-1 text-xs text-muted">
+            Use Markdown for formatting. Start headings with <code>#</code> or <code>##</code>, make text <code>**bold**</code> or <code>*italic*</code>, and embed images with <code>![alt](url)</code>.
+          </p>
           <textarea
             id="body"
             value={body}
@@ -104,7 +162,24 @@ export default function NewPostPage() {
           </button>
           {preview && (
             <div className="mt-2 rounded-md border border-stroke bg-surface p-4">
-              <ReactMarkdown remarkPlugins={[remarkGfm]}>{body}</ReactMarkdown>
+              <h2 className="font-heading text-2xl font-semibold text-text">{title}</h2>
+              {imagePreview && (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={imagePreview} alt="preview" className="mt-4 rounded" />
+              )}
+              <p className="mt-4 text-muted">{excerpt}</p>
+              <ReactMarkdown className="mt-4" remarkPlugins={[remarkGfm]}>
+                {body}
+              </ReactMarkdown>
+              {tagList.length > 0 && (
+                <ul className="mt-4 flex flex-wrap gap-2">
+                  {tagList.map(t => (
+                    <li key={t} className="rounded bg-stroke px-2 py-1 text-xs text-muted">
+                      {t}
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
           )}
         </div>
