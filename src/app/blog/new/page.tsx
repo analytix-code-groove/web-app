@@ -101,7 +101,11 @@ export default function NewPostPage() {
       if (res.ok) {
         router.push(`/blog/${slug}`)
       } else {
-        console.error('Failed to publish post', await res.json())
+        const ct = res.headers.get('content-type') || ''
+        const payload = ct.includes('application/json')
+          ? await res.json().catch(() => ({}))
+          : await res.text().catch(() => '')
+        console.error('Failed to publish post', res.status, payload)
       }
     } finally {
       setLoading(false)

@@ -1,19 +1,28 @@
+// app/api/posts/[slug]/route.ts
+export const runtime = 'nodejs'
+export const dynamic = 'force-dynamic'
+
 import { NextResponse } from 'next/server'
 import { createSupabaseServerClient } from '@/lib/supabase'
 
-// GET /api/posts/[slug] - return a single post by slug
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export async function GET(_req: Request, context: any) {
+type Ctx = { params: Promise<{ slug: string }> }
+
+export async function GET(_req: Request, ctx: Ctx) {
+  const { slug } = await ctx.params
+
   const supabase = createSupabaseServerClient()
   const { data, error } = await supabase
     .schema('content')
     .from('posts')
-    .select('*')
-    .eq('slug', context.params.slug)
+    .select('slug,title,excerpt,body_md,cover_url,published_at,author_id,status')
+    .eq('slug', slug)
+    .eq('status', 'published')        // public endpoint: only published
     .single()
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 404 })
+    // return 404 for not found, otherwise 500
+    const status = error.code === 'PGRST116' ? 404 : 500
+    return NextResponse.json({ error: error.message }, { status })
   }
 
   return NextResponse.json(data)

@@ -86,18 +86,15 @@ export async function getCurrentUser(
  * alongside the authenticated user (if any).
  */
 export async function getUserFromRequest(req: Request) {
-  const authHeader = req.headers.get('Authorization')
-  const token = authHeader?.startsWith('Bearer ')
-    ? authHeader.slice(7)
-    : undefined
+  const authHeader = req.headers.get('authorization') ?? ''
+  const token = authHeader.startsWith('Bearer ') ? authHeader.slice(7) : undefined
+
   const supabase = createSupabaseServerClient(token)
-  let user: User | null = null
-  if (token) {
-    const {
-      data: { user: fetchedUser },
-    } = await supabase.auth.getUser(token)
-    if (fetchedUser) await ensureProfile(supabase, fetchedUser)
-    user = fetchedUser
-  }
+
+  // Use the client header; don't pass the token here
+  const { data: { user }, error } = await supabase.auth.getUser()
+  if (error) console.error('[getUserFromRequest] getUser error:', error.message)
+
+  if (user) await ensureProfile(supabase, user) // ensures FK exists for posts.author_id
   return { supabase, user }
 }
