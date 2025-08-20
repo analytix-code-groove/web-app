@@ -119,6 +119,23 @@ async function graphSendMail(params: {
 // ─────────────────────────────────────────────
 // Handler
 // ─────────────────────────────────────────────
+function formatContactEmail(
+  name: string,
+  email: string,
+  reason: string,
+  message: string
+): string {
+  return [
+    'Contact Form Submission',
+    `Name: ${name || 'N/A'}`,
+    `Email: ${email || 'N/A'}`,
+    `Reason: ${reason || 'N/A'}`,
+    '',
+    'Message:',
+    message,
+  ].join('\n')
+}
+
 export async function POST(req: Request) {
   try {
     const { name = '', email = '', reason = 'general', message = '' } = await req.json()
@@ -129,7 +146,7 @@ export async function POST(req: Request) {
         ? `Support request from ${name || 'Website'}`
         : `Contact from ${name || 'Website'}`
 
-    const text = `${message}\n\nFrom: ${name}${email ? ` <${email}>` : ''}`
+    const text = formatContactEmail(name, email, reason, message)
 
     await graphSendMail({
       from: FROM_ADDRESS,
@@ -140,10 +157,11 @@ export async function POST(req: Request) {
     })
 
     return NextResponse.json({ success: true })
-  } catch (err: any) {
+  } catch (err) {
     console.error('Error sending contact email', err)
+    const message = err instanceof Error ? err.message : String(err)
     return NextResponse.json(
-      { success: false, error: String(err?.message ?? err) },
+      { success: false, error: message },
       { status: 500 }
     )
   }
