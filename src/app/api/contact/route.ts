@@ -1,67 +1,150 @@
+// app/api/contact/route.ts
 import { NextResponse } from 'next/server'
-import nodemailer from 'nodemailer'
 import fs from 'node:fs'
 import path from 'node:path'
 
-export const runtime = 'nodejs' // ensure Node runtime for nodemailer
+export const runtime = 'nodejs'
 
+// ─────────────────────────────────────────────
+// Local env loader (prefers supabase.local.json)
+// ─────────────────────────────────────────────
 let localEnv: Record<string, string> | null = null
-
 function loadLocalEnv() {
   if (localEnv) return localEnv
   try {
-    const file = fs.readFileSync(
-      path.join(process.cwd(), 'supabase.local.json'),
-      'utf8',
-    )
+    const file = fs.readFileSync(path.join(process.cwd(), 'supabase.local.json'), 'utf8')
     localEnv = JSON.parse(file) as Record<string, string>
   } catch {
     localEnv = {}
   }
   return localEnv
 }
-
-function env(name: string, defaultValue?: string) {
-  const localValue = loadLocalEnv()[name]
-  const v = localValue ?? process.env[name] ?? defaultValue
-  if (v === undefined || v === null)
-    throw new Error(`Missing env: ${name}`)
-  return String(v)
+function env(name: string, def?: string) {
+  const v = (loadLocalEnv()[name] ?? process.env[name] ?? def)
+  if (v === undefined || v === null) throw new Error(`Missing env: ${name}`)
+  return String(v).trim()
 }
 
-// Hardcoded recipients
-const EMAIL_TO_SUPPORT = 'support@Analytixcg.com'
-const EMAIL_TO_INFO = 'info@Analytixcg.com'
+// ─────────────────────────────────────────────
+// Config
+// ─────────────────────────────────────────────
+const EMAIL_TO_SUPPORT = 'support@analytixcg.com'
+const EMAIL_TO_INFO = 'info@analytixcg.com'
 
+// From can be "Display <mail@domain>"
+const FROM_DISPLAY = env('SMTP_FROM') // e.g. "Analytix Code Groove <info@analytixcg.com>"
+const FROM_ADDRESS = (() => {
+  const m = FROM_DISPLAY.match(/<\s*([^>]+)\s*>/)
+  return (m ? m[1] : FROM_DISPLAY).toLowerCase()
+})()
+
+const TENANT_ID = env('AZURE_TENANT_ID')
+const CLIENT_ID = env('AZURE_CLIENT_ID')
+const CLIENT_SECRET = env('AZURE_CLIENT_SECRET')
+
+// ─────────────────────────────────────────────
+// Token (app-only) with a tiny in-memory cache
+// ─────────────────────────────────────────────
+let tokenCache: { accessToken: string; exp: number } | null = null
+
+async function getGraphToken(): Promise<string> {
+  const now = Math.floor(Date.now() / 1000)
+  if (tokenCache && tokenCache.exp - 60 > now) return tokenCache.accessToken
+
+  const body = new URLSearchParams({
+    client_id: CLIENT_ID,
+    client_secret: CLIENT_SECRET,
+    scope: 'https://graph.microsoft.com/.default',
+    grant_type: 'client_credentials',
+  })
+  const r = await fetch(`https://login.microsoftonline.com/${TENANT_ID}/oauth2/v2.0/token`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body,
+  })
+  if (!r.ok) throw new Error(`Token error ${r.status}: ${await r.text()}`)
+  const j = (await r.json()) as { access_token?: string; expires_in?: number }
+  if (!j.access_token) throw new Error('No access_token from Graph')
+  tokenCache = { accessToken: j.access_token, exp: now + (j.expires_in ?? 3600) }
+  return j.access_token
+}
+
+// ─────────────────────────────────────────────
+// Graph sendMail helper (Text or HTML)
+// ─────────────────────────────────────────────
+async function graphSendMail(params: {
+  from: string
+  to: string
+  subject: string
+  text?: string
+  html?: string
+  replyTo?: string
+}) {
+  const token = await getGraphToken()
+
+  const bodyContent =
+    params.html != null && params.html.trim() !== ''
+      ? { contentType: 'HTML', content: params.html }
+      : { contentType: 'Text', content: params.text ?? '' }
+
+  const payload = {
+    message: {
+      subject: params.subject,
+      body: bodyContent,
+      toRecipients: [{ emailAddress: { address: params.to } }],
+      replyTo: params.replyTo ? [{ emailAddress: { address: params.replyTo } }] : [],
+      // From is implied by calling /users/{from}/sendMail
+    },
+    saveToSentItems: true,
+  }
+
+  const resp = await fetch(
+    `https://graph.microsoft.com/v1.0/users/${encodeURIComponent(params.from)}/sendMail`,
+    {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    }
+  )
+
+  if (!resp.ok) {
+    const errText = await resp.text()
+    throw new Error(`Graph sendMail failed ${resp.status}: ${errText}`)
+  }
+}
+
+// ─────────────────────────────────────────────
+// Handler
+// ─────────────────────────────────────────────
 export async function POST(req: Request) {
   try {
     const { name = '', email = '', reason = 'general', message = '' } = await req.json()
-
     const to = reason === 'support' ? EMAIL_TO_SUPPORT : EMAIL_TO_INFO
 
-    const transporter = nodemailer.createTransport({
-      host: env('SMTP_HOST'),
-      port: Number(env('SMTP_PORT', '587')),
-      secure: env('SMTP_SECURE', 'false') === 'true', // true only for 465
-      auth: { user: env('SMTP_USER'), pass: env('SMTP_PASS') },
-      requireTLS: true, // Office365 on 587 uses STARTTLS
-    })
+    const subject =
+      reason === 'support'
+        ? `Support request from ${name || 'Website'}`
+        : `Contact from ${name || 'Website'}`
 
-    await transporter.sendMail({
-      from: env('SMTP_FROM'),
+    const text = `${message}\n\nFrom: ${name}${email ? ` <${email}>` : ''}`
+
+    await graphSendMail({
+      from: FROM_ADDRESS,
       to,
-      subject:
-        reason === 'support'
-          ? `Support request from ${name || 'Website'}`
-          : `Contact from ${name || 'Website'}`,
-      text: `${message}\n\nFrom: ${name}${email ? ` <${email}>` : ''}`,
+      subject,
+      text,           // or pass html: '<p>...</p>' if you need formatting
       replyTo: email || undefined,
-      headers: { 'X-Source': 'website', 'X-Form': 'contact' },
     })
 
     return NextResponse.json({ success: true })
-  } catch (err) {
+  } catch (err: any) {
     console.error('Error sending contact email', err)
-    return NextResponse.json({ success: false }, { status: 500 })
+    return NextResponse.json(
+      { success: false, error: String(err?.message ?? err) },
+      { status: 500 }
+    )
   }
 }
