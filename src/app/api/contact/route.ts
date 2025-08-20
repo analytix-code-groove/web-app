@@ -144,39 +144,48 @@ function formatContactEmail(
   reason: string,
   message: string
 ): { text: string; html: string } {
+  const fields = [
+    { label: 'Name', value: name },
+    { label: 'Email', value: email },
+    { label: 'Reason', value: reason },
+  ]
+
   const text = [
     'Contact Form Submission',
-    `Name: ${name || 'N/A'}`,
-    `Email: ${email || 'N/A'}`,
-    `Reason: ${reason || 'N/A'}`,
+    ...fields.map(f => `${f.label}: ${f.value || 'N/A'}`),
     '',
     'Message:',
     message,
   ].join('\n')
 
+  const safeFields = fields.map(f => ({ label: f.label, value: escapeHtml(f.value) || 'N/A' }))
+  const rows = safeFields
+    .map(
+      f =>
+        `<tr><td style="padding:4px 8px;font-weight:bold;">${f.label}:</td><td style="padding:4px 8px;">${f.value}</td></tr>`
+    )
+    .join('')
+
   const safeMessage = escapeHtml(message).replace(/\n/g, '<br />')
-  const safeName = escapeHtml(name)
-  const safeEmail = escapeHtml(email)
-  const safeReason = escapeHtml(reason)
   const year = new Date().getFullYear()
 
-  const html = `<!DOCTYPE html>
-<html>
-  <body style="font-family:Arial,sans-serif;line-height:1.5;max-width:600px;margin:auto;">
-    <header style="text-align:center;margin-bottom:20px;">
-      <img src="https://analytixcg.com/logo.png" alt="Analytix Code Groove" style="height:40px" />
-    </header>
-    <h2 style="margin:0 0 16px 0;">Contact Form Submission</h2>
-    <p><strong>Name:</strong> ${safeName || 'N/A'}<br />
-    <strong>Email:</strong> ${safeEmail || 'N/A'}<br />
-    <strong>Reason:</strong> ${safeReason || 'N/A'}</p>
-    <p><strong>Message:</strong></p>
-    <p>${safeMessage}</p>
-    <footer style="margin-top:32px;font-size:12px;color:#666;text-align:center;border-top:1px solid #eee;padding-top:12px;">
-      © ${year} Analytix Code Groove • <a href="https://analytixcg.com">analytixcg.com</a>
-    </footer>
-  </body>
-</html>`
+  const html = [
+    '<!DOCTYPE html>',
+    '<html>',
+    '  <body style="font-family:Arial,sans-serif;line-height:1.5;max-width:600px;margin:auto;">',
+    '    <header style="text-align:center;margin-bottom:20px;">',
+    '      <img src="https://analytixcg.com/images/logos/desktop/logo_navbar.png" alt="Analytix Code Groove" style="height:40px" />',
+    '    </header>',
+    '    <h2 style="margin:0 0 16px 0;">Contact Form Submission</h2>',
+    `    <table style="border-collapse:collapse;width:100%;margin-bottom:16px;">${rows}</table>`,
+    '    <p style="margin:0 0 8px 0;"><strong>Message:</strong></p>',
+    `    <p>${safeMessage}</p>`,
+    '    <footer style="margin-top:32px;font-size:12px;color:#666;text-align:center;border-top:1px solid #eee;padding-top:12px;">',
+    `      © ${year} Analytix Code Groove • <a href="https://analytixcg.com" style="color:#666;text-decoration:none;">analytixcg.com</a>`,
+    '    </footer>',
+    '  </body>',
+    '</html>',
+  ].join('\n')
 
   return { text, html }
 }
