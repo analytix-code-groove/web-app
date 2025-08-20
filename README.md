@@ -67,10 +67,10 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 
 Posts can be created from the `/blog/new` page which provides fields for the title, excerpt, Markdown body and an optional image upload. The image is stored in the Supabase `posts` storage bucket under a folder for the current user's UUID and automatically linked to the post.
 
-You can also manage posts through the `/posts` endpoints. To publish a new article programmatically, send a `POST` request with the post data:
+You can also manage posts through the `/api/posts` endpoints. To publish a new article programmatically, send a `POST` request with the post data:
 
 ```bash
-curl -X POST http://localhost:3000/posts \
+curl -X POST http://localhost:3000/api/posts \
   -H 'Content-Type: application/json' \
   -d '{
     "slug": "my-first-post",
@@ -80,6 +80,15 @@ curl -X POST http://localhost:3000/posts \
     "image_url": "https://your-project.supabase.co/storage/v1/object/public/posts/<user-id>/hello.png"
   }'
 ```
+
+### Markdown formatting
+
+Posts support [Markdown](https://www.markdownguide.org/basic-syntax/) with GitHub Flavored Markdown extensions. Common patterns:
+
+- `# Heading` creates a large title, while `##` and `###` produce progressively smaller subtitles.
+- Use `**bold**` or `*italic*` for emphasis.
+- Start lines with `-` or `1.` to create lists.
+- Embed images anywhere using `![alt text](https://url/to/image.png)`—place the Markdown where you want the image to appear in the article.
 
 ### Uploading images
 
@@ -98,3 +107,4 @@ const {
 ```
 
 Use the `publicUrl` as the `image_url` field when creating the post via the API. The image will appear above the article content on its dedicated page.
+To show images inside the article itself, include their URLs in the Markdown body using the `![alt](url)` syntax at the desired location.

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, FormEvent } from 'react'
+import { useState, FormEvent, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
@@ -16,6 +16,26 @@ export default function NewPostPage() {
   const [imageFile, setImageFile] = useState<File | null>(null)
   const [preview, setPreview] = useState(false)
   const [loading, setLoading] = useState(false)
+
+  useEffect(() => {
+    async function verify() {
+      const user = await getCurrentUser(supabase)
+      if (!user) {
+        router.push('/blog')
+        return
+      }
+      const { data } = await supabase
+        .schema('api')
+        .from('profiles')
+        .select('role')
+        .eq('id', user.id)
+        .single()
+      if (!data || (data.role !== 'author' && data.role !== 'admin')) {
+        router.push('/blog')
+      }
+    }
+    verify()
+  }, [supabase, router])
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault()
@@ -40,7 +60,7 @@ export default function NewPostPage() {
         .trim()
         .replace(/[^a-z0-9]+/g, '-')
         .replace(/(^-|-$)/g, '')
-      const res = await fetch('/posts', {
+      const res = await fetch('/api/posts', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ slug, title, excerpt, body_md: body, image_url }),
@@ -87,6 +107,9 @@ export default function NewPostPage() {
           <label className="block text-sm text-muted" htmlFor="body">
             Body (Markdown)
           </label>
+          <p className="mt-1 text-xs text-muted">
+            Use Markdown for formatting. Start headings with <code>#</code> or <code>##</code>, make text <code>**bold**</code> or <code>*italic*</code>, and embed images with <code>![alt](url)</code>.
+          </p>
           <textarea
             id="body"
             value={body}
