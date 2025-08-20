@@ -60,7 +60,7 @@ export default function NewPostPage() {
         .trim()
         .replace(/[^a-z0-9]+/g, '-')
         .replace(/(^-|-$)/g, '')
-      const res = await fetch('/posts', {
+      const res = await fetch('/api/posts', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ slug, title, excerpt, body_md: body, image_url }),
@@ -107,6 +107,9 @@ export default function NewPostPage() {
           <label className="block text-sm text-muted" htmlFor="body">
             Body (Markdown)
           </label>
+          <p className="mt-1 text-xs text-muted">
+            Use Markdown for formatting. Start headings with <code>#</code> or <code>##</code>, make text <code>**bold**</code> or <code>*italic*</code>, and embed images with <code>![alt](url)</code>.
+          </p>
           <textarea
             id="body"
             value={body}

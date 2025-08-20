@@ -21,7 +21,7 @@ export default function BlogClient() {
   useEffect(() => {
     async function load() {
       try {
-        const res = await fetch('/posts')
+        const res = await fetch('/api/posts')
         if (res.ok) {
           setPosts(await res.json())
         }
