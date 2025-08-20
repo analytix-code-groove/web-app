@@ -119,6 +119,68 @@ async function graphSendMail(params: {
 // ─────────────────────────────────────────────
 // Handler
 // ─────────────────────────────────────────────
+function escapeHtml(str: string) {
+  return str.replace(/[&<>'"]/g, c => {
+    switch (c) {
+      case '&':
+        return '&amp;'
+      case '<':
+        return '&lt;'
+      case '>':
+        return '&gt;'
+      case '"':
+        return '&quot;'
+      case "'":
+        return '&#39;'
+      default:
+        return c
+    }
+  })
+}
+
+function formatContactEmail(
+  name: string,
+  email: string,
+  reason: string,
+  message: string
+): { text: string; html: string } {
+  const text = [
+    'Contact Form Submission',
+    `Name: ${name || 'N/A'}`,
+    `Email: ${email || 'N/A'}`,
+    `Reason: ${reason || 'N/A'}`,
+    '',
+    'Message:',
+    message,
+  ].join('\n')
+
+  const safeMessage = escapeHtml(message).replace(/\n/g, '<br />')
+  const safeName = escapeHtml(name)
+  const safeEmail = escapeHtml(email)
+  const safeReason = escapeHtml(reason)
+  const year = new Date().getFullYear()
+
+  const html = `<!DOCTYPE html>
+<html>
+  <body style="font-family:Arial,sans-serif;line-height:1.5;max-width:600px;margin:auto;">
+    <header style="text-align:center;margin-bottom:20px;">
+      <img src="https://analytixcg.com/logo.png" alt="Analytix Code Groove" style="height:40px" />
+    </header>
+    <h2 style="margin:0 0 16px 0;">Contact Form Submission</h2>
+    <p><strong>Name:</strong> ${safeName || 'N/A'}<br />
+    <strong>Email:</strong> ${safeEmail || 'N/A'}<br />
+    <strong>Reason:</strong> ${safeReason || 'N/A'}</p>
+    <p><strong>Message:</strong></p>
+    <p>${safeMessage}</p>
+    <footer style="margin-top:32px;font-size:12px;color:#666;text-align:center;border-top:1px solid #eee;padding-top:12px;">
+      © ${year} Analytix Code Groove • <a href="https://analytixcg.com">analytixcg.com</a>
+    </footer>
+  </body>
+</html>`
+
+  return { text, html }
+}
+
 export async function POST(req: Request) {
   try {
     const { name = '', email = '', reason = 'general', message = '' } = await req.json()
@@ -129,21 +191,23 @@ export async function POST(req: Request) {
         ? `Support request from ${name || 'Website'}`
         : `Contact from ${name || 'Website'}`
 
-    const text = `${message}\n\nFrom: ${name}${email ? ` <${email}>` : ''}`
+    const { text, html } = formatContactEmail(name, email, reason, message)
 
     await graphSendMail({
       from: FROM_ADDRESS,
       to,
       subject,
-      text,           // or pass html: '<p>...</p>' if you need formatting
+      text,
+      html,
       replyTo: email || undefined,
     })
 
     return NextResponse.json({ success: true })
-  } catch (err: any) {
+  } catch (err) {
     console.error('Error sending contact email', err)
+    const message = err instanceof Error ? err.message : String(err)
     return NextResponse.json(
-      { success: false, error: String(err?.message ?? err) },
+      { success: false, error: message },
       { status: 500 }
     )
   }
