@@ -29,10 +29,10 @@ export default async function BlogPostPage({ params }: { params: Promise<Params>
     <main className="mx-auto max-w-3xl px-4 py-16">
       <h1 className="font-heading text-3xl font-semibold text-text">{post.title}</h1>
       <p className="mt-2 text-muted">{post.excerpt}</p>
-      {post.image_url && (
+      {post.cover_url && (
         <div className="relative mt-6 aspect-[16/9] w-full overflow-hidden rounded-md">
           <Image
-            src={post.image_url}
+            src={post.cover_url}
             alt={post.title}
             fill
             className="object-cover"

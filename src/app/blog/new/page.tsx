@@ -77,7 +77,7 @@ export default function NewPostPage() {
     e.preventDefault()
     setLoading(true)
     try {
-      let image_url: string | undefined
+      let cover_url: string | undefined
       if (imageFile) {
         const user = await getCurrentUser(supabase)
         if (!user) throw new Error('Not authenticated')
@@ -89,7 +89,7 @@ export default function NewPostPage() {
         const {
           data: { publicUrl },
         } = supabase.storage.from('posts').getPublicUrl(filePath)
-        image_url = publicUrl
+        cover_url = publicUrl
       }
       const slug = title
         .toLowerCase()
@@ -104,7 +104,7 @@ export default function NewPostPage() {
           title,
           excerpt,
           body_md: body,
-          image_url,
+          cover_url,
           tags: tagList,
         }),
       })
