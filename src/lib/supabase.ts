@@ -17,17 +17,25 @@ export function createSupabaseBrowserClient(): SupabaseClient {
 }
 
 /**
- * Create a Supabase client for server-side usage. This uses the service role
- * key which has elevated privileges and should only run on the server.
+ * Create a Supabase client for server-side usage. Accepts an optional access
+ * token so queries run with the caller's RLS context.
  */
-export function createSupabaseServerClient(): SupabaseClient {
+export function createSupabaseServerClient(token?: string): SupabaseClient {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? supabaseConfig.SUPABASE_URL
-  const supabaseServiceKey =
-    process.env.SUPABASE_SERVICE_ROLE_KEY ?? supabaseConfig.SUPABASE_SERVICE_ROLE_KEY
+  const supabaseAnonKey =
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? supabaseConfig.SUPABASE_ANON_KEY
 
-  if (!supabaseUrl || !supabaseServiceKey) {
+  if (!supabaseUrl || !supabaseAnonKey) {
     throw new Error('Missing Supabase environment variables')
   }
 
-  return createClient(supabaseUrl, supabaseServiceKey)
+  return createClient(supabaseUrl, supabaseAnonKey, {
+    global: {
+      headers: token
+        ? {
+            Authorization: `Bearer ${token}`,
+          }
+        : {},
+    },
+  })
 }

@@ -53,35 +53,18 @@ export default function NewPostPage() {
     setImagePreview(null)
   }, [imageFile])
 
-  useEffect(() => {
-    async function verify() {
-      const user = await getCurrentUser(supabase)
-      if (!user) {
-        router.push('/blog')
-        return
-      }
-      const { data } = await supabase
-        .schema('api')
-        .from('profiles')
-        .select('role')
-        .eq('id', user.id)
-        .single()
-      if (!data || (data.role !== 'author' && data.role !== 'admin')) {
-        router.push('/blog')
-      }
-    }
-    verify()
-  }, [supabase, router])
-
   async function handleSubmit(e: FormEvent) {
     e.preventDefault()
     setLoading(true)
     try {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession()
+      if (!session) throw new Error('Not authenticated')
+
       let cover_url: string | undefined
       if (imageFile) {
-        const user = await getCurrentUser(supabase)
-        if (!user) throw new Error('Not authenticated')
-        const filePath = `${user.id}/${Date.now()}-${imageFile.name}`
+        const filePath = `${session.user.id}/${Date.now()}-${imageFile.name}`
         const { error: uploadError } = await supabase.storage
           .from('posts')
           .upload(filePath, imageFile, { upsert: true })
@@ -91,14 +74,19 @@ export default function NewPostPage() {
         } = supabase.storage.from('posts').getPublicUrl(filePath)
         cover_url = publicUrl
       }
+
       const slug = title
         .toLowerCase()
         .trim()
         .replace(/[^a-z0-9]+/g, '-')
         .replace(/(^-|-$)/g, '')
+
       const res = await fetch('/api/posts', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${session.access_token}`,
+        },
         body: JSON.stringify({
           slug,
           title,
@@ -106,10 +94,14 @@ export default function NewPostPage() {
           body_md: body,
           cover_url,
           tags: tagList,
+          status: 'published',
         }),
       })
+
       if (res.ok) {
         router.push(`/blog/${slug}`)
+      } else {
+        console.error('Failed to publish post', await res.json())
       }
     } finally {
       setLoading(false)
