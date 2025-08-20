@@ -91,6 +91,13 @@ export async function getUserFromRequest(req: Request) {
     ? authHeader.slice(7)
     : undefined
   const supabase = createSupabaseServerClient(token)
-  const user = token ? await getCurrentUser(supabase) : null
+  let user: User | null = null
+  if (token) {
+    const {
+      data: { user: fetchedUser },
+    } = await supabase.auth.getUser(token)
+    if (fetchedUser) await ensureProfile(supabase, fetchedUser)
+    user = fetchedUser
+  }
   return { supabase, user }
 }

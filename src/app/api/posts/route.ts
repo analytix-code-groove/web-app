@@ -152,10 +152,13 @@ export async function POST(req: Request) {
 
     // Ensure (post_slug, tag_id) has a unique constraint; use upsert to avoid dupes
     const postTags = rows.map(r => ({ post_slug: inserted.slug, tag_id: r.id }))
-      const { error: linkErr } = await supabase
-        .schema('content')
-        .from('post_tags')
-        .upsert(postTags, { onConflict: 'post_slug,tag_id', ignoreDuplicates: true } as unknown)
+    const { error: linkErr } = await supabase
+      .schema('content')
+      .from('post_tags')
+      .upsert(postTags, {
+        onConflict: 'post_slug,tag_id',
+        ignoreDuplicates: true,
+      } as unknown)
 
     if (linkErr) return NextResponse.json({ error: linkErr.message }, { status: 500 })
   }
