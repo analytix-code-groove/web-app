@@ -36,14 +36,14 @@ export async function GET(req: Request) {
   // Optional tag filter (via join table)
   if (tag) {
     // Filter posts that have the given tag slug
-    q = q.in(
-      'slug',
-      supabase
-        .schema('content')
-        .from('vw_post_tags') // create a view (post_slug, tag_slug) or switch to rpc
-        .select('post_slug')
-        .eq('tag_slug', tag) as any
-    )
+      q = q.in(
+        'slug',
+        supabase
+          .schema('content')
+          .from('vw_post_tags') // create a view (post_slug, tag_slug) or switch to rpc
+          .select('post_slug')
+          .eq('tag_slug', tag) as unknown as string[]
+      )
   }
 
   const { data, error, count } = await q
@@ -167,10 +167,10 @@ export async function POST(req: Request) {
 
     // Ensure (post_slug, tag_id) has a unique constraint; use upsert to avoid dupes
     const postTags = rows.map(r => ({ post_slug: inserted.slug, tag_id: r.id }))
-    const { error: linkErr } = await supabase
-      .schema('content')
-      .from('post_tags')
-      .upsert(postTags, { onConflict: 'post_slug,tag_id', ignoreDuplicates: true as any })
+      const { error: linkErr } = await supabase
+        .schema('content')
+        .from('post_tags')
+        .upsert(postTags, { onConflict: 'post_slug,tag_id', ignoreDuplicates: true } as unknown)
 
     if (linkErr) return NextResponse.json({ error: linkErr.message }, { status: 500 })
   }
