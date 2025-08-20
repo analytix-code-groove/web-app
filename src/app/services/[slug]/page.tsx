@@ -7,6 +7,8 @@ interface Params {
   slug: string
 }
 
+type Props = { params: Promise<Params> }
+
 export function generateStaticParams() {
   return services
     .filter(
@@ -20,8 +22,9 @@ export function generateStaticParams() {
     .map(s => ({ slug: s.slug }))
 }
 
-export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
-  const service = getService(params.slug)
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params
+  const service = getService(slug)
   const name = service?.slug.replace(/-/g, ' ') ?? 'service'
   const title = `${name.charAt(0).toUpperCase() + name.slice(1)} | Analytix Code Groove`
   const description = service
@@ -30,7 +33,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   return { title, description }
 }
 
-export default async function ServicePage({ params }: { params: Promise<Params> }) {
+export default async function ServicePage({ params }: Props) {
   const { slug } = await params
   const service = getService(slug)
   if (!service) notFound()

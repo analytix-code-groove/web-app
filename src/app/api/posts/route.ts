@@ -1,8 +1,6 @@
 import { NextResponse } from 'next/server'
 import { createSupabaseServerClient } from '@/lib/supabase'
-
-// Reuse your getUser helper
-import { getUser } from '../profiles/route'  // or extract into utils
+import { getUserFromRequest } from '@/lib/profile'
 
 // GET /api/posts - public: list all published posts
 export async function GET() {
@@ -19,7 +17,7 @@ export async function GET() {
 
 // POST /api/posts - authenticated authors/admins
 export async function POST(req: Request) {
-  const { supabase, user } = await getUser(req)
+  const { supabase, user } = await getUserFromRequest(req)
   if (!user) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }

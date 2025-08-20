@@ -1,23 +1,9 @@
 import { NextResponse } from 'next/server'
-import { createSupabaseServerClient } from '@/lib/supabase'
-
-// Extract the authenticated user from the request Authorization header.
-async function getUser(req: Request) {
-  const authHeader = req.headers.get('Authorization')
-  const token = authHeader?.startsWith('Bearer ')
-    ? authHeader.slice(7)
-    : undefined
-  const supabase = createSupabaseServerClient(token)
-  if (!token) return { supabase, user: null }
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
-  return { supabase, user }
-}
+import { getUserFromRequest } from '@/lib/profile'
 
 // GET /api/profiles - return the current user's profile
 export async function GET(req: Request) {
-  const { supabase, user } = await getUser(req)
+  const { supabase, user } = await getUserFromRequest(req)
   if (!user) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
@@ -35,7 +21,7 @@ export async function GET(req: Request) {
 
 // POST /api/profiles - create or update the current user's profile
 export async function POST(req: Request) {
-  const { supabase, user } = await getUser(req)
+  const { supabase, user } = await getUserFromRequest(req)
   if (!user) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
@@ -54,7 +40,7 @@ export async function POST(req: Request) {
 
 // PUT /api/profiles - update fields on the current user's profile
 export async function PUT(req: Request) {
-  const { supabase, user } = await getUser(req)
+  const { supabase, user } = await getUserFromRequest(req)
   if (!user) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
@@ -74,7 +60,7 @@ export async function PUT(req: Request) {
 
 // DELETE /api/profiles - remove the current user's profile
 export async function DELETE(req: Request) {
-  const { supabase, user } = await getUser(req)
+  const { supabase, user } = await getUserFromRequest(req)
   if (!user) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }

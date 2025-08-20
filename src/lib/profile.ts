@@ -1,4 +1,5 @@
 import type { SupabaseClient, User } from '@supabase/supabase-js'
+import { createSupabaseServerClient } from './supabase'
 
 /**
  * Avoid calling ensureProfile multiple times for the same user in a session.
@@ -63,4 +64,34 @@ export async function ensureProfile(
   }
 
   ensuredProfiles.add(user.id)
+}
+
+/**
+ * Retrieve the current authenticated user and ensure their profile exists.
+ * - Uses supabase.auth.getUser()
+ * - Calls ensureProfile for the returned user
+ */
+export async function getCurrentUser(
+  supabase: SupabaseClient,
+  token?: string
+): Promise<User | null> {
+  const {
+    data: { user },
+  } = await supabase.auth.getUser(token)
+  if (user) await ensureProfile(supabase, user)
+  return user
+}
+
+/**
+ * Parse the Authorization header of a Request and return the Supabase client
+ * alongside the authenticated user (if any).
+ */
+export async function getUserFromRequest(req: Request) {
+  const authHeader = req.headers.get('Authorization')
+  const token = authHeader?.startsWith('Bearer ')
+    ? authHeader.slice(7)
+    : undefined
+  const supabase = createSupabaseServerClient()
+  const user = token ? await getCurrentUser(supabase, token) : null
+  return { supabase, user }
 }

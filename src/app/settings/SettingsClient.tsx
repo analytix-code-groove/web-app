@@ -5,6 +5,7 @@ import { FaGithub, FaGoogle } from 'react-icons/fa'
 import type { User, UserIdentity } from '@supabase/supabase-js'
 import { useLanguage } from '@/lib/i18n'
 import { createSupabaseBrowserClient } from '@/lib/supabase'
+import { getCurrentUser } from '@/lib/profile'
 
 type ProfileMetadata = {
   first_name?: string
@@ -26,26 +27,24 @@ export default function SettingsClient() {
 
   useEffect(() => {
     const loadUser = async () => {
-      const supabase = createSupabaseBrowserClient()
-      const {
-        data: { user },
-      } = await supabase.auth.getUser()
-      if (user) {
-        setUser(user)
-        const { first_name = '', last_name = '' } =
-          (user.user_metadata as ProfileMetadata) || {}
-        setFirstName(first_name)
-        setLastName(last_name)
+        const supabase = createSupabaseBrowserClient()
+        const user = await getCurrentUser(supabase)
+        if (user) {
+          setUser(user)
+          const { first_name = '', last_name = '' } =
+            (user.user_metadata as ProfileMetadata) || {}
+          setFirstName(first_name)
+          setLastName(last_name)
 
-        const provider = user.app_metadata?.provider
-        if (provider === 'github' || provider === 'google') {
-          const { data } = await supabase.auth.getUserIdentities()
-          const linked = data.identities.find(
-            i => i.provider === provider && i.user_id === user.id,
-          )
-          setIdentity(linked ?? null)
+          const provider = user.app_metadata?.provider
+          if (provider === 'github' || provider === 'google') {
+            const { data } = await supabase.auth.getUserIdentities()
+            const linked = data?.identities?.find(
+              i => i.provider === provider && i.user_id === user.id,
+            )
+            setIdentity(linked ?? null)
+          }
         }
-      }
     }
     void loadUser()
   }, [])

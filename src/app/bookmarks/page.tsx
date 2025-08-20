@@ -1,8 +1,9 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { createSupabaseBrowserClient } from '../../lib/supabase'
+import { createSupabaseBrowserClient } from '@/lib/supabase'
 import { useLanguage } from '@/lib/i18n'
+import { getCurrentUser } from '@/lib/profile'
 
 type Bookmark = {
   url: string
@@ -33,46 +34,48 @@ export default function BookmarksPage() {
     localStorage.setItem('bookmarks', JSON.stringify(items))
   }
 
-  useEffect(() => {
-    if (!supabase) return
-    const sync = async () => {
-      const { data: { user } } = await supabase.auth.getUser()
-      if (user) {
-        const { data } = await supabase
-          .from('bookmarks')
-          .select('url')
-          .eq('user_id', user.id)
-        if (data) {
-          const merged = merge(loadLocal(), data)
-          setBookmarks(merged)
-          saveLocal(merged)
+    useEffect(() => {
+      if (!supabase) return
+      const sync = async () => {
+        const user = await getCurrentUser(supabase)
+        if (user) {
+          const { data } = await supabase
+            .from('bookmarks')
+            .select('url')
+            .eq('user_id', user.id)
+          if (data) {
+            const merged = merge(loadLocal(), data)
+            setBookmarks(merged)
+            saveLocal(merged)
+          }
         }
       }
-    }
 
-    const local = loadLocal()
-    setBookmarks(local)
-    sync()
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(() => {
+      const local = loadLocal()
+      setBookmarks(local)
       sync()
-    })
-    return () => {
-      subscription.unsubscribe()
-    }
-  }, [supabase])
+      const {
+        data: { subscription },
+      } = supabase.auth.onAuthStateChange(() => {
+        sync()
+      })
+      return () => {
+        subscription.unsubscribe()
+      }
+    }, [supabase])
 
   const addBookmark = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!supabase || !url) return
-    const newBookmarks = merge(bookmarks, [{ url }])
-    setBookmarks(newBookmarks)
-    saveLocal(newBookmarks)
-    setUrl('')
-    const { data: { user } } = await supabase.auth.getUser()
-    if (user) {
-      await supabase.from('bookmarks').upsert({ url, user_id: user.id })
+      const newBookmarks = merge(bookmarks, [{ url }])
+      setBookmarks(newBookmarks)
+      saveLocal(newBookmarks)
+      setUrl('')
+      const user = await getCurrentUser(supabase)
+      if (user) {
+        await supabase.from('bookmarks').upsert({ url, user_id: user.id })
+      }
     }
-  }
 
   if (!supabase) return null
 
