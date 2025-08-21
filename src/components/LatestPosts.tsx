@@ -45,9 +45,10 @@ export default function LatestPosts() {
               key={p.slug}
               href={`/blog/${p.slug}`}
               className="group rounded-xl2 border border-stroke/70 bg-surface p-6 shadow-soft transition hover:border-mint/60"
-            >
-              <h3 className="text-lg font-semibold text-text group-hover:text-mint">{p.title}</h3>
-              <p className="mt-1 text-xs text-muted">{p.readingMinutes} {t('minRead')}</p>
+              >
+              {/* Reading time first */}
+              <p className="text-xs text-muted">{p.readingMinutes} {t('minRead')}</p>
+              <h3 className="mt-1 text-lg font-semibold text-text group-hover:text-mint">{p.title}</h3>
               <p className="mt-2 text-sm text-muted">{p.excerpt}</p>
               <span className="mt-4 inline-block text-sm text-mint">{t('readMore')}</span>
             </Link>
@@ -60,9 +61,10 @@ export default function LatestPosts() {
                 key={p.slug}
                 href={`/blog/${p.slug}`}
                 className="group rounded-xl2 border border-stroke/70 bg-surface p-6 shadow-soft transition hover:border-mint/60"
-              >
-                <h3 className="text-lg font-semibold text-text group-hover:text-mint">{p.title}</h3>
-                <p className="mt-1 text-xs text-muted">{p.readingMinutes} {t('minRead')}</p>
+                >
+                {/* Reading time first */}
+                <p className="text-xs text-muted">{p.readingMinutes} {t('minRead')}</p>
+                <h3 className="mt-1 text-lg font-semibold text-text group-hover:text-mint">{p.title}</h3>
                 <p className="mt-2 text-sm text-muted">{p.excerpt}</p>
                 <span className="mt-4 inline-block text-sm text-mint">{t('readMore')}</span>
               </Link>

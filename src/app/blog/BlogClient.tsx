@@ -20,29 +20,29 @@ export default function BlogClient() {
   const supabase = useMemo(() => createSupabaseBrowserClient(), [])
 
   useEffect(() => {
-      async function load() {
-        try {
-          const res = await fetch(`/api/posts?lang=${lang}`)
-          if (res.ok) {
-            const { items } = await res.json()
-            setPosts(items ?? [])
-          }
-          const user = await getCurrentUser(supabase)
-          if (user) {
-            const { data } = await supabase
-              .schema('api')
-              .from('profiles')
-              .select('role')
-              .eq('id', user.id)
-              .single()
-            if (data && (data.role === 'author' || data.role === 'admin')) {
-              setCanCreate(true)
-            }
-          }
-        } catch {
-          // ignore errors for now
+    async function load() {
+      try {
+        const res = await fetch(`/api/posts?lang=${lang}`)
+        if (res.ok) {
+          const { items } = await res.json()
+          setPosts(items ?? [])
         }
+        const user = await getCurrentUser(supabase)
+        if (user) {
+          const { data } = await supabase
+            .schema('api')
+            .from('profiles')
+            .select('role')
+            .eq('id', user.id)
+            .single()
+          if (data && (data.role === 'author' || data.role === 'admin')) {
+            setCanCreate(true)
+          }
+        }
+      } catch {
+        // ignore errors for now
       }
+    }
     load()
   }, [supabase, lang])
 
@@ -69,12 +69,9 @@ export default function BlogClient() {
               href={`/blog/${firstPost.slug}`}
               className="block rounded-xl2 border border-stroke/70 bg-surface p-8 shadow-soft transition hover:border-mint/60"
             >
-              <h2 className="text-2xl font-semibold text-text">{firstPost.title}</h2>
-              <p className="mt-1 text-xs text-muted">{firstPost.readingMinutes} {t('minRead')}</p>
+              <p className="text-xs text-muted">{firstPost.readingMinutes} {t('minRead')}</p>
+              <h2 className="mt-1 text-2xl font-semibold text-text">{firstPost.title}</h2>
               <p className="mt-2 text-sm text-muted">{firstPost.excerpt}</p>
-              <p className="mt-1 text-xs text-muted">
-                {firstPost.readingMinutes} {t('minRead')}
-              </p>
               <span className="mt-4 inline-block text-sm text-mint">{t('readMore')}</span>
             </Link>
           )}
@@ -85,11 +82,10 @@ export default function BlogClient() {
                   key={p.slug}
                   href={`/blog/${p.slug}`}
                   className="block rounded-xl2 border border-stroke/70 bg-surface p-6 transition hover:border-mint/60"
-                >
-                  <h3 className="font-heading text-text">{p.title}</h3>
-                  <p className="mt-1 text-xs text-muted">{p.readingMinutes} {t('minRead')}</p>
+                  >
+                  <p className="text-xs text-muted">{p.readingMinutes} {t('minRead')}</p>
+                  <h3 className="mt-1 font-heading text-text">{p.title}</h3>
                   <p className="mt-2 text-sm text-muted">{p.excerpt}</p>
-                  <p className="mt-1 text-xs text-muted">{p.readingMinutes} {t('minRead')}</p>
                   <span className="mt-3 block text-sm text-mint">{t('readMore')}</span>
                 </Link>
               ))}
