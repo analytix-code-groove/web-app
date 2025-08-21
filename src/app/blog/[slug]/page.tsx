@@ -6,7 +6,7 @@ import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import rehypeRaw from 'rehype-raw'
 import ShareButtons from '@/components/ShareButtons'
-import { createSupabaseServerClient } from '@/lib/supabase'
+import { createSupabaseAdminClient } from '@/lib/supabaseAdmin'
 
 export const revalidate = 60 // or: export const dynamic = 'force-dynamic'
 
@@ -28,7 +28,7 @@ async function fetchPost(slug: string) {
 
 async function fetchAuthorName(authorId: string) {
   try {
-    const supabase = createSupabaseServerClient()
+    const supabase = createSupabaseAdminClient()
     const { data, error } = await supabase
       .schema('api')
       .from('profiles')
