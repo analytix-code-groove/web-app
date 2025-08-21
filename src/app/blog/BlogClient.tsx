@@ -70,6 +70,9 @@ export default function BlogClient() {
               className="block rounded-xl2 border border-stroke/70 bg-surface p-8 shadow-soft transition hover:border-mint/60"
             >
               <h2 className="text-2xl font-semibold text-text">{firstPost.title}</h2>
+              <p className="mt-1 text-xs text-muted">
+                {firstPost.readingMinutes} {t('minRead')}
+              </p>
               <p className="mt-2 text-sm text-muted">{firstPost.excerpt}</p>
               <p className="mt-1 text-xs text-muted">
                 {firstPost.readingMinutes} {t('minRead')}
@@ -86,6 +89,7 @@ export default function BlogClient() {
                   className="block rounded-xl2 border border-stroke/70 bg-surface p-6 transition hover:border-mint/60"
                 >
                   <h3 className="font-heading text-text">{p.title}</h3>
+                  <p className="mt-1 text-xs text-muted">{p.readingMinutes} {t('minRead')}</p>
                   <p className="mt-2 text-sm text-muted">{p.excerpt}</p>
                   <p className="mt-1 text-xs text-muted">{p.readingMinutes} {t('minRead')}</p>
                   <span className="mt-3 block text-sm text-mint">{t('readMore')}</span>
