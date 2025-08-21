@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
+import rehypeRaw from 'rehype-raw'
 
 export const revalidate = 60 // or: export const dynamic = 'force-dynamic'
 
@@ -73,7 +74,10 @@ export default async function BlogPostPage(
       )}
 
       <article className="prose prose-neutral dark:prose-invert mt-8 max-w-none">
-        <ReactMarkdown remarkPlugins={[remarkGfm]}>
+        <ReactMarkdown
+          remarkPlugins={[remarkGfm]}
+          rehypePlugins={[rehypeRaw]}
+        >
           {post.body_md ?? ''}
         </ReactMarkdown>
       </article>
