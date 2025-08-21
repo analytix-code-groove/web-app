@@ -1,5 +1,6 @@
 'use client'
 
+import { useMemo } from 'react'
 import { useState, FormEvent, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import ReactMarkdown from 'react-markdown'
@@ -9,7 +10,7 @@ import { getCurrentUser } from '@/lib/profile'
 
 export default function NewPostPage() {
   const router = useRouter()
-  const supabase = createSupabaseBrowserClient()
+  const supabase = useMemo(() => createSupabaseBrowserClient(), [])
   const [title, setTitle] = useState('')
   const [excerpt, setExcerpt] = useState('')
   const [body, setBody] = useState('')
@@ -19,10 +20,10 @@ export default function NewPostPage() {
   const [loading, setLoading] = useState(false)
   const [imagePreview, setImagePreview] = useState<string | null>(null)
 
-  const tagList = tags
-    .split(',')
-    .map(t => t.trim())
-    .filter(Boolean)
+  const tagList = useMemo(() => {
+    const arr = tags.split(',').map(t => t.trim()).filter(Boolean)
+    return Array.from(new Set(arr.map(t => t.toLowerCase())))
+  }, [tags])
 
   useEffect(() => {
     async function verify() {
@@ -64,10 +65,15 @@ export default function NewPostPage() {
 
       let cover_url: string | undefined
       if (imageFile) {
-        const filePath = `${session.user.id}/${Date.now()}-${imageFile.name}`
+        const safeName = imageFile.name.replace(/[^\w.\-]+/g, '_')
+        const filePath = `${session.user.id}/${Date.now()}-${safeName}`
         const { error: uploadError } = await supabase.storage
           .from('posts')
-          .upload(filePath, imageFile, { upsert: true })
+          .upload(filePath, imageFile, {
+            upsert: true,
+            contentType: imageFile.type || 'application/octet-stream',
+            cacheControl: '31536000', // optional, good for public assets
+          })
         if (uploadError) throw uploadError
         const {
           data: { publicUrl },
@@ -89,8 +95,8 @@ export default function NewPostPage() {
         },
         body: JSON.stringify({
           slug,
-          title,
-          excerpt,
+          title: title.trim(),
+          excerpt: excerpt.trim(),
           body_md: body,
           cover_url,
           tags: tagList,
@@ -106,6 +112,8 @@ export default function NewPostPage() {
           ? await res.json().catch(() => ({}))
           : await res.text().catch(() => '')
         console.error('Failed to publish post', res.status, payload)
+        const msg = typeof payload === 'string' ? payload : payload?.error
+        alert(`Failed to publish: ${msg || res.status}`)
       }
     } finally {
       setLoading(false)
