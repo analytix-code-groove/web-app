@@ -7,6 +7,7 @@ import remarkGfm from 'remark-gfm'
 import rehypeRaw from 'rehype-raw'
 import ShareButtons from '@/components/ShareButtons'
 import { createSupabaseAdminClient } from '@/lib/supabaseAdmin'
+import { headers } from 'next/headers'
 
 export const revalidate = 60 // or: export const dynamic = 'force-dynamic'
 
@@ -15,8 +16,8 @@ type Params = { slug: string }
 const BASE_URL =
   process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
 
-async function fetchPost(slug: string) {
-  const res = await fetch(`${BASE_URL}/api/posts/${slug}`, {
+async function fetchPost(slug: string, lang: string) {
+  const res = await fetch(`${BASE_URL}/api/posts/${slug}?lang=${lang}`, {
     // If you kept revalidate above, omit cache here and let ISR handle it.
     // cache: 'no-store',
     next: { revalidate },
@@ -49,7 +50,8 @@ export async function generateMetadata(
   { params }: { params: Promise<Params> }
 ): Promise<Metadata> {
   const { slug } = await params
-  const post = await fetchPost(slug)
+  const lang = headers().get('accept-language')?.startsWith('es') ? 'es' : 'en'
+  const post = await fetchPost(slug, lang)
   if (!post) return { title: 'Post not found' }
   return {
     title: `${post.title} | Analytix Code Groove`,
@@ -73,18 +75,18 @@ export default async function BlogPostPage(
   { params }: { params: Promise<Params> }
 ) {
   const { slug } = await params
-  const post = await fetchPost(slug)
+  const lang = headers().get('accept-language')?.startsWith('es') ? 'es' : 'en'
+  const post = await fetchPost(slug, lang)
   if (!post) notFound()
   const authorName = post.author_id ? await fetchAuthorName(post.author_id) : null
   const publishedDate = post.published_at
     ? new Date(post.published_at)
     : null
   const formattedDate = publishedDate
-    ? publishedDate.toLocaleDateString('en-US', {
-        month: 'long',
-        day: 'numeric',
-        year: 'numeric',
-      })
+    ? publishedDate.toLocaleDateString(
+        lang === 'es' ? 'es-ES' : 'en-US',
+        { month: 'long', day: 'numeric', year: 'numeric' }
+      )
     : null
   const postUrl = `${BASE_URL}/blog/${post.slug}`
 

@@ -8,10 +8,12 @@ import remarkGfm from 'remark-gfm'
 import rehypeRaw from 'rehype-raw'
 import { createSupabaseBrowserClient } from '@/lib/supabase'
 import { getCurrentUser } from '@/lib/profile'
+import { useLanguage } from '@/lib/i18n'
 
 export default function NewPostPage() {
   const router = useRouter()
   const supabase = useMemo(() => createSupabaseBrowserClient(), [])
+  const { lang } = useLanguage()
   const [title, setTitle] = useState('')
   const [excerpt, setExcerpt] = useState('')
   const [body, setBody] = useState('')
@@ -96,6 +98,7 @@ export default function NewPostPage() {
         },
         body: JSON.stringify({
           slug,
+          lang,
           title: title.trim(),
           excerpt: excerpt.trim(),
           body_md: body,

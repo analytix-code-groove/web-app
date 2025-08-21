@@ -13,7 +13,7 @@ type Post = {
 }
 
 export default function BlogClient() {
-  const { t } = useLanguage()
+  const { t, lang } = useLanguage()
   const [posts, setPosts] = useState<Post[]>([])
   const [canCreate, setCanCreate] = useState(false)
   const supabase = useMemo(() => createSupabaseBrowserClient(), [])
@@ -21,7 +21,7 @@ export default function BlogClient() {
   useEffect(() => {
       async function load() {
         try {
-          const res = await fetch('/api/posts')
+          const res = await fetch(`/api/posts?lang=${lang}`)
           if (res.ok) {
             const { items } = await res.json()
             setPosts(items ?? [])
@@ -43,7 +43,7 @@ export default function BlogClient() {
         }
       }
     load()
-  }, [supabase])
+  }, [supabase, lang])
 
   const [firstPost, ...otherPosts] = posts
 
