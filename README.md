@@ -65,15 +65,16 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 
 ## Publishing blog posts
 
-Posts can be created from the `/blog/new` page which provides fields for the title, excerpt, tags, Markdown body and an optional image upload. The image is stored in the Supabase `posts` storage bucket under a folder for the current user's UUID and automatically linked to the post.
+Posts can be created from the `/blog/new` page which provides fields for the title, excerpt, tags, Markdown body and an optional image upload. Each post now stores language-specific fields in a separate `post_translations` table, so the page also sends the current interface language. The image is stored in the Supabase `posts` storage bucket under a folder for the current user's UUID and automatically linked to the post.
 
-You can also manage posts through the `/api/posts` endpoints. To publish a new article programmatically, send a `POST` request with the post data:
+You can also manage posts through the `/api/posts` endpoints. To publish a new article programmatically, send a `POST` request with the post data including a `lang` code (`en` or `es`):
 
 ```bash
 curl -X POST http://localhost:3000/api/posts \
   -H 'Content-Type: application/json' \
   -d '{
     "slug": "my-first-post",
+    "lang": "en",
     "title": "My First Post",
     "excerpt": "Short summary shown on the blog list",
     "tags": ["nextjs", "supabase"],
