@@ -6,6 +6,9 @@ import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import rehypeRaw from 'rehype-raw'
 import ShareButtons from '@/components/ShareButtons'
+import { headers } from 'next/headers'
+import fs from 'node:fs'
+import path from 'node:path'
 import { createSupabaseServerClient } from '@/lib/supabase'
 
 export const revalidate = 60 // or: export const dynamic = 'force-dynamic'
@@ -24,6 +27,15 @@ async function fetchPost(slug: string, lang: string) {
   return res.json()
 }
 
+function loadLocalEnv(): Record<string, string> {
+  try {
+    const file = fs.readFileSync(path.join(process.cwd(), 'supabase.local.json'), 'utf8')
+    return JSON.parse(file) as Record<string, string>
+  } catch {
+    return {}
+  }
+}
+
 async function fetchAuthorName(authorId: string) {
   try {
     const supabase = createSupabaseServerClient()
@@ -38,7 +50,6 @@ async function fetchAuthorName(authorId: string) {
       return null
     }
     return data?.full_name ?? null
-
   } catch (e) {
     console.error('Unexpected author fetch error', e)
     return null
@@ -93,11 +104,10 @@ export default async function BlogPostPage(
     ? new Date(post.published_at)
     : null
   const formattedDate = publishedDate
-    ? publishedDate.toLocaleDateString('en-US', {
-        month: 'long',
-        day: 'numeric',
-        year: 'numeric',
-      })
+    ? publishedDate.toLocaleDateString(
+        lang === 'es' ? 'es-ES' : 'en-US',
+        { month: 'long', day: 'numeric', year: 'numeric' }
+      )
     : null
   const postUrl = `${BASE_URL}/blog/${post.slug}`
 
