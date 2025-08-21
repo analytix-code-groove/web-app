@@ -1,41 +1,61 @@
+// src/lib/supabase.ts
 import { createClient, type SupabaseClient } from '@supabase/supabase-js'
-import supabaseConfig from '../../supabase.local.json'
 
 /**
- * Create a Supabase client for use in the browser. Uses the public anon key.
+ * Reads Supabase public config from env.
+ * - NEXT_PUBLIC_SUPABASE_URL
+ * - NEXT_PUBLIC_SUPABASE_ANON_KEY
  */
-export function createSupabaseBrowserClient(): SupabaseClient {
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? supabaseConfig.SUPABASE_URL
-  const supabaseAnonKey =
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? supabaseConfig.SUPABASE_ANON_KEY
+function getPublicConfig() {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 
   if (!supabaseUrl || !supabaseAnonKey) {
-    throw new Error('Missing Supabase environment variables')
+    // Fallback only in local dev
+    try {
+      const config = require('../../supabase.local.json')
+      return { supabaseUrl: config.SUPABASE_URL, supabaseAnonKey: config.SUPABASE_ANON_KEY }
+    } catch {
+      throw new Error(
+        'Missing Supabase config. Set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY.'
+      )
+    }
   }
 
+  return { supabaseUrl, supabaseAnonKey }
+}
+
+/** Browser/client usage (always anon key) */
+export function createSupabaseBrowserClient(): SupabaseClient {
+  const { supabaseUrl, supabaseAnonKey } = getPublicConfig()
   return createClient(supabaseUrl, supabaseAnonKey)
 }
 
 /**
- * Create a Supabase client for server-side usage. Accepts an optional access
- * token so queries run with the caller's RLS context.
+ * Server-side usage with caller's JWT (RLS context).
+ * Pass the user's access token if you want queries to run as that user.
  */
 export function createSupabaseServerClient(token?: string): SupabaseClient {
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? supabaseConfig.SUPABASE_URL
-  const supabaseAnonKey =
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? supabaseConfig.SUPABASE_ANON_KEY
-
-  if (!supabaseUrl || !supabaseAnonKey) {
-    throw new Error('Missing Supabase environment variables')
-  }
-
+  const { supabaseUrl, supabaseAnonKey } = getPublicConfig()
   return createClient(supabaseUrl, supabaseAnonKey, {
     global: {
-      headers: token
-        ? {
-            Authorization: `Bearer ${token}`,
-          }
-        : {},
+      headers: token ? { Authorization: `Bearer ${token}` } : {},
     },
   })
 }
+
+/**
+ * (Optional) Server-only admin client using the service-role key.
+ * Never import or use this in client components.
+ */
+// export function createSupabaseAdminClient(): SupabaseClient {
+//   if (typeof window !== 'undefined') {
+//     throw new Error('createSupabaseAdminClient must only run on the server.')
+//   }
+//   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? ''
+//   const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY ?? ''
+//   if (!supabaseUrl || !serviceKey) {
+//     throw new Error('Missing SUPABASE_SERVICE_ROLE_KEY or URL.')
+//   }
+//   return createClient(supabaseUrl, serviceKey)
+// }

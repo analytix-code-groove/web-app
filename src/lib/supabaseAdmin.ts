@@ -1,10 +1,19 @@
+// src/lib/supabase-admin.ts (server-only)
 import { createClient, type SupabaseClient } from '@supabase/supabase-js'
-import fs from 'node:fs'
-import path from 'node:path'
+
+// Detect Node (not edge, not browser)
+function isNodeRuntime() {
+  // NEXT_RUNTIME is 'nodejs' or 'edge' when set by Next.js
+  return typeof window === 'undefined' && process.env.NEXT_RUNTIME !== 'edge'
+}
 
 function loadLocalEnv(): Record<string, string> {
+  if (process.env.NODE_ENV === 'production' || !isNodeRuntime()) return {}
   try {
-    const file = fs.readFileSync(path.join(process.cwd(), 'supabase.local.json'), 'utf8')
+    // Only read locally in dev to avoid Vercel/edge issues
+    const { readFileSync } = require('node:fs') as typeof import('node:fs')
+    const { join } = require('node:path') as typeof import('node:path')
+    const file = readFileSync(join(process.cwd(), 'supabase.local.json'), 'utf8')
     return JSON.parse(file) as Record<string, string>
   } catch {
     return {}
@@ -12,17 +21,30 @@ function loadLocalEnv(): Record<string, string> {
 }
 
 /**
- * Create a Supabase client with the service-role key. This should only be used
- * for trusted server-side jobs and must never run in the browser.
+ * Server-only admin client using service-role key.
+ * - Requires SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY in env on Vercel.
+ * - Falls back to supabase.local.json only in local dev.
  */
 export function createSupabaseAdminClient(): SupabaseClient {
-  const localEnv = loadLocalEnv()
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? localEnv['SUPABASE_URL']
-  const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY ?? localEnv['SUPABASE_SERVICE_ROLE_KEY']
-
-  if (!supabaseUrl || !supabaseServiceKey) {
-    throw new Error('Missing Supabase environment variables')
+  if (!isNodeRuntime()) {
+    throw new Error('createSupabaseAdminClient must run in the Node runtime (server only).')
   }
 
-  return createClient(supabaseUrl, supabaseServiceKey)
+  const local = loadLocalEnv()
+
+  const supabaseUrl =
+    process.env.SUPABASE_URL ||
+    process.env.NEXT_PUBLIC_SUPABASE_URL || // optional fallback
+    local['SUPABASE_URL']
+
+  const serviceKey =
+    process.env.SUPABASE_SERVICE_ROLE_KEY || local['SUPABASE_SERVICE_ROLE_KEY']
+
+  if (!supabaseUrl || !serviceKey) {
+    throw new Error(
+      'Missing Supabase envs. Set SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY (and NEVER expose the service key to the browser).'
+    )
+  }
+
+  return createClient(supabaseUrl, serviceKey)
 }
