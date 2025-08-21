@@ -78,6 +78,7 @@ create policy "profiles_self_read"
 on api.profiles for select
 using (id = auth.uid() or api.is_admin());
 
+
 drop policy if exists "profiles_self_insert" on api.profiles;
 create policy "profiles_self_insert"
 on api.profiles for insert
@@ -213,6 +214,13 @@ select
   t.name as tag_name
 from content.post_tags pt
 join content.tags t on t.id = pt.tag_id;
+
+-- VIEW exposing public author info
+drop view if exists content.vw_authors_public;
+create view content.vw_authors_public as
+select p.id, p.full_name
+from api.profiles p
+where p.role = 'author';
 
 -- =========================================================
 -- RLS: TAGS

@@ -6,9 +6,7 @@ import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import rehypeRaw from 'rehype-raw'
 import ShareButtons from '@/components/ShareButtons'
-import { headers } from 'next/headers'
-import fs from 'node:fs'
-import path from 'node:path'
+import { createSupabaseServerClient } from '@/lib/supabase'
 
 export const revalidate = 60 // or: export const dynamic = 'force-dynamic'
 
@@ -26,38 +24,21 @@ async function fetchPost(slug: string, lang: string) {
   return res.json()
 }
 
-function loadLocalEnv(): Record<string, string> {
-  try {
-    const file = fs.readFileSync(path.join(process.cwd(), 'supabase.local.json'), 'utf8')
-    return JSON.parse(file) as Record<string, string>
-  } catch {
-    return {}
-  }
-}
-
 async function fetchAuthorName(authorId: string) {
   try {
-    const localEnv = loadLocalEnv()
-    const supabaseUrl =
-      process.env.NEXT_PUBLIC_SUPABASE_URL ?? localEnv['SUPABASE_URL']
-    const serviceKey =
-      process.env.SUPABASE_SERVICE_ROLE_KEY ??
-      localEnv['SUPABASE_SERVICE_ROLE_KEY']
-    if (!supabaseUrl || !serviceKey) return null
-    const url = `${supabaseUrl}/rest/v1/profiles?id=eq.${authorId}&select=full_name`
-    const res = await fetch(url, {
-      headers: {
-        apikey: serviceKey,
-        Authorization: `Bearer ${serviceKey}`,
-      },
-      cache: 'no-store',
-    })
-    if (!res.ok) {
-      console.error('Failed to load author', await res.text())
+    const supabase = createSupabaseServerClient()
+    const { data, error } = await supabase
+      .schema('content')
+      .from('vw_authors_public')
+      .select('full_name')
+      .eq('id', authorId)
+      .single()
+    if (error) {
+      console.error('Failed to load author', error)
       return null
     }
-    const rows: Array<{ full_name: string | null }> = await res.json()
-    return rows[0]?.full_name ?? null
+    return data?.full_name ?? null
+
   } catch (e) {
     console.error('Unexpected author fetch error', e)
     return null
@@ -112,10 +93,11 @@ export default async function BlogPostPage(
     ? new Date(post.published_at)
     : null
   const formattedDate = publishedDate
-    ? publishedDate.toLocaleDateString(
-        lang === 'es' ? 'es-ES' : 'en-US',
-        { month: 'long', day: 'numeric', year: 'numeric' }
-      )
+    ? publishedDate.toLocaleDateString('en-US', {
+        month: 'long',
+        day: 'numeric',
+        year: 'numeric',
+      })
     : null
   const postUrl = `${BASE_URL}/blog/${post.slug}`
 

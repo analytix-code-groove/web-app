@@ -21,3 +21,4 @@ alter default privileges in schema content
   grant usage, select on sequences to authenticated;
 
 grant select on table api.profiles to authenticated;
+grant select on table content.vw_authors_public to anon, authenticated;
