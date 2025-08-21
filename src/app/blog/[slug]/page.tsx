@@ -59,7 +59,7 @@ export async function generateMetadata(
   { params }: { params: Promise<Params> }
 ): Promise<Metadata> {
   const { slug } = await params
-  const cookieStore = cookies()
+  const cookieStore = await cookies()
   const cookieLang = cookieStore.get('lang')?.value
   const headersList = await headers()
   const langHeader = headersList.get('accept-language')?.toLowerCase() ?? ''
@@ -97,7 +97,7 @@ export default async function BlogPostPage(
   { params }: { params: Promise<Params> }
 ) {
   const { slug } = await params
-  const cookieStore = cookies()
+  const cookieStore = await cookies()
   const cookieLang = cookieStore.get('lang')?.value
   const headersList = await headers()
   const langHeader = headersList.get('accept-language')?.toLowerCase() ?? ''
