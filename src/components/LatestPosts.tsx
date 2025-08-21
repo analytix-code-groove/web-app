@@ -11,13 +11,13 @@ type Post = {
 }
 
 export default function LatestPosts() {
-  const { t } = useLanguage()
+  const { t, lang } = useLanguage()
   const [posts, setPosts] = useState<Post[]>([])
 
   useEffect(() => {
     async function load() {
       try {
-        const res = await fetch('/api/posts')
+        const res = await fetch(`/api/posts?lang=${lang}`)
         if (res.ok) {
           const { items } = await res.json()
           setPosts(items ?? [])
@@ -27,7 +27,7 @@ export default function LatestPosts() {
       }
     }
     load()
-  }, [])
+  }, [lang])
 
   const firstTwo = posts.slice(0, 2)
   const rest = posts.slice(2)
