@@ -1,27 +1,17 @@
 // app/api/contact/route.ts
 import { NextResponse } from 'next/server'
-import fs from 'node:fs'
-import path from 'node:path'
 
+// Ensure Node runtime (not Edge)
 export const runtime = 'nodejs'
 
 // ─────────────────────────────────────────────
-// Local env loader (prefers supabase.local.json)
+// Env helper (process.env only — no local files)
 // ─────────────────────────────────────────────
-let localEnv: Record<string, string> | null = null
-function loadLocalEnv() {
-  if (localEnv) return localEnv
-  try {
-    const file = fs.readFileSync(path.join(process.cwd(), 'supabase.local.json'), 'utf8')
-    localEnv = JSON.parse(file) as Record<string, string>
-  } catch {
-    localEnv = {}
-  }
-  return localEnv
-}
 function env(name: string, def?: string) {
-  const v = (loadLocalEnv()[name] ?? process.env[name] ?? def)
-  if (v === undefined || v === null) throw new Error(`Missing env: ${name}`)
+  const v = process.env[name] ?? def
+  if (v === undefined || v === null || String(v).trim() === '') {
+    throw new Error(`Missing env: ${name}`)
+  }
   return String(v).trim()
 }
 
@@ -57,14 +47,17 @@ async function getGraphToken(): Promise<string> {
     scope: 'https://graph.microsoft.com/.default',
     grant_type: 'client_credentials',
   })
+
   const r = await fetch(`https://login.microsoftonline.com/${TENANT_ID}/oauth2/v2.0/token`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     body,
   })
+
   if (!r.ok) throw new Error(`Token error ${r.status}: ${await r.text()}`)
   const j = (await r.json()) as { access_token?: string; expires_in?: number }
   if (!j.access_token) throw new Error('No access_token from Graph')
+
   tokenCache = { accessToken: j.access_token, exp: now + (j.expires_in ?? 3600) }
   return j.access_token
 }
@@ -83,7 +76,7 @@ async function graphSendMail(params: {
   const token = await getGraphToken()
 
   const bodyContent =
-    params.html != null && params.html.trim() !== ''
+    params.html && params.html.trim() !== ''
       ? { contentType: 'HTML', content: params.html }
       : { contentType: 'Text', content: params.text ?? '' }
 
@@ -93,7 +86,6 @@ async function graphSendMail(params: {
       body: bodyContent,
       toRecipients: [{ emailAddress: { address: params.to } }],
       replyTo: params.replyTo ? [{ emailAddress: { address: params.replyTo } }] : [],
-      // From is implied by calling /users/{from}/sendMail
     },
     saveToSentItems: true,
   }
@@ -117,25 +109,16 @@ async function graphSendMail(params: {
 }
 
 // ─────────────────────────────────────────────
-// Handler
+// Utilities
 // ─────────────────────────────────────────────
 function escapeHtml(str: string) {
-  return str.replace(/[&<>'"]/g, c => {
-    switch (c) {
-      case '&':
-        return '&amp;'
-      case '<':
-        return '&lt;'
-      case '>':
-        return '&gt;'
-      case '"':
-        return '&quot;'
-      case "'":
-        return '&#39;'
-      default:
-        return c
-    }
-  })
+  return str.replace(/[&<>'"]/g, c =>
+    c === '&' ? '&amp;'
+    : c === '<' ? '&lt;'
+    : c === '>' ? '&gt;'
+    : c === '"' ? '&quot;'
+    : '&#39;'
+  )
 }
 
 function formatContactEmail(
@@ -190,6 +173,9 @@ function formatContactEmail(
   return { text, html }
 }
 
+// ─────────────────────────────────────────────
+// Handler
+// ─────────────────────────────────────────────
 export async function POST(req: Request) {
   try {
     const { name = '', email = '', reason = 'general', message = '' } = await req.json()
@@ -215,9 +201,6 @@ export async function POST(req: Request) {
   } catch (err) {
     console.error('Error sending contact email', err)
     const message = err instanceof Error ? err.message : String(err)
-    return NextResponse.json(
-      { success: false, error: message },
-      { status: 500 }
-    )
+    return NextResponse.json({ success: false, error: message }, { status: 500 })
   }
 }

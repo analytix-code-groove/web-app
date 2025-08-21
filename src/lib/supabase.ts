@@ -11,15 +11,9 @@ function getPublicConfig() {
   const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 
   if (!supabaseUrl || !supabaseAnonKey) {
-    // Fallback only in local dev
-    try {
-      const config = require('../../supabase.local.json')
-      return { supabaseUrl: config.SUPABASE_URL, supabaseAnonKey: config.SUPABASE_ANON_KEY }
-    } catch {
-      throw new Error(
-        'Missing Supabase config. Set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY.'
-      )
-    }
+    throw new Error(
+      'Missing Supabase config. Set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY in .env.local or Vercel envs.'
+    )
   }
 
   return { supabaseUrl, supabaseAnonKey }
@@ -48,14 +42,14 @@ export function createSupabaseServerClient(token?: string): SupabaseClient {
  * (Optional) Server-only admin client using the service-role key.
  * Never import or use this in client components.
  */
-// export function createSupabaseAdminClient(): SupabaseClient {
-//   if (typeof window !== 'undefined') {
-//     throw new Error('createSupabaseAdminClient must only run on the server.')
-//   }
-//   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? ''
-//   const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY ?? ''
-//   if (!supabaseUrl || !serviceKey) {
-//     throw new Error('Missing SUPABASE_SERVICE_ROLE_KEY or URL.')
-//   }
-//   return createClient(supabaseUrl, serviceKey)
-// }
+export function createSupabaseAdminClient(): SupabaseClient {
+  if (typeof window !== 'undefined') {
+    throw new Error('createSupabaseAdminClient must only run on the server.')
+  }
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? ''
+  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY ?? ''
+  if (!supabaseUrl || !serviceKey) {
+    throw new Error('Missing SUPABASE_SERVICE_ROLE_KEY or URL.')
+  }
+  return createClient(supabaseUrl, serviceKey)
+}
