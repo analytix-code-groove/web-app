@@ -105,9 +105,9 @@ export default async function BlogPostPage(
     : null
   const formattedDate = publishedDate
     ? publishedDate.toLocaleDateString(
-        lang === 'es' ? 'es-ES' : 'en-US',
-        { month: 'long', day: 'numeric', year: 'numeric' }
-      )
+      lang === 'es' ? 'es-ES' : 'en-US',
+      { month: 'long', day: 'numeric', year: 'numeric' }
+    )
     : null
   const postUrl = `${BASE_URL}/blog/${post.slug}`
 
@@ -121,7 +121,7 @@ export default async function BlogPostPage(
           <div className="relative mt-6 aspect-[16/9] w-full overflow-hidden rounded-md">
             <Image
               src={post.cover_url}
-              alt={post.title}
+              alt={post.title?.trim() || 'Article cover image'}
               fill
               className="object-cover"
               priority
