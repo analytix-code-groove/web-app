@@ -18,7 +18,9 @@ export async function GET(req: Request) {
     const { data, error } = await supabase
       .schema('content')
       .from('posts')
-      .select('slug,cover_url,published_at,post_translations!inner(language_code,title,excerpt)')
+      .select(
+        'slug,cover_url,published_at,post_translations!inner(language_code,title,excerpt,body_md)'
+      )
       .eq('status', 'published')
       .eq('post_translations.language_code', lang)
       .order('published_at', { ascending: false })
@@ -29,18 +31,21 @@ export async function GET(req: Request) {
       slug: string
       cover_url: string | null
       published_at: string | null
-      post_translations: { title: string; excerpt: string | null }[]
+      post_translations: { title: string; excerpt: string | null; body_md: string | null }[]
     }
     const rows = (data ?? []) as Row[]
     const items = rows
       .map(p => {
         const tr = p.post_translations[0]
+        const words = tr?.body_md ? tr.body_md.trim().split(/\s+/).length : 0
+        const readingMinutes = Math.max(1, Math.ceil(words / 200))
         return {
           slug: p.slug,
           title: tr?.title ?? '',
           excerpt: tr?.excerpt ?? '',
           cover_url: p.cover_url,
           published_at: p.published_at,
+          readingMinutes,
         }
       })
       .filter(p => p.title)
