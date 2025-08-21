@@ -15,10 +15,8 @@ type Params = { slug: string }
 const BASE_URL =
   process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
 
-async function fetchPost(slug: string) {
-  const res = await fetch(`${BASE_URL}/api/posts/${slug}`, {
-    // If you kept revalidate above, omit cache here and let ISR handle it.
-    // cache: 'no-store',
+async function fetchPost(slug: string, lang: string) {
+  const res = await fetch(`${BASE_URL}/api/posts/${slug}?lang=${lang}`, {
     next: { revalidate },
   })
   if (res.status === 404) return null
@@ -40,6 +38,7 @@ async function fetchAuthorName(authorId: string) {
       return null
     }
     return data?.full_name ?? null
+
   } catch (e) {
     console.error('Unexpected author fetch error', e)
     return null
@@ -49,7 +48,14 @@ export async function generateMetadata(
   { params }: { params: Promise<Params> }
 ): Promise<Metadata> {
   const { slug } = await params
-  const post = await fetchPost(slug)
+  const headersList = await headers()
+  const langHeader = headersList.get('accept-language')?.toLowerCase() ?? ''
+  let lang: 'en' | 'es' = langHeader.startsWith('es') ? 'es' : 'en'
+  let post = await fetchPost(slug, lang)
+  if (!post && lang === 'es') {
+    lang = 'en'
+    post = await fetchPost(slug, lang)
+  }
   if (!post) return { title: 'Post not found' }
   return {
     title: `${post.title} | Analytix Code Groove`,
@@ -73,7 +79,14 @@ export default async function BlogPostPage(
   { params }: { params: Promise<Params> }
 ) {
   const { slug } = await params
-  const post = await fetchPost(slug)
+  const headersList = await headers()
+  const langHeader = headersList.get('accept-language')?.toLowerCase() ?? ''
+  let lang: 'en' | 'es' = langHeader.startsWith('es') ? 'es' : 'en'
+  let post = await fetchPost(slug, lang)
+  if (!post && lang === 'es') {
+    lang = 'en'
+    post = await fetchPost(slug, lang)
+  }
   if (!post) notFound()
   const authorName = post.author_id ? await fetchAuthorName(post.author_id) : null
   const publishedDate = post.published_at

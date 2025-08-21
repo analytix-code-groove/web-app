@@ -170,9 +170,6 @@ create unique index if not exists ux_tags_slug_lower on content.tags (lower(slug
 
 create table if not exists content.posts (
   slug text primary key,
-  title text not null,
-  excerpt text,
-  body_md text,
   cover_url text,
   status content.post_status not null default 'draft',
   published_at timestamptz,
@@ -184,6 +181,22 @@ create table if not exists content.posts (
 drop trigger if exists trg_posts_updated on content.posts;
 create trigger trg_posts_updated
 before update on content.posts
+for each row execute function api.set_updated_at();
+
+create table if not exists content.post_translations (
+  post_slug text not null references content.posts(slug) on delete cascade,
+  language_code text not null,
+  title text not null,
+  excerpt text,
+  body_md text,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now(),
+  primary key (post_slug, language_code)
+);
+
+drop trigger if exists trg_post_translations_updated on content.post_translations;
+create trigger trg_post_translations_updated
+before update on content.post_translations
 for each row execute function api.set_updated_at();
 
 create table if not exists content.post_tags (
@@ -287,6 +300,89 @@ using (api.is_author_or_admin() and (author_id = auth.uid() or api.is_admin()));
 -- Helpful indexes
 create index if not exists ix_posts_status_pub on content.posts (status, published_at desc);
 create index if not exists idx_posts_author on content.posts (author_id);
+
+-- =========================================================
+-- RLS: POST_TRANSLATIONS
+-- =========================================================
+alter table content.post_translations enable row level security;
+
+-- Public read: only translations of published posts
+drop policy if exists post_translations_public_read on content.post_translations;
+create policy post_translations_public_read
+on content.post_translations for select
+using (
+  exists (
+    select 1 from content.posts p
+    where p.slug = post_slug and p.status = 'published'
+  )
+);
+
+-- Authors/Admins can read translations of their own posts; admins any
+drop policy if exists post_translations_author_read_own on content.post_translations;
+create policy post_translations_author_read_own
+on content.post_translations for select
+to authenticated
+using (
+  api.is_author_or_admin()
+  and exists (
+    select 1 from content.posts p
+    where p.slug = post_slug
+      and (p.author_id = auth.uid() or api.is_admin())
+  )
+);
+
+-- Authors insert translations for their posts; admins any
+drop policy if exists post_translations_author_insert on content.post_translations;
+create policy post_translations_author_insert
+on content.post_translations for insert
+to authenticated
+with check (
+  api.is_author_or_admin()
+  and exists (
+    select 1 from content.posts p
+    where p.slug = post_slug
+      and (p.author_id = auth.uid() or api.is_admin())
+  )
+);
+
+-- Authors update translations for their posts; admins any
+drop policy if exists post_translations_author_update on content.post_translations;
+create policy post_translations_author_update
+on content.post_translations for update
+to authenticated
+using (
+  api.is_author_or_admin()
+  and exists (
+    select 1 from content.posts p
+    where p.slug = post_slug
+      and (p.author_id = auth.uid() or api.is_admin())
+  )
+)
+with check (
+  api.is_author_or_admin()
+  and exists (
+    select 1 from content.posts p
+    where p.slug = post_slug
+      and (p.author_id = auth.uid() or api.is_admin())
+  )
+);
+
+-- Authors delete translations for their posts; admins any
+drop policy if exists post_translations_author_delete on content.post_translations;
+create policy post_translations_author_delete
+on content.post_translations for delete
+to authenticated
+using (
+  api.is_author_or_admin()
+  and exists (
+    select 1 from content.posts p
+    where p.slug = post_slug
+      and (p.author_id = auth.uid() or api.is_admin())
+  )
+);
+
+create index if not exists idx_post_translations_post on content.post_translations (post_slug);
+create index if not exists idx_post_translations_lang on content.post_translations (language_code);
 
 -- =========================================================
 -- RLS: POST_TAGS (join table)
