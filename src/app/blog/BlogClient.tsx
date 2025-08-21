@@ -70,9 +70,7 @@ export default function BlogClient() {
               className="block rounded-xl2 border border-stroke/70 bg-surface p-8 shadow-soft transition hover:border-mint/60"
             >
               <h2 className="text-2xl font-semibold text-text">{firstPost.title}</h2>
-              <p className="mt-1 text-xs text-muted">
-                {firstPost.readingMinutes} {t('minRead')}
-              </p>
+              <p className="mt-1 text-xs text-muted">{firstPost.readingMinutes} {t('minRead')}</p>
               <p className="mt-2 text-sm text-muted">{firstPost.excerpt}</p>
               <p className="mt-1 text-xs text-muted">
                 {firstPost.readingMinutes} {t('minRead')}
