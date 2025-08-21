@@ -8,6 +8,7 @@ type Post = {
   slug: string
   title: string
   excerpt: string
+  readingMinutes: number
 }
 
 export default function LatestPosts() {
@@ -46,6 +47,7 @@ export default function LatestPosts() {
               className="group rounded-xl2 border border-stroke/70 bg-surface p-6 shadow-soft transition hover:border-mint/60"
             >
               <h3 className="text-lg font-semibold text-text group-hover:text-mint">{p.title}</h3>
+              <p className="mt-1 text-xs text-muted">{p.readingMinutes} {t('minRead')}</p>
               <p className="mt-2 text-sm text-muted">{p.excerpt}</p>
               <span className="mt-4 inline-block text-sm text-mint">{t('readMore')}</span>
             </Link>
@@ -60,6 +62,7 @@ export default function LatestPosts() {
                 className="group rounded-xl2 border border-stroke/70 bg-surface p-6 shadow-soft transition hover:border-mint/60"
               >
                 <h3 className="text-lg font-semibold text-text group-hover:text-mint">{p.title}</h3>
+                <p className="mt-1 text-xs text-muted">{p.readingMinutes} {t('minRead')}</p>
                 <p className="mt-2 text-sm text-muted">{p.excerpt}</p>
                 <span className="mt-4 inline-block text-sm text-mint">{t('readMore')}</span>
               </Link>
