@@ -1,19 +1,18 @@
-// src/lib/supabase-admin.ts (server-only)
+// src/lib/supabase-admin.ts
+import 'server-only'
 import { createClient, type SupabaseClient } from '@supabase/supabase-js'
+import fs from 'node:fs'
+import path from 'node:path'
 
 // Detect Node (not edge, not browser)
 function isNodeRuntime() {
-  // NEXT_RUNTIME is 'nodejs' or 'edge' when set by Next.js
   return typeof window === 'undefined' && process.env.NEXT_RUNTIME !== 'edge'
 }
 
 function loadLocalEnv(): Record<string, string> {
   if (process.env.NODE_ENV === 'production' || !isNodeRuntime()) return {}
   try {
-    // Only read locally in dev to avoid Vercel/edge issues
-    const { readFileSync } = require('node:fs') as typeof import('node:fs')
-    const { join } = require('node:path') as typeof import('node:path')
-    const file = readFileSync(join(process.cwd(), 'supabase.local.json'), 'utf8')
+    const file = fs.readFileSync(path.join(process.cwd(), 'supabase.local.json'), 'utf8')
     return JSON.parse(file) as Record<string, string>
   } catch {
     return {}
@@ -34,7 +33,7 @@ export function createSupabaseAdminClient(): SupabaseClient {
 
   const supabaseUrl =
     process.env.SUPABASE_URL ||
-    process.env.NEXT_PUBLIC_SUPABASE_URL || // optional fallback
+    process.env.NEXT_PUBLIC_SUPABASE_URL ||
     local['SUPABASE_URL']
 
   const serviceKey =
