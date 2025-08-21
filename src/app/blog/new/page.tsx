@@ -5,6 +5,7 @@ import { useState, FormEvent, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
+import rehypeRaw from 'rehype-raw'
 import { createSupabaseBrowserClient } from '@/lib/supabase'
 import { getCurrentUser } from '@/lib/profile'
 
@@ -193,7 +194,10 @@ export default function NewPostPage() {
               )}
               <p className="mt-4 text-muted">{excerpt}</p>
               <div className="mt-4 prose prose-sm dark:prose-invert max-w-none">
-                <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                <ReactMarkdown
+                  remarkPlugins={[remarkGfm]}
+                  rehypePlugins={[rehypeRaw]}
+                >
                   {body}
                 </ReactMarkdown>
               </div>
