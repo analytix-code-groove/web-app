@@ -8,6 +8,7 @@ type Post = {
   slug: string
   title: string
   excerpt: string
+  readingMinutes: number
 }
 
 export default function LatestPosts() {
