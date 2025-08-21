@@ -220,7 +220,7 @@ drop view if exists content.vw_authors_public;
 create view content.vw_authors_public as
 select p.id, p.full_name
 from api.profiles p
-where p.role = 'author';
+where p.role in ('author','admin');
 
 -- =========================================================
 -- RLS: TAGS
