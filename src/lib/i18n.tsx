@@ -1,6 +1,7 @@
 'use client'
 
 import { createContext, useContext, useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 type Language = 'en' | 'es'
 
@@ -340,6 +341,7 @@ const LanguageContext = createContext<LanguageContextProps | undefined>(
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const [lang, setLangState] = useState<Language>('en')
+  const router = useRouter()
 
   useEffect(() => {
     const stored = localStorage.getItem('lang') as Language | null
@@ -366,7 +368,11 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   }, [lang])
 
   const setLang = (l: Language) => {
+    document.documentElement.lang = l
+    localStorage.setItem('lang', l)
+    document.cookie = `lang=${l}; path=/`
     setLangState(l)
+    router.refresh()
   }
 
   const t = (key: string) => translations[lang][key] ?? key
