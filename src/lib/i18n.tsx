@@ -370,6 +370,9 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   }, [lang])
 
   const setLang = (l: Language) => {
+    document.documentElement.lang = l
+    localStorage.setItem('lang', l)
+    document.cookie = `lang=${l}; path=/`
     setLangState(l)
     router.refresh()
   }
