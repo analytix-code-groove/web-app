@@ -5,6 +5,8 @@ import Image from 'next/image'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import rehypeRaw from 'rehype-raw'
+import ShareButtons from '@/components/ShareButtons'
+import { createSupabaseServerClient } from '@/lib/supabase'
 
 export const revalidate = 60 // or: export const dynamic = 'force-dynamic'
 
@@ -24,6 +26,25 @@ async function fetchPost(slug: string) {
   return res.json()
 }
 
+async function fetchAuthorName(authorId: string) {
+  try {
+    const supabase = createSupabaseServerClient()
+    const { data, error } = await supabase
+      .schema('content')
+      .from('vw_authors_public')
+      .select('full_name')
+      .eq('id', authorId)
+      .single()
+    if (error) {
+      console.error('Failed to load author', error)
+      return null
+    }
+    return data?.full_name ?? null
+  } catch (e) {
+    console.error('Unexpected author fetch error', e)
+    return null
+  }
+}
 export async function generateMetadata(
   { params }: { params: Promise<Params> }
 ): Promise<Metadata> {
@@ -54,33 +75,58 @@ export default async function BlogPostPage(
   const { slug } = await params
   const post = await fetchPost(slug)
   if (!post) notFound()
+  const authorName = post.author_id ? await fetchAuthorName(post.author_id) : null
+  const publishedDate = post.published_at
+    ? new Date(post.published_at)
+    : null
+  const formattedDate = publishedDate
+    ? publishedDate.toLocaleDateString('en-US', {
+        month: 'long',
+        day: 'numeric',
+        year: 'numeric',
+      })
+    : null
+  const postUrl = `${BASE_URL}/blog/${post.slug}`
 
   return (
-    <main className="mx-auto max-w-3xl px-4 py-16">
-      <h1 className="font-heading text-3xl font-semibold text-text">{post.title}</h1>
-      {post.excerpt && <p className="mt-2 text-muted">{post.excerpt}</p>}
+    <main className="mx-auto max-w-5xl px-4 py-16 lg:flex lg:gap-8">
+      <article className="flex-1">
+        <h1 className="font-heading text-3xl font-semibold text-text">{post.title}</h1>
+        {post.excerpt && <p className="mt-2 text-muted">{post.excerpt}</p>}
 
-      {post.cover_url && (
-        <div className="relative mt-6 aspect-[16/9] w-full overflow-hidden rounded-md">
-          <Image
-            src={post.cover_url}
-            alt={post.title}
-            fill
-            className="object-cover"
-            priority
-            sizes="(max-width: 768px) 100vw, 768px"
-          />
-        </div>
-      )}
+        {post.cover_url && (
+          <div className="relative mt-6 aspect-[16/9] w-full overflow-hidden rounded-md">
+            <Image
+              src={post.cover_url}
+              alt={post.title}
+              fill
+              className="object-cover"
+              priority
+              sizes="(max-width: 768px) 100vw, 768px"
+            />
+          </div>
+        )}
 
-      <article className="prose prose-neutral dark:prose-invert mt-8 max-w-none">
-        <ReactMarkdown
-          remarkPlugins={[remarkGfm]}
-          rehypePlugins={[rehypeRaw]}
-        >
-          {post.body_md ?? ''}
-        </ReactMarkdown>
+        <article className="prose prose-neutral dark:prose-invert mt-8 max-w-none">
+          <ReactMarkdown
+            remarkPlugins={[remarkGfm]}
+            rehypePlugins={[rehypeRaw]}
+          >
+            {post.body_md ?? ''}
+          </ReactMarkdown>
+        </article>
       </article>
+
+      <aside className="mt-8 lg:mt-0 lg:w-64 lg:flex-shrink-0">
+        {formattedDate && <p className="text-sm text-muted">{formattedDate}</p>}
+        {authorName && (
+          <p className="mt-2 text-sm text-muted">Published by {authorName}</p>
+        )}
+        <div className="mt-8">
+          <p className="text-xs font-semibold uppercase text-muted">Share this article</p>
+          <ShareButtons url={postUrl} title={post.title} />
+        </div>
+      </aside>
     </main>
   )
 }
