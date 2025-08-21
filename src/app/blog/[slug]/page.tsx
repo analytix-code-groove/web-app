@@ -6,7 +6,7 @@ import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import rehypeRaw from 'rehype-raw'
 import ShareButtons from '@/components/ShareButtons'
-import { headers } from 'next/headers'
+import { headers, cookies } from 'next/headers'
 import fs from 'node:fs'
 import path from 'node:path'
 import { createSupabaseServerClient } from '@/lib/supabase'
@@ -59,9 +59,16 @@ export async function generateMetadata(
   { params }: { params: Promise<Params> }
 ): Promise<Metadata> {
   const { slug } = await params
+  const cookieStore = cookies()
+  const cookieLang = cookieStore.get('lang')?.value
   const headersList = await headers()
   const langHeader = headersList.get('accept-language')?.toLowerCase() ?? ''
-  let lang: 'en' | 'es' = langHeader.startsWith('es') ? 'es' : 'en'
+  let lang: 'en' | 'es' =
+    cookieLang === 'es' || cookieLang === 'en'
+      ? cookieLang
+      : langHeader.startsWith('es')
+        ? 'es'
+        : 'en'
   let post = await fetchPost(slug, lang)
   if (!post && lang === 'es') {
     lang = 'en'
@@ -90,9 +97,16 @@ export default async function BlogPostPage(
   { params }: { params: Promise<Params> }
 ) {
   const { slug } = await params
+  const cookieStore = cookies()
+  const cookieLang = cookieStore.get('lang')?.value
   const headersList = await headers()
   const langHeader = headersList.get('accept-language')?.toLowerCase() ?? ''
-  let lang: 'en' | 'es' = langHeader.startsWith('es') ? 'es' : 'en'
+  let lang: 'en' | 'es' =
+    cookieLang === 'es' || cookieLang === 'en'
+      ? cookieLang
+      : langHeader.startsWith('es')
+        ? 'es'
+        : 'en'
   let post = await fetchPost(slug, lang)
   if (!post && lang === 'es') {
     lang = 'en'

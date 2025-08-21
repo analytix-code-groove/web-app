@@ -345,19 +345,28 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     const stored = localStorage.getItem('lang') as Language | null
     if (stored) {
       setLangState(stored)
-    } else {
-      const browser = navigator.language.slice(0, 2)
-      if (browser === 'es') setLangState('es')
+      return
     }
+    const cookieMatch = document.cookie.match(/(^| )lang=([^;]+)/)
+    if (cookieMatch) {
+      const value = cookieMatch[2] as Language
+      if (value === 'es' || value === 'en') {
+        setLangState(value)
+        return
+      }
+    }
+    const browser = navigator.language.slice(0, 2)
+    if (browser === 'es') setLangState('es')
   }, [])
 
   useEffect(() => {
     document.documentElement.lang = lang
+    localStorage.setItem('lang', lang)
+    document.cookie = `lang=${lang}; path=/`
   }, [lang])
 
   const setLang = (l: Language) => {
     setLangState(l)
-    localStorage.setItem('lang', l)
   }
 
   const t = (key: string) => translations[lang][key] ?? key
