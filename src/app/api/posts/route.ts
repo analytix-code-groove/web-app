@@ -29,16 +29,21 @@ export async function GET(req: Request) {
       slug: string
       cover_url: string | null
       published_at: string | null
-      post_translations: { title: string; excerpt: string | null }
+      post_translations: { title: string; excerpt: string | null }[]
     }
     const rows = (data ?? []) as Row[]
-    const items = rows.map(p => ({
-      slug: p.slug,
-      title: p.post_translations.title,
-      excerpt: p.post_translations.excerpt,
-      cover_url: p.cover_url,
-      published_at: p.published_at,
-    }))
+    const items = rows
+      .map(p => {
+        const tr = p.post_translations[0]
+        return {
+          slug: p.slug,
+          title: tr?.title ?? '',
+          excerpt: tr?.excerpt ?? '',
+          cover_url: p.cover_url,
+          published_at: p.published_at,
+        }
+      })
+      .filter(p => p.title)
     return NextResponse.json({ items })
   } catch (e) {
     const message = e instanceof Error ? e.message : 'Unexpected error'
