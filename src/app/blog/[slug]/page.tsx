@@ -7,8 +7,6 @@ import remarkGfm from 'remark-gfm'
 import rehypeRaw from 'rehype-raw'
 import ShareButtons from '@/components/ShareButtons'
 import { headers, cookies } from 'next/headers'
-import fs from 'node:fs'
-import path from 'node:path'
 import { createSupabaseServerClient } from '@/lib/supabase'
 
 export const revalidate = 60 // or: export const dynamic = 'force-dynamic'
@@ -25,15 +23,6 @@ async function fetchPost(slug: string, lang: string) {
   if (res.status === 404) return null
   if (!res.ok) throw new Error(`Failed to load post: ${res.status}`)
   return res.json()
-}
-
-function loadLocalEnv(): Record<string, string> {
-  try {
-    const file = fs.readFileSync(path.join(process.cwd(), 'supabase.local.json'), 'utf8')
-    return JSON.parse(file) as Record<string, string>
-  } catch {
-    return {}
-  }
 }
 
 async function fetchAuthorName(authorId: string) {
