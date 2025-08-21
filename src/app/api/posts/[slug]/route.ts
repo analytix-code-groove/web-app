@@ -37,17 +37,18 @@ export async function GET(req: Request, ctx: Ctx) {
       title: string
       excerpt: string | null
       body_md: string | null
-    }
+    }[]
   }
   const row = data as Row
+  const tr = row.post_translations[0]
   return NextResponse.json({
     slug: row.slug,
     cover_url: row.cover_url,
     published_at: row.published_at,
     author_id: row.author_id,
     status: row.status,
-    title: row.post_translations.title,
-    excerpt: row.post_translations.excerpt,
-    body_md: row.post_translations.body_md,
+    title: tr?.title,
+    excerpt: tr?.excerpt,
+    body_md: tr?.body_md,
   })
 }
