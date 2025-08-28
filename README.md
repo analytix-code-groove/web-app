@@ -43,23 +43,27 @@ Create a `supabase.local.json` file in the project root (start from `supabase.lo
 {
   "SUPABASE_URL": "https://your-project.supabase.co",
   "SUPABASE_ANON_KEY": "your-supabase-anon-key",
+  "SUPABASE_SERVICE_ROLE_KEY": "your-service-role-key",
+  "SUPABASE_CALLBACK_URL": "https://your-project.supabase.co/auth/v1/callback",
+
   "GITHUB_APP_NAME": "AnalytixCG (Dev)",
   "GITHUB_CLIENT_ID": "your-client-id",
   "GITHUB_CLIENT_SECRET": "your-client-secret",
+
   "GOOGLE_APP_NAME": "AnalytixCG (Dev)",
   "GOOGLE_CLIENT_ID": "your-client-id",
   "GOOGLE_CLIENT_SECRET": "your-client-secret",
-  "SUPABASE_CALLBACK_URL": "https://your-project.supabase.co/auth/v1/callback",
+
   "SMTP_HOST": "smtp.office365.com",
   "SMTP_PORT": 587,
   "SMTP_SECURE": false,
   "SMTP_USER": "your-smtp-username",
   "SMTP_PASS": "your-smtp-password",
-"SMTP_FROM": "Analytix Code Groove <info@example.com>",
-"EMAIL_TO_SUPPORT": "support@example.com",
-"EMAIL_TO_INFO": "info@example.com",
-"SUPABASE_SERVICE_ROLE_KEY": "your-service-role-key",
-"ADMIN_SECRET": "change-me"
+  "SMTP_FROM": "Analytix Code Groove <info@example.com>",
+  "EMAIL_TO_SUPPORT": "support@example.com",
+  "EMAIL_TO_INFO": "info@example.com",
+
+  "ADMIN_SECRET": "change-me"
 }
 ```
 
@@ -113,7 +117,7 @@ curl -X POST http://localhost:3000/api/posts \
     "title": "My First Post",
     "excerpt": "Short summary shown on the blog list",
     "tags": ["nextjs", "supabase"],
-    "body_md": "# Hello world\nThis is my first post!",
+    "body_md": "# Hello everyone\nThis is my first post!",
     "cover_url": "https://your-project.supabase.co/storage/v1/object/public/posts/<user-id>/hello.png"
   }'
 ```
