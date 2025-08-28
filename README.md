@@ -4,7 +4,22 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
-First, run the development server:
+Clone the repository and install dependencies:
+
+```bash
+git clone <your-fork-url>
+cd web-app
+npm install
+```
+
+Copy the example configuration files and fill in your own credentials:
+
+```bash
+cp supabase.local.example.json supabase.local.json
+cp .env.example .env.local
+```
+
+Then run the development server:
 
 ```bash
 npm run dev
@@ -22,7 +37,7 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 ## Auth Configuration
 
-Create a `supabase.local.json` file in the project root with your Supabase project credentials, OAuth provider keys, and SMTP settings used by the contact form:
+Create a `supabase.local.json` file in the project root (start from `supabase.local.example.json`) with your Supabase project credentials, OAuth provider keys, and SMTP settings used by the contact form:
 
 ```
 {
@@ -40,13 +55,33 @@ Create a `supabase.local.json` file in the project root with your Supabase proje
   "SMTP_SECURE": false,
   "SMTP_USER": "your-smtp-username",
   "SMTP_PASS": "your-smtp-password",
-  "SMTP_FROM": "Analytix Code Groove <info@example.com>",
-  "EMAIL_TO_SUPPORT": "support@example.com",
-  "EMAIL_TO_INFO": "info@example.com"
+"SMTP_FROM": "Analytix Code Groove <info@example.com>",
+"EMAIL_TO_SUPPORT": "support@example.com",
+"EMAIL_TO_INFO": "info@example.com",
+"SUPABASE_SERVICE_ROLE_KEY": "your-service-role-key",
+"ADMIN_SECRET": "change-me"
 }
 ```
 
 The file is ignored by Git and any values it defines are used only when corresponding environment variables are absent.
+
+You can alternatively set these values in `.env.local`; see `.env.example` for the expected keys.
+
+## Assigning roles
+
+To publish blog posts, your user must have the `admin` or `author` role. The repository exposes a protected endpoint that lets you promote a user when developing locally.
+
+1. Set a secret token in your environment (`ADMIN_SECRET` in `.env.local` or `supabase.local.json`).
+2. Use the `/api/roles` endpoint with that secret to update a user's role:
+
+```bash
+curl -X POST http://localhost:3000/api/roles \
+  -H "Authorization: Bearer $ADMIN_SECRET" \
+  -H "Content-Type: application/json" \
+  -d '{"user_id": "<user-uuid>", "role": "author"}'
+```
+
+Valid roles are `admin`, `author` and `client` (the default). Only requests presenting the correct `ADMIN_SECRET` will succeed.
 
 ## Learn More
 
