@@ -4,6 +4,7 @@ import './globals.css'
 import ClientLayout from '@/components/ClientLayout'
 import { LanguageProvider } from '@/lib/i18n'
 import { Analytics } from '@vercel/analytics/next'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 
 export const metadata: Metadata = {
   title: 'Analytix Code Groove',
@@ -30,6 +31,7 @@ export default function RootLayout({
           <ClientLayout>{children}</ClientLayout>
         </LanguageProvider>
         <Analytics />
+        <SpeedInsights />
         <Script id="lang-init" strategy="beforeInteractive">
           {`document.documentElement.lang = localStorage.getItem('lang') || 'en';`}
         </Script>
