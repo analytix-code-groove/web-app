@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
+import remarkBreaks from 'remark-breaks'
 import rehypeRaw from 'rehype-raw'
 import ShareButtons from '@/components/ShareButtons'
 import { headers, cookies } from 'next/headers'
@@ -135,7 +136,7 @@ export default async function BlogPostPage(
 
         <article className="prose prose-neutral dark:prose-invert mt-8 max-w-none">
           <ReactMarkdown
-            remarkPlugins={[remarkGfm]}
+            remarkPlugins={[remarkGfm, remarkBreaks]}
             rehypePlugins={[rehypeRaw]}
           >
             {post.body_md ?? ''}
