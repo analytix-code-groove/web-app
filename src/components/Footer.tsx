@@ -38,10 +38,10 @@ export default function Footer() {
           </div>
 
           {/* Right column: links, use a 4-col grid with fixed column widths for visual equality */}
-          <div className="px-6">
-            <div className="grid grid-cols-4 gap-x-8 items-start">
+          <div className="md:px-6">
+            <div className="grid grid-cols-1 gap-y-6 gap-x-8 items-start text-center sm:grid-cols-2 md:grid-cols-4 md:text-left">
               {/* Services col 1 */}
-              <div className="w-[11rem]">
+              <div className="mx-auto max-w-[220px] md:mx-0 md:max-w-none">
                 <h3 className="mb-1.5 text-[14px] font-semibold text-text">{t('services')}</h3>
                 <ul className="space-y-1 text-[12px] leading-5 text-muted">
                   {serviceLinks.slice(0, 3).map(s => (
@@ -53,8 +53,8 @@ export default function Footer() {
               </div>
 
               {/* Services col 2 (same width as every other column) */}
-              <div className="w-[11rem] pt-[26px]">
-                {/* pt aligns top line with the first list under the Services heading */}
+              <div className="mx-auto max-w-[220px] md:mx-0 md:max-w-none md:pt-[26px]">
+                {/* pt aligns top line with the first list under the Services heading on larger screens */}
                 <ul className="space-y-1 text-[12px] leading-5 text-muted">
                   {serviceLinks.slice(3).map(s => (
                     <li key={s.href}>
@@ -65,7 +65,7 @@ export default function Footer() {
               </div>
 
               {/* Company */}
-              <div className="w-[11rem]">
+              <div className="mx-auto max-w-[220px] md:mx-0 md:max-w-none">
                 <h3 className="mb-1.5 text-[14px] font-semibold text-text">{t('company')}</h3>
                 <ul className="space-y-1 text-[12px] leading-5 text-muted">
                   {company.map(c => (
@@ -77,7 +77,7 @@ export default function Footer() {
               </div>
 
               {/* Resources */}
-              <div className="w-[11rem]">
+              <div className="mx-auto max-w-[220px] md:mx-0 md:max-w-none">
                 <h3 className="mb-1.5 text-[14px] font-semibold text-text">{t('Resources')}</h3>
                 <ul className="space-y-1 text-[12px] leading-5 text-muted">
                   <li>
@@ -93,7 +93,7 @@ export default function Footer() {
         <div className="mt-8 h-px w-full bg-stroke/60" />
 
         {/* Bottom bar */}
-        <div className="mt-4 flex items-center justify-between text-xs text-muted">
+        <div className="mt-4 flex flex-col items-center gap-3 text-center text-xs text-muted sm:flex-row sm:justify-between sm:text-left">
           <p>© Analytixcg</p>
           <div className="flex items-center gap-2">
             <a
