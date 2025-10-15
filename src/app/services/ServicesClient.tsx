@@ -19,7 +19,7 @@ export default function ServicesClient() {
           <div key={s.slug}>
             <Link
               href={`/services/${s.slug}`}
-              className="group overflow-hidden rounded-xl2 border border-stroke/70 bg-surface shadow-soft transition hover:border-mint/60"
+              className="group overflow-hidden rounded-xl2 bg-surface shadow-soft transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint"
             >
               <div
                 className={`flex flex-col items-center gap-6 p-6 md:flex-row ${
@@ -44,7 +44,7 @@ export default function ServicesClient() {
               </div>
             </Link>
             {idx < services.length - 1 && (
-              <div className="mx-auto mt-12 h-px w-3/4 bg-gradient-to-r from-transparent via-mint to-transparent" />
+              <div className="mx-auto mt-12 h-[0.8px] w-3/4 bg-gradient-to-r from-transparent via-mint to-transparent" />
             )}
           </div>
         ))}
