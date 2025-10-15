@@ -19,7 +19,7 @@ export default function ServicesClient() {
           <div key={s.slug}>
             <Link
               href={`/services/${s.slug}`}
-              className="group overflow-hidden rounded-xl2 border border-stroke/70 bg-surface shadow-soft transition hover:border-mint/60"
+              className="group overflow-hidden rounded-xl2 bg-surface shadow-soft transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint"
             >
               <div
                 className={`flex flex-col items-center gap-6 p-6 md:flex-row ${
