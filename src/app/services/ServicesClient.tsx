@@ -26,11 +26,15 @@ export default function ServicesClient() {
                   idx % 2 === 1 ? 'md:flex-row-reverse' : ''
                 }`}
               >
-                <div className="flex shrink-0 gap-4">
+                <div className="flex shrink-0 gap-3">
                   {(s.cardIcons ?? s.features.slice(0, 3).map(f => f.icon)).map(iconName => {
                     const Icon = (Icons as Record<string, IconType>)[iconName]
                     return Icon ? (
-                      <Icon key={iconName} aria-hidden="true" className="h-10 w-10 text-mint" />
+                      <Icon
+                        key={iconName}
+                        aria-hidden="true"
+                        className="h-[2.125rem] w-[2.125rem] text-mint"
+                      />
                     ) : null
                   })}
                 </div>
