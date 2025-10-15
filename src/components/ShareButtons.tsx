@@ -16,7 +16,7 @@ export default function ShareButtons({ url, title }: ShareButtonsProps) {
   const linkedInHref = `https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}`
 
   return (
-    <div className="mt-3 flex gap-4 text-muted">
+    <div className="mt-3 flex gap-2 text-muted">
       <a
         href={twitterHref}
         target="_blank"
