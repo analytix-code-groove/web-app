@@ -44,7 +44,7 @@ export default function ServicesClient() {
               </div>
             </Link>
             {idx < services.length - 1 && (
-              <div className="mx-auto mt-12 h-px w-3/4 bg-gradient-to-r from-transparent via-mint to-transparent" />
+              <div className="mx-auto mt-12 h-[0.8px] w-3/4 bg-gradient-to-r from-transparent via-mint to-transparent" />
             )}
           </div>
         ))}
