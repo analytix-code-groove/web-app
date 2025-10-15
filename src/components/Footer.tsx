@@ -33,7 +33,7 @@ export default function Footer() {
           {/* Left column: logo */}
           <div className="flex justify-center md:justify-start">
             <Link href="/" aria-label="Analytix Code Groove" className="flex items-center gap-2 md:shrink-0">
-              <Image src={logoFooter} alt="Analytix Code Groove" width={120} height={40} priority />
+              <Image src={logoFooter} alt="Analytix Code Groove" width={102} height={34} priority />
             </Link>
           </div>
 
