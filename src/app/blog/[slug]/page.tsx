@@ -3,9 +3,13 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import ReactMarkdown from 'react-markdown'
+import type { Components } from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import remarkBreaks from 'remark-breaks'
 import rehypeRaw from 'rehype-raw'
+import rehypeSlug from 'rehype-slug'
+import rehypeAutolinkHeadings from 'rehype-autolink-headings'
+import GithubSlugger from 'github-slugger'
 import ShareButtons from '@/components/ShareButtons'
 import { headers, cookies } from 'next/headers'
 import { createSupabaseServerClient } from '@/lib/supabase'
@@ -114,12 +118,116 @@ export default async function BlogPostPage(
     )
     : null
   const postUrl = `${BASE_URL}/blog/${post.slug}`
+  const bodyMd = post.body_md ?? ''
+  const wordCount = bodyMd.trim() ? bodyMd.trim().split(/\s+/).length : 0
+  const readingMinutes = wordCount ? Math.max(1, Math.ceil(wordCount / 200)) : null
+
+  const slugger = new GithubSlugger()
+  slugger.reset()
+  const headings = bodyMd
+    .split('\n')
+    .map(line => {
+      const match = line.match(/^(#{1,6})\s+(.*)$/)
+      if (!match) return null
+      const level = match[1].length
+      if (level === 1) return null
+      const raw = match[2]?.trim().replace(/#+\s*$/, '').trim()
+      if (!raw) return null
+      const text = raw.replace(/\[(.*?)\]\(.*?\)/g, '$1').replace(/[\*_`]/g, '').trim()
+      if (!text) return null
+      const slug = slugger.slug(text)
+      return { level, text, slug }
+    })
+    .filter((item): item is { level: number; text: string; slug: string } => Boolean(item))
+
+  const markdownComponents: Components = {
+    a({ href, ...props }) {
+      const isExternal = href ? /^(?:[a-z]+:)?\/\//i.test(href) : false
+      return (
+        <a
+          href={href ?? '#'}
+          className="font-medium text-primary hover:underline"
+          target={isExternal ? '_blank' : undefined}
+          rel={isExternal ? 'noopener noreferrer' : undefined}
+          {...props}
+        />
+      )
+    },
+    pre({ className, ...props }) {
+      return (
+        <pre
+          className={`mt-4 overflow-x-auto rounded-md bg-muted/60 p-4 text-sm ${className ?? ''}`.trim()}
+          {...props}
+        />
+      )
+    },
+    code({ className, children, ...props }) {
+      const isInline = !className
+      if (isInline) {
+        return (
+          <code className="rounded bg-muted px-1 py-0.5 text-sm" {...props}>
+            {children}
+          </code>
+        )
+      }
+      return (
+        <code className={className} {...props}>
+          {children}
+        </code>
+      )
+    },
+    img({ src, alt, title }) {
+      if (!src) return null
+      const imageAlt = alt || title || 'Article image'
+      return (
+        <span className="mx-auto my-6 block text-center">
+          <span className="block overflow-hidden rounded-md shadow-sm">
+            <Image
+              src={src}
+              alt={imageAlt}
+              width={960}
+              height={540}
+              className="h-auto w-full"
+              sizes="(max-width: 768px) 100vw, 768px"
+            />
+          </span>
+          {title && <span className="mt-2 block text-xs text-muted">{title}</span>}
+        </span>
+      )
+    },
+    blockquote({ className, ...props }) {
+      return (
+        <blockquote
+          className={`border-l-4 border-primary/40 pl-4 italic text-muted ${className ?? ''}`.trim()}
+          {...props}
+        />
+      )
+    },
+  }
+
+  const headingIndent: Record<number, string> = {
+    2: '',
+    3: 'pl-3',
+    4: 'pl-6',
+    5: 'pl-9',
+    6: 'pl-12',
+  }
 
   return (
     <main className="mx-auto max-w-5xl px-4 py-16 lg:flex lg:gap-12">
       <article className="flex-1">
         <h1 className="font-heading text-3xl font-semibold text-text">{post.title}</h1>
-        {post.excerpt && <p className="mt-2 text-muted">{post.excerpt}</p>}
+        {post.excerpt && <p className="mt-3 text-lg text-muted">{post.excerpt}</p>}
+
+        <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-muted">
+          {formattedDate && (
+            <time dateTime={publishedDate?.toISOString()}>{formattedDate}</time>
+          )}
+          {readingMinutes && (
+            <span>{readingMinutes} min read</span>
+          )}
+          {authorName && <span>By {authorName}</span>}
+        </div>
 
         {post.cover_url && (
           <div className="relative mt-6 aspect-[16/9] w-full overflow-hidden rounded-md">
@@ -137,22 +245,54 @@ export default async function BlogPostPage(
         <article className="prose prose-neutral dark:prose-invert mt-8 max-w-none">
           <ReactMarkdown
             remarkPlugins={[remarkGfm, remarkBreaks]}
-            rehypePlugins={[rehypeRaw]}
+            rehypePlugins={[rehypeRaw, rehypeSlug, [rehypeAutolinkHeadings, { behavior: 'wrap' }]]}
+            components={markdownComponents}
           >
-            {post.body_md ?? ''}
+            {bodyMd}
           </ReactMarkdown>
         </article>
       </article>
 
       <aside className="mt-8 lg:mt-0 lg:w-64 lg:flex-shrink-0">
-        {formattedDate && <p className="text-sm text-muted">{formattedDate}</p>}
-        {authorName && (
-          <p className="mt-2 text-sm text-muted">Published by {authorName}</p>
-        )}
+        <div className="rounded-md border border-border/60 bg-card/80 p-4 shadow-sm">
+          <p className="text-xs font-semibold uppercase text-muted">Article details</p>
+          {formattedDate && (
+            <p className="mt-3 text-sm text-muted">
+              Published <time dateTime={publishedDate?.toISOString()}>{formattedDate}</time>
+            </p>
+          )}
+          {readingMinutes && (
+            <p className="mt-2 text-sm text-muted">Estimated reading time: {readingMinutes} min</p>
+          )}
+          {authorName && (
+            <p className="mt-2 text-sm text-muted">Written by {authorName}</p>
+          )}
+        </div>
+
         <div className="mt-8">
           <p className="text-xs font-semibold uppercase text-muted">Share this article</p>
           <ShareButtons url={postUrl} title={post.title} />
         </div>
+
+        {headings.length > 0 && (
+          <div className="mt-8">
+            <p className="text-xs font-semibold uppercase text-muted">On this page</p>
+            <nav className="mt-3">
+              <ul className="space-y-2 text-sm text-muted">
+                {headings.map(heading => (
+                  <li key={heading.slug} className={headingIndent[heading.level] ?? 'pl-12'}>
+                    <a
+                      href={`#${heading.slug}`}
+                      className="block rounded-sm border-l border-border/60 pl-3 transition-colors hover:border-primary/80 hover:text-primary"
+                    >
+                      {heading.text}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </div>
+        )}
       </aside>
     </main>
   )
