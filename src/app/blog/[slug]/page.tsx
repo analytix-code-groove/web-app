@@ -254,15 +254,12 @@ export default async function BlogPostPage(
       </article>
 
       <aside className="mt-8 lg:mt-0 lg:w-64 lg:flex-shrink-0">
-        <div className="rounded-md border border-border/60 bg-card/80 p-4 shadow-sm">
+        <div className="rounded-md bg-card/80 p-4 shadow-sm">
           <p className="text-xs font-semibold uppercase text-muted">Article details</p>
           {formattedDate && (
             <p className="mt-3 text-sm text-muted">
               Published <time dateTime={publishedDate?.toISOString()}>{formattedDate}</time>
             </p>
-          )}
-          {readingMinutes && (
-            <p className="mt-2 text-sm text-muted">Estimated reading time: {readingMinutes} min</p>
           )}
           {authorName && (
             <p className="mt-2 text-sm text-muted">Written by {authorName}</p>
@@ -276,7 +273,9 @@ export default async function BlogPostPage(
 
         {headings.length > 0 && (
           <div className="mt-8">
-            <p className="text-xs font-semibold uppercase text-muted">On this page</p>
+            <p className="text-xs font-semibold uppercase text-muted">
+              {lang === 'es' ? 'En esta página' : 'On this page'}
+            </p>
             <nav className="mt-3">
               <ul className="space-y-2 text-sm text-muted">
                 {headings.map(heading => (
