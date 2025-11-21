@@ -273,7 +273,9 @@ export default async function BlogPostPage(
 
       <aside className="mt-12 flex flex-col gap-10 lg:mt-0 lg:w-64 lg:flex-shrink-0">
         <section>
-          <p className="text-xs font-semibold uppercase tracking-wide text-muted">Article details</p>
+          <p className="text-xs font-semibold uppercase tracking-wide text-muted">
+            {lang === 'es' ? 'Detalles del artículo' : 'Article details'}
+          </p>
           <div className="mt-3 space-y-2 text-sm text-muted">
             {formattedDate && (
               <p>
