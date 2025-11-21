@@ -123,21 +123,31 @@ export default async function BlogPostPage(
 
   const slugger = new GithubSlugger()
   slugger.reset()
-  const headings = bodyMd
+  type Heading = { level: number; text: string; slug: string }
+
+  const headings: Heading[] = bodyMd
     .split('\n')
-    .map(line => {
+    .map((line: string) => {
       const match = line.match(/^(#{1,6})\s+(.*)$/)
       if (!match) return null
+  
       const level = match[1].length
       if (level === 1) return null
+  
       const raw = match[2]?.trim().replace(/#+\s*$/, '').trim()
       if (!raw) return null
-      const text = raw.replace(/\[(.*?)\]\(.*?\)/g, '$1').replace(/[\*_`]/g, '').trim()
+  
+      const text = raw
+        .replace(/\[(.*?)\]\(.*?\)/g, '$1')
+        .replace(/[\*_`]/g, '')
+        .trim()
       if (!text) return null
+  
       const slug = slugger.slug(text)
       return { level, text, slug }
     })
-    .filter((item): item is { level: number; text: string; slug: string } => Boolean(item))
+    .filter((item: Heading | null): item is Heading => Boolean(item))
+  
 
   const markdownComponents: Components = {
     h1({ className, ...props }) {
@@ -250,14 +260,14 @@ export default async function BlogPostPage(
       return (
         <span className="mx-auto my-6 block text-center">
           <span className="block overflow-hidden rounded-md shadow-sm">
-            <Image
-              src={src}
-              alt={imageAlt}
-              width={960}
-              height={540}
-              className="h-auto w-full"
-              sizes="(max-width: 768px) 100vw, 768px"
-            />
+          <Image
+            src={src as string}
+            alt={imageAlt}
+            width={960}
+            height={540}
+            className="h-auto w-full"
+            sizes="(max-width: 768px) 100vw, 768px"
+          />
           </span>
           {title && <span className="mt-2 block text-xs text-muted">{title}</span>}
         </span>
