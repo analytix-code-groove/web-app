@@ -214,7 +214,7 @@ export default async function BlogPostPage(
       return (
         <a
           href={href ?? '#'}
-          className="font-medium text-primary hover:underline"
+          className="rounded-sm bg-mint/10 px-1.5 py-0.5 font-semibold text-mint-strong underline decoration-mint/60 underline-offset-4 transition-colors hover:bg-mint/20"
           target={isExternal ? '_blank' : undefined}
           rel={isExternal ? 'noopener noreferrer' : undefined}
           {...props}
