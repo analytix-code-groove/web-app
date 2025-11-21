@@ -8,7 +8,6 @@ import remarkGfm from 'remark-gfm'
 import remarkBreaks from 'remark-breaks'
 import rehypeRaw from 'rehype-raw'
 import rehypeSlug from 'rehype-slug'
-import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import GithubSlugger from 'github-slugger'
 import ShareButtons from '@/components/ShareButtons'
 import { headers, cookies } from 'next/headers'
@@ -323,21 +322,7 @@ export default async function BlogPostPage(
         <article className="prose prose-neutral dark:prose-invert mt-8 max-w-none">
           <ReactMarkdown
             remarkPlugins={[remarkGfm, remarkBreaks]}
-            rehypePlugins={[
-            rehypeRaw,
-            rehypeSlug,
-            [
-              rehypeAutolinkHeadings,
-              {
-                behavior: 'wrap',
-                properties: {
-                  className: ['no-underline', 'text-inherit'],
-                  ariaHidden: 'false',
-                  tabIndex: -1,
-                },
-              },
-            ],
-          ]}
+            rehypePlugins={[rehypeRaw, rehypeSlug]}
             components={markdownComponents}
           >
             {bodyMd}
