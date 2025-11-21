@@ -213,6 +213,14 @@ export default async function BlogPostPage(
     6: 'pl-12',
   }
 
+  const labels = {
+    articleDetails: lang === 'es' ? 'Detalles del artículo' : 'Article details',
+    published: lang === 'es' ? 'Publicado el' : 'Published',
+    writtenBy: lang === 'es' ? 'Escrito por' : 'Written by',
+    share: lang === 'es' ? 'Comparte este artículo' : 'Share this article',
+    readingTimeSuffix: lang === 'es' ? 'min de lectura' : 'min read',
+  }
+
   return (
     <main className="mx-auto max-w-5xl px-4 py-16 lg:flex lg:gap-12">
       <article className="flex-1">
@@ -224,9 +232,10 @@ export default async function BlogPostPage(
             <time dateTime={publishedDate?.toISOString()}>{formattedDate}</time>
           )}
           {readingMinutes && (
-            <span>{readingMinutes} min read</span>
+            <span>
+              {readingMinutes} {labels.readingTimeSuffix}
+            </span>
           )}
-          {authorName && <span>By {authorName}</span>}
         </div>
 
         {post.cover_url && (
@@ -274,20 +283,21 @@ export default async function BlogPostPage(
       <aside className="mt-12 flex flex-col gap-10 lg:mt-0 lg:w-64 lg:flex-shrink-0">
         <section>
           <p className="text-xs font-semibold uppercase tracking-wide text-muted">
-            {lang === 'es' ? 'Detalles del artículo' : 'Article details'}
+            {labels.articleDetails}
           </p>
           <div className="mt-3 space-y-2 text-sm text-muted">
             {formattedDate && (
               <p>
-                Published <time dateTime={publishedDate?.toISOString()}>{formattedDate}</time>
+                {labels.published}{' '}
+                <time dateTime={publishedDate?.toISOString()}>{formattedDate}</time>
               </p>
             )}
-            {authorName && <p>Written by {authorName}</p>}
+            {authorName && <p>{labels.writtenBy} {authorName}</p>}
           </div>
         </section>
 
         <section>
-          <p className="text-xs font-semibold uppercase tracking-wide text-muted">Share this article</p>
+          <p className="text-xs font-semibold uppercase tracking-wide text-muted">{labels.share}</p>
           <ShareButtons url={postUrl} title={post.title} />
         </section>
 
