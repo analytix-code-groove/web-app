@@ -141,6 +141,67 @@ export default async function BlogPostPage(
     .filter((item): item is { level: number; text: string; slug: string } => Boolean(item))
 
   const markdownComponents: Components = {
+    h2({ className, ...props }) {
+      return (
+        <h2
+          className={`mt-10 scroll-m-24 text-2xl font-heading font-semibold text-text ${className ?? ''}`.trim()}
+          {...props}
+        />
+      )
+    },
+    h3({ className, ...props }) {
+      return (
+        <h3
+          className={`mt-8 scroll-m-24 text-xl font-heading font-semibold text-text ${className ?? ''}`.trim()}
+          {...props}
+        />
+      )
+    },
+    h4({ className, ...props }) {
+      return (
+        <h4
+          className={`mt-6 scroll-m-24 text-lg font-heading font-semibold text-text ${className ?? ''}`.trim()}
+          {...props}
+        />
+      )
+    },
+    p({ className, ...props }) {
+      return (
+        <p
+          className={`mt-4 leading-relaxed text-text/90 ${className ?? ''}`.trim()}
+          {...props}
+        />
+      )
+    },
+    ul({ className, ...props }) {
+      return (
+        <ul
+          className={`mt-4 list-disc space-y-2 pl-6 marker:text-primary ${className ?? ''}`.trim()}
+          {...props}
+        />
+      )
+    },
+    ol({ className, ...props }) {
+      return (
+        <ol
+          className={`mt-4 list-decimal space-y-2 pl-6 marker:text-primary ${className ?? ''}`.trim()}
+          {...props}
+        />
+      )
+    },
+    li({ className, ...props }) {
+      return (
+        <li
+          className={`leading-relaxed text-text/90 ${className ?? ''}`.trim()}
+          {...props}
+        />
+      )
+    },
+    hr({ className, ...props }) {
+      return (
+        <hr className={`my-8 border-border/60 ${className ?? ''}`.trim()} {...props} />
+      )
+    },
     a({ href, ...props }) {
       const isExternal = href ? /^(?:[a-z]+:)?\/\//i.test(href) : false
       return (
