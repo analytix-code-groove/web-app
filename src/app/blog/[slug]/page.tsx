@@ -245,7 +245,25 @@ export default async function BlogPostPage(
         <article className="prose prose-neutral dark:prose-invert mt-8 max-w-none">
           <ReactMarkdown
             remarkPlugins={[remarkGfm, remarkBreaks]}
-            rehypePlugins={[rehypeRaw, rehypeSlug, [rehypeAutolinkHeadings, { behavior: 'wrap' }]]}
+            rehypePlugins={[
+              rehypeRaw,
+              rehypeSlug,
+              [
+                rehypeAutolinkHeadings,
+                {
+                  behavior: 'append',
+                  content: {
+                    type: 'text',
+                    value: '#',
+                  },
+                  properties: {
+                    className: ['ml-2', 'text-muted', 'no-underline'],
+                    ariaHidden: 'true',
+                    tabIndex: -1,
+                  },
+                },
+              ],
+            ]}
             components={markdownComponents}
           >
             {bodyMd}
