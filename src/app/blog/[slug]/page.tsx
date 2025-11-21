@@ -141,10 +141,18 @@ export default async function BlogPostPage(
     .filter((item): item is { level: number; text: string; slug: string } => Boolean(item))
 
   const markdownComponents: Components = {
+    h1({ className, ...props }) {
+      return (
+        <h1
+          className={`mt-10 scroll-m-28 text-2xl font-heading font-semibold text-text ${className ?? ''}`.trim()}
+          {...props}
+        />
+      )
+    },
     h2({ className, ...props }) {
       return (
         <h2
-          className={`mt-10 scroll-m-24 text-2xl font-heading font-semibold text-text ${className ?? ''}`.trim()}
+          className={`mt-8 scroll-m-24 text-xl font-heading font-semibold text-text ${className ?? ''}`.trim()}
           {...props}
         />
       )
@@ -152,7 +160,7 @@ export default async function BlogPostPage(
     h3({ className, ...props }) {
       return (
         <h3
-          className={`mt-8 scroll-m-24 text-xl font-heading font-semibold text-text ${className ?? ''}`.trim()}
+          className={`mt-7 scroll-m-24 text-lg font-heading font-semibold text-text ${className ?? ''}`.trim()}
           {...props}
         />
       )
@@ -160,7 +168,7 @@ export default async function BlogPostPage(
     h4({ className, ...props }) {
       return (
         <h4
-          className={`mt-6 scroll-m-24 text-lg font-heading font-semibold text-text ${className ?? ''}`.trim()}
+          className={`mt-6 scroll-m-24 text-base font-heading font-semibold text-text ${className ?? ''}`.trim()}
           {...props}
         />
       )
@@ -316,24 +324,20 @@ export default async function BlogPostPage(
           <ReactMarkdown
             remarkPlugins={[remarkGfm, remarkBreaks]}
             rehypePlugins={[
-              rehypeRaw,
-              rehypeSlug,
-              [
-                rehypeAutolinkHeadings,
-                {
-                  behavior: 'append',
-                  content: {
-                    type: 'text',
-                    value: '#',
-                  },
-                  properties: {
-                    className: ['ml-2', 'text-muted', 'no-underline'],
-                    ariaHidden: 'true',
-                    tabIndex: -1,
-                  },
+            rehypeRaw,
+            rehypeSlug,
+            [
+              rehypeAutolinkHeadings,
+              {
+                behavior: 'wrap',
+                properties: {
+                  className: ['no-underline', 'text-inherit'],
+                  ariaHidden: 'false',
+                  tabIndex: -1,
                 },
-              ],
-            ]}
+              },
+            ],
+          ]}
             components={markdownComponents}
           >
             {bodyMd}
