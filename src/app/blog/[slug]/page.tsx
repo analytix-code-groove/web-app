@@ -253,27 +253,27 @@ export default async function BlogPostPage(
         </article>
       </article>
 
-      <aside className="mt-8 lg:mt-0 lg:w-64 lg:flex-shrink-0">
-        <div className="rounded-md bg-card/80 p-4 shadow-sm">
-          <p className="text-xs font-semibold uppercase text-muted">Article details</p>
-          {formattedDate && (
-            <p className="mt-3 text-sm text-muted">
-              Published <time dateTime={publishedDate?.toISOString()}>{formattedDate}</time>
-            </p>
-          )}
-          {authorName && (
-            <p className="mt-2 text-sm text-muted">Written by {authorName}</p>
-          )}
-        </div>
+      <aside className="mt-12 flex flex-col gap-10 lg:mt-0 lg:w-64 lg:flex-shrink-0">
+        <section>
+          <p className="text-xs font-semibold uppercase tracking-wide text-muted">Article details</p>
+          <div className="mt-3 space-y-2 text-sm text-muted">
+            {formattedDate && (
+              <p>
+                Published <time dateTime={publishedDate?.toISOString()}>{formattedDate}</time>
+              </p>
+            )}
+            {authorName && <p>Written by {authorName}</p>}
+          </div>
+        </section>
 
-        <div className="mt-8">
-          <p className="text-xs font-semibold uppercase text-muted">Share this article</p>
+        <section>
+          <p className="text-xs font-semibold uppercase tracking-wide text-muted">Share this article</p>
           <ShareButtons url={postUrl} title={post.title} />
-        </div>
+        </section>
 
         {headings.length > 0 && (
-          <div className="mt-8">
-            <p className="text-xs font-semibold uppercase text-muted">
+          <section>
+            <p className="text-xs font-semibold uppercase tracking-wide text-muted">
               {lang === 'es' ? 'En esta página' : 'On this page'}
             </p>
             <nav className="mt-3">
@@ -290,7 +290,7 @@ export default async function BlogPostPage(
                 ))}
               </ul>
             </nav>
-          </div>
+          </section>
         )}
       </aside>
     </main>
