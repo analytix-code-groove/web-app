@@ -42,8 +42,10 @@ const translations: Record<Language, Record<string, string>> = {
     general: 'General inquiry',
     support: 'Support',
     sendMessage: 'Send message',
+    sending: 'Sending...',
     messageSent: 'Message sent successfully.',
     messageError: 'Failed to send message. Please try again.',
+    messageVerificationError: 'Verification failed. Please try again.',
     moreInfoHeading: 'Why Us?',
     moreInfoBody:
       'From data foundations to scalable apps, we take ideas to production. See how our expertise powers industries like healthcare, energy, agriculture, and finance.',
@@ -201,8 +203,10 @@ const translations: Record<Language, Record<string, string>> = {
     general: 'Consulta general',
     support: 'Soporte',
     sendMessage: 'Enviar mensaje',
+    sending: 'Enviando...',
     messageSent: 'Mensaje enviado correctamente.',
     messageError: 'No se pudo enviar el mensaje. Inténtalo de nuevo.',
+    messageVerificationError: 'La verificación falló. Inténtalo de nuevo.',
     moreInfoHeading: '¿Por qué nosotros?',
     moreInfoBody:
       'Desde bases de datos hasta apps escalables, llevamos tus ideas a producción. Descubre cómo nuestra experiencia impulsa industrias como salud, energía, agro y finanzas.',

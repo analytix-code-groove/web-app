@@ -71,6 +71,10 @@ The file is ignored by Git and any values it defines are used only when correspo
 
 You can alternatively set these values in `.env.local`; see `.env.example` for the expected keys.
 
+### Contact form security
+
+The contact form is protected with Google reCAPTCHA v3. Provide your site and secret keys via the `NEXT_PUBLIC_RECAPTCHA_SITE_KEY` and `RECAPTCHA_SECRET_KEY` environment variables (or the corresponding entries in `supabase.local.json`).
+
 ## Assigning roles
 
 To publish blog posts, your user must have the `admin` or `author` role. The repository exposes a protected endpoint that lets you promote a user when developing locally.

@@ -20,6 +20,9 @@ function env(name: string, def?: string) {
 // ─────────────────────────────────────────────
 const EMAIL_TO_SUPPORT = 'support@analytixcg.com'
 const EMAIL_TO_INFO = 'info@analytixcg.com'
+const RECAPTCHA_SECRET_KEY = env('RECAPTCHA_SECRET_KEY')
+const RECAPTCHA_MIN_SCORE = 0.5
+const RECAPTCHA_ACTION = 'contact_form'
 
 // From can be "Display <mail@domain>"
 const FROM_DISPLAY = env('SMTP_FROM') // e.g. "Analytix Code Groove <info@analytixcg.com>"
@@ -174,11 +177,51 @@ function formatContactEmail(
 }
 
 // ─────────────────────────────────────────────
+// Verify Google reCAPTCHA v3 token
+// ─────────────────────────────────────────────
+async function verifyRecaptcha(token?: string | null): Promise<boolean> {
+  if (!token) return false
+
+  const params = new URLSearchParams({
+    secret: RECAPTCHA_SECRET_KEY,
+    response: token,
+  })
+
+  const resp = await fetch('https://www.google.com/recaptcha/api/siteverify', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: params,
+  })
+
+  if (!resp.ok) {
+    throw new Error(`reCAPTCHA verification failed ${resp.status}: ${await resp.text()}`)
+  }
+
+  const result = (await resp.json()) as {
+    success?: boolean
+    score?: number
+    action?: string
+    'error-codes'?: string[]
+  }
+
+  if (!result.success) return false
+  if (typeof result.score === 'number' && result.score < RECAPTCHA_MIN_SCORE) return false
+  if (result.action && result.action !== RECAPTCHA_ACTION) return false
+
+  return true
+}
+
+// ─────────────────────────────────────────────
 // Handler
 // ─────────────────────────────────────────────
 export async function POST(req: Request) {
   try {
-    const { name = '', email = '', reason = 'general', message = '' } = await req.json()
+    const { name = '', email = '', reason = 'general', message = '', recaptchaToken = '' } = await req.json()
+
+    const verified = await verifyRecaptcha(recaptchaToken)
+    if (!verified) {
+      return NextResponse.json({ success: false, error: 'Recaptcha verification failed' }, { status: 400 })
+    }
     const to = reason === 'support' ? EMAIL_TO_SUPPORT : EMAIL_TO_INFO
 
     const subject =
