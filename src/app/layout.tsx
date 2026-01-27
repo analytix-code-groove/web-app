@@ -26,6 +26,21 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        {/* Google tag (gtag.js) */}
+        <Script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-LP2YGD26S7"
+          strategy="beforeInteractive"
+        />
+        <Script id="google-tag" strategy="beforeInteractive">
+          {`window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+
+gtag('config', 'G-LP2YGD26S7');`}
+        </Script>
+      </head>
       <body className="bg-bg text-text antialiased flex min-h-screen flex-col">
         <LanguageProvider>
           <ClientLayout>{children}</ClientLayout>
