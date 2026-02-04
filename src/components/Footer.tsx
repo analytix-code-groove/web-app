@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { useLanguage } from '@/lib/i18n'
+import Script from 'next/script'
 import { FaLinkedin } from 'react-icons/fa'
 import { FaXTwitter } from 'react-icons/fa6'
 import logoFooter from '@/images/logos/desktop/logo_footer.png'
@@ -20,6 +21,29 @@ const company = [
   { href: '/about', label: 'about' },
   { href: '/contact', label: 'contact' },
 ]
+
+const ClutchIcon = () => (
+  <span className="inline-flex items-center">
+    <svg
+      aria-hidden="true"
+      className="h-[20px] w-[74px]"
+      viewBox="0 0 148 40"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <text
+        x="0"
+        y="30"
+        fill="currentColor"
+        fontFamily="Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+        fontSize="30"
+        fontWeight="600"
+      >
+        Clutch
+      </text>
+      <circle cx="132" cy="12" r="6" fill="#26b4c3" />
+    </svg>
+  </span>
+)
 
 export default function Footer() {
   const { t } = useLanguage()
@@ -97,6 +121,15 @@ export default function Footer() {
           <p>© Analytixcg</p>
           <div className="flex items-center gap-2">
             <a
+              href="https://clutch.co/profile/analytixcg"
+              aria-label="Clutch"
+              className="hover:text-text"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <ClutchIcon />
+            </a>
+            <a
               href="https://x.com/Analytixcg"
               aria-label="X"
               className="hover:text-text"
@@ -116,7 +149,21 @@ export default function Footer() {
             </a>
           </div>
         </div>
+        <div className="mt-4 flex justify-center">
+          <div
+            className="clutch-widget"
+            data-url="https://widget.clutch.co"
+            data-widget-type="10"
+            data-height="auto"
+            data-nofollow="false"
+            data-expandifr="true"
+            data-shape="square"
+            data-scale="100"
+            data-clutchcompany-id="2607562"
+          />
+        </div>
       </div>
+      <Script src="https://widget.clutch.co/static/js/widget.js" strategy="afterInteractive" />
     </footer>
   )
 }
