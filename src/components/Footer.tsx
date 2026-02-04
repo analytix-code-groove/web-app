@@ -26,21 +26,22 @@ const ClutchIcon = () => (
   <span className="inline-flex items-center">
     <svg
       aria-hidden="true"
-      className="h-[20px] w-[74px]"
-      viewBox="0 0 148 40"
+      className="h-[24px] w-[90px]"
+      viewBox="0 0 180 48"
       xmlns="http://www.w3.org/2000/svg"
     >
       <text
         x="0"
-        y="30"
-        fill="currentColor"
+        y="36"
+        fill="#1f3b45"
         fontFamily="Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
-        fontSize="30"
-        fontWeight="600"
+        fontSize="36"
+        fontWeight="700"
+        letterSpacing="-0.5"
       >
         Clutch
       </text>
-      <circle cx="132" cy="12" r="6" fill="#26b4c3" />
+      <circle cx="124" cy="30" r="6" fill="#e0453b" />
     </svg>
   </span>
 )
@@ -121,7 +122,7 @@ export default function Footer() {
           <p>© Analytixcg</p>
           <div className="flex items-center gap-2">
             <a
-              href="https://clutch.co/profile/analytixcg"
+              href="https://clutch.co/profile/analytix-code-groove"
               aria-label="Clutch"
               className="hover:text-text"
               target="_blank"
