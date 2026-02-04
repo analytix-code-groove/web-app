@@ -7,6 +7,7 @@ import Script from 'next/script'
 import { FaLinkedin } from 'react-icons/fa'
 import { FaXTwitter } from 'react-icons/fa6'
 import logoFooter from '@/images/logos/desktop/logo_footer.png'
+import clutchLogo from '@/images/logos/clutch-logo.svg'
 
 const services = [
   { href: '/services/ai', label: 'aiAutomation' },
@@ -24,13 +25,7 @@ const company = [
 
 const ClutchIcon = () => (
   <span className="inline-flex items-center">
-    <img
-      src="https://www.horizon-labs.co/resources/clutch"
-      alt="Clutch"
-      className="h-[18px] w-auto"
-      loading="lazy"
-      decoding="async"
-    />
+    <Image src={clutchLogo} alt="Clutch" width={74} height={18} className="h-[18px] w-auto" />
   </span>
 )
 

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="36" viewBox="0 0 128 36" role="img" aria-label="Clutch">
+  <rect width="128" height="36" fill="none" />
+  <text
+    x="0"
+    y="28"
+    fill="#1f3b45"
+    font-family="Arial, Helvetica, sans-serif"
+    font-size="28"
+    font-weight="700"
+    letter-spacing="-0.4"
+  >
+    Clutch
+  </text>
+  <circle cx="96" cy="24" r="5" fill="#e0453b" />
+</svg>
