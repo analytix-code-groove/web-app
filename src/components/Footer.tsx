@@ -26,7 +26,7 @@ const company = [
 
 const ClutchIcon = () => (
   <span className="inline-flex items-center">
-    <Image src={clutchLogo} alt="Clutch" width={74} height={18} className="h-[18px] w-auto" />
+    <Image src={clutchLogo} alt="Clutch" width={74} height={17} className="h-[17px] w-auto" />
   </span>
 )
 
@@ -105,15 +105,7 @@ export default function Footer() {
         <div className="mt-4 flex flex-col items-center gap-3 text-center text-xs text-muted sm:flex-row sm:justify-between sm:text-left">
           <p>© Analytixcg</p>
           <div className="flex items-center gap-2">
-            <a
-              href="https://clutch.co/profile/analytix-code-groove"
-              aria-label="Clutch"
-              className="hover:text-text"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <ClutchIcon />
-            </a>
+            
             <a
               href="https://x.com/Analytixcg"
               aria-label="X"
@@ -134,13 +126,13 @@ export default function Footer() {
             </a>
             <span aria-hidden="true" className="h-4 w-px bg-stroke/60" />
             <a
-              href="https://clutch.co/profile/analytixcg"
+              href="https://clutch.co/profile/analytix-code-groove"
               aria-label="Clutch"
               className="hover:text-text"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Image src={clutchIcon} alt="" width={18} height={18} />
+              <ClutchIcon />
             </a>
           </div>
         </div>
