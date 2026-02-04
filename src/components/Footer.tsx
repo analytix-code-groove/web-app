@@ -7,6 +7,22 @@ import { FaLinkedin } from 'react-icons/fa'
 import { FaXTwitter } from 'react-icons/fa6'
 import logoFooter from '@/images/logos/desktop/logo_footer.png'
 
+const ClutchIcon = ({ className }: { className?: string }) => (
+  <svg
+    viewBox="0 0 24 24"
+    aria-hidden="true"
+    className={className}
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.8"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M14 8.5a5 5 0 1 0 0 7" />
+    <circle cx="18" cy="12" r="1.6" fill="currentColor" stroke="none" />
+  </svg>
+)
+
 const services = [
   { href: '/services/ai', label: 'aiAutomation' },
   { href: '/services/automation-qa', label: 'automationQa' },
@@ -99,7 +115,7 @@ export default function Footer() {
             <a
               href="https://x.com/Analytixcg"
               aria-label="X"
-              className="hover:text-text"
+              className="flex h-8 w-8 items-center justify-center hover:text-text"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -108,11 +124,20 @@ export default function Footer() {
             <a
               href="https://www.linkedin.com/company/Analytixcg"
               aria-label="LinkedIn"
-              className="hover:text-text"
+              className="flex h-8 w-8 items-center justify-center hover:text-text"
               target="_blank"
               rel="noopener noreferrer"
             >
               <FaLinkedin size={18} />
+            </a>
+            <a
+              href="https://clutch.co/profile/analytix-code-groove"
+              aria-label="Clutch"
+              className="flex h-8 w-8 items-center justify-center hover:text-text"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <ClutchIcon className="h-[18px] w-[18px]" />
             </a>
           </div>
         </div>
