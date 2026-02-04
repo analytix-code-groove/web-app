@@ -2,7 +2,6 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import Script from 'next/script'
 import { useLanguage } from '@/lib/i18n'
 import { FaLinkedin } from 'react-icons/fa'
 import { FaXTwitter } from 'react-icons/fa6'
@@ -96,8 +95,7 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="mt-4 flex flex-col items-center gap-3 text-center text-xs text-muted sm:flex-row sm:justify-between sm:text-left">
           <div className="flex flex-col items-center gap-3 sm:flex-row sm:items-center">
-            <div className="clutch-container flex h-8 items-center">
-              <Script src="https://widget.clutch.co/static/js/widget.js" strategy="afterInteractive" />
+            <div className="clutch-container flex h-8 min-w-[88px] items-center">
               <div
                 className="clutch-widget"
                 data-url="https://widget.clutch.co"

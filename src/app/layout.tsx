@@ -33,6 +33,10 @@ export default function RootLayout({
           src="https://www.googletagmanager.com/gtag/js?id=G-LP2YGD26S7"
           strategy="beforeInteractive"
         />
+        <Script
+          src="https://widget.clutch.co/static/js/widget.js"
+          strategy="lazyOnload"
+        />
         <Script id="google-tag" strategy="beforeInteractive">
           {`window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
