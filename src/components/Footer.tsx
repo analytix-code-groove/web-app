@@ -6,6 +6,7 @@ import { useLanguage } from '@/lib/i18n'
 import Script from 'next/script'
 import { FaLinkedin } from 'react-icons/fa'
 import { FaXTwitter } from 'react-icons/fa6'
+import clutchIcon from '@/images/logos/clutch-icon.svg'
 import logoFooter from '@/images/logos/desktop/logo_footer.png'
 import clutchLogo from '@/images/logos/clutch-co-seeklogo.svg'
 
@@ -130,6 +131,16 @@ export default function Footer() {
               rel="noopener noreferrer"
             >
               <FaLinkedin size={18} />
+            </a>
+            <span aria-hidden="true" className="h-4 w-px bg-stroke/60" />
+            <a
+              href="https://clutch.co/profile/analytixcg"
+              aria-label="Clutch"
+              className="hover:text-text"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Image src={clutchIcon} alt="" width={18} height={18} />
             </a>
           </div>
         </div>
