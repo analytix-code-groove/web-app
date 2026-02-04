@@ -47,6 +47,10 @@ const translations: Record<Language, Record<string, string>> = {
     moreInfoHeading: 'Why Us?',
     moreInfoBody:
       'From data foundations to scalable apps, we take ideas to production. See how our expertise powers industries like healthcare, energy, agriculture, and finance.',
+    clientsEyebrow: 'Trusted by',
+    clientsHeading: 'Clients in motion',
+    clientsBody:
+      'Collaborations across healthcare, retail, tourism, and pharma that keep data flowing and teams moving fast.',
     industriesHeading: 'Industries we serve',
     healthcareIndustry: 'Healthcare',
     healthcareIndustryDesc:
@@ -206,6 +210,10 @@ const translations: Record<Language, Record<string, string>> = {
     moreInfoHeading: '¿Por qué nosotros?',
     moreInfoBody:
       'Desde bases de datos hasta apps escalables, llevamos tus ideas a producción. Descubre cómo nuestra experiencia impulsa industrias como salud, energía, agro y finanzas.',
+    clientsEyebrow: 'Confían en nosotros',
+    clientsHeading: 'Clientes en movimiento',
+    clientsBody:
+      'Colaboraciones en salud, retail, turismo y farma que mantienen los datos en movimiento y a los equipos avanzando rápido.',
     industriesHeading: 'Industrias que atendemos',
     healthcareIndustry: 'Salud',
     healthcareIndustryDesc:
@@ -391,4 +399,3 @@ export function useLanguage() {
   if (!context) throw new Error('useLanguage must be used within LanguageProvider')
   return context
 }
-
