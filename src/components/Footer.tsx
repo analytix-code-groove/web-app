@@ -24,25 +24,13 @@ const company = [
 
 const ClutchIcon = () => (
   <span className="inline-flex items-center">
-    <svg
-      aria-hidden="true"
-      className="h-[24px] w-[90px]"
-      viewBox="0 0 180 48"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <text
-        x="0"
-        y="36"
-        fill="#1f3b45"
-        fontFamily="Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
-        fontSize="36"
-        fontWeight="700"
-        letterSpacing="-0.5"
-      >
-        Clutch
-      </text>
-      <circle cx="124" cy="30" r="6" fill="#e0453b" />
-    </svg>
+    <img
+      src="https://www.horizon-labs.co/resources/clutch"
+      alt="Clutch"
+      className="h-5 w-auto"
+      loading="lazy"
+      decoding="async"
+    />
   </span>
 )
 
