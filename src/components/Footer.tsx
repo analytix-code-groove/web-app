@@ -27,7 +27,7 @@ const ClutchIcon = () => (
     <img
       src="https://www.horizon-labs.co/resources/clutch"
       alt="Clutch"
-      className="h-5 w-auto"
+      className="h-[18px] w-auto"
       loading="lazy"
       decoding="async"
     />
@@ -146,8 +146,8 @@ export default function Footer() {
             data-height="auto"
             data-nofollow="false"
             data-expandifr="true"
+            data-darkbg="darkbg"
             data-shape="square"
-            data-scale="100"
             data-clutchcompany-id="2607562"
           />
         </div>
