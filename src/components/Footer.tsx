@@ -7,7 +7,7 @@ import Script from 'next/script'
 import { FaLinkedin } from 'react-icons/fa'
 import { FaXTwitter } from 'react-icons/fa6'
 import logoFooter from '@/images/logos/desktop/logo_footer.png'
-import clutchLogo from '@/images/logos/clutch-logo.svg'
+import clutchLogo from '@/images/logos/clutch-co-seeklogo.svg'
 
 const services = [
   { href: '/services/ai', label: 'aiAutomation' },
