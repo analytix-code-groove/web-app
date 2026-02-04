@@ -41,14 +41,8 @@ export default function ClientsCarousel() {
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-mint">
             {t('clientsEyebrow')}
           </p>
-          <h2 className="mt-3 font-heading text-3xl font-semibold text-text sm:text-4xl">
-            {t('clientsHeading')}
-          </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-sm text-muted sm:text-base">
-            {t('clientsBody')}
-          </p>
         </div>
-        <div className="relative mt-10 overflow-hidden">
+        <div className="relative mt-8 overflow-hidden">
           <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-bg to-transparent" />
           <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-bg to-transparent" />
           <div className="marquee-track">
