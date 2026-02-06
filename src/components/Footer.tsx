@@ -103,7 +103,21 @@ export default function Footer() {
 
         {/* Bottom bar */}
         <div className="mt-4 flex flex-col items-center gap-3 text-center text-xs text-muted sm:flex-row sm:justify-between sm:text-left">
-          <p>© Analytixcg</p>
+          <div className="flex flex-col items-center gap-3 sm:flex-row sm:items-center">
+            <div className="clutch-container flex h-8 min-w-[88px] items-center">
+              <div
+                className="clutch-widget"
+                data-url="https://widget.clutch.co"
+                data-widget-type="2"
+                data-height="32"
+                data-nofollow="false"
+                data-expandifr="true"
+                data-darkbg="darkbg"
+                data-clutchcompany-id="2607562"
+              />
+            </div>
+            <p>© Analytixcg</p>
+          </div>
           <div className="flex items-center gap-2">
             
             <a
