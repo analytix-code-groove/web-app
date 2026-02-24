@@ -1,6 +1,7 @@
 "use client"
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { FiZap, FiPenTool, FiAward, FiCode, FiChevronRight } from 'react-icons/fi'
 import { useLanguage } from '@/lib/i18n'
 
@@ -24,23 +25,26 @@ export default function AboutClient() {
   return (
     <main className="min-h-screen">
       {/* Hero Banner */}
-      <section className="relative isolate overflow-hidden bg-bg py-32">
+      <section className="relative isolate overflow-hidden py-32">
+        <Image
+          src="/images/about-us-banner.png"
+          alt=""
+          fill
+          aria-hidden
+          className="pointer-events-none object-cover"
+          sizes="100vw"
+          priority
+        />
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 -z-10"
+          className="pointer-events-none absolute inset-0"
           style={{
             background:
-              'radial-gradient(60% 60% at 70% 20%, rgba(54,226,180,0.09) 0%, rgba(0,0,0,0) 60%)',
-            maskImage:
-              'radial-gradient(1200px 600px at 50% -10%, black 40%, transparent 70%)',
+              'linear-gradient(180deg, rgba(11,14,17,0.85) 0%, rgba(11,14,17,0.7) 50%, rgba(11,14,17,0.9) 100%)',
           }}
         />
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 -z-10 opacity-20 [background:repeating-linear-gradient(45deg,transparent,transparent_28px,_rgba(255,255,255,0.03)_30px,_rgba(255,255,255,0.03)_32px)]"
-        />
 
-        <div className="mx-auto max-w-4xl px-4 text-center">
+        <div className="relative mx-auto max-w-4xl px-4 text-center">
           <h1 className="font-heading text-4xl font-semibold tracking-tight text-text sm:text-5xl">
             {lang === 'en' ? (
               <>Who We <span className="text-mint">Are</span></>
