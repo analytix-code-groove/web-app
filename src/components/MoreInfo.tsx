@@ -4,7 +4,13 @@ import { useLanguage } from '@/lib/i18n'
 import { FiActivity, FiZap, FiFeather, FiDollarSign } from 'react-icons/fi'
 
 export default function MoreInfo() {
-  const { t } = useLanguage()
+  const { t, lang } = useLanguage()
+
+  const stats = [
+    { value: '20+', labelKey: 'yearsExperience' },
+    { value: '4', labelKey: 'industriesServed' },
+    { value: '6', labelKey: 'serviceAreas' },
+  ]
 
   const industries = [
     { Icon: FiActivity, titleKey: 'healthcareIndustry', descKey: 'healthcareIndustryDesc' },
@@ -14,26 +20,44 @@ export default function MoreInfo() {
   ]
 
   return (
-    <section className="bg-bg py-14">
-      <div className="mx-auto max-w-6xl px-4">
-        <h2 className="mb-4 font-heading text-2xl font-semibold text-text">{t('moreInfoHeading')}</h2>
-        <p className="max-w-3xl text-muted">{t('moreInfoBody')}</p>
-        <h3 className="mt-16 mb-4 font-heading text-xl font-semibold text-text">
+    <section className="bg-surface py-20">
+      <div className="mx-auto max-w-6xl px-4 text-center">
+        <h2 className="font-heading text-3xl font-semibold text-text sm:text-4xl">
+          {lang === 'en' ? (
+            <>Why <span className="text-mint">Us</span>?</>
+          ) : (
+            <>¿Por qué <span className="text-mint">nosotros</span>?</>
+          )}
+        </h2>
+
+        <p className="mx-auto mt-4 max-w-2xl text-muted">
+          {t('moreInfoBody')}
+        </p>
+
+        <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-3">
+          {stats.map(({ value, labelKey }) => (
+            <div key={labelKey}>
+              <span className="text-4xl font-bold text-mint">{value}</span>
+              <p className="mt-2 text-sm text-muted">{t(labelKey)}</p>
+            </div>
+          ))}
+        </div>
+
+        <h3 className="mt-16 mb-8 font-heading text-xl font-semibold text-text">
           {t('industriesHeading')}
         </h3>
+
         <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {industries.map(({ Icon, titleKey, descKey }) => (
             <li
               key={titleKey}
-              className="flex items-start gap-3 rounded-xl2 border border-stroke/70 bg-surface p-4 shadow-soft"
+              className="rounded-xl2 border border-stroke/70 bg-bg p-6 shadow-soft transition hover:border-mint/60"
             >
-              <Icon className="mt-1 shrink-0 text-mint" />
-              <div>
-                <h4 className="font-heading text-base font-semibold text-text">
-                  {t(titleKey)}
-                </h4>
-                <p className="text-sm text-muted">{t(descKey)}</p>
-              </div>
+              <Icon className="mx-auto mb-3 text-mint" size={32} />
+              <h4 className="font-heading text-base font-semibold text-text">
+                {t(titleKey)}
+              </h4>
+              <p className="mt-1 text-sm text-muted">{t(descKey)}</p>
             </li>
           ))}
         </ul>

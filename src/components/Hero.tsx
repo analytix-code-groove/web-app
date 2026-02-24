@@ -10,8 +10,11 @@ export default function Hero() {
 
   const scrollToContent = () => {
     const hero = document.getElementById('hero')
-    if (hero?.nextElementSibling) {
-      hero.nextElementSibling.scrollIntoView({ behavior: 'smooth' })
+    const target = hero?.nextElementSibling as HTMLElement | null
+    if (target) {
+      const navbarHeight = 64
+      const top = target.getBoundingClientRect().top + window.scrollY - navbarHeight
+      window.scrollTo({ top, behavior: 'smooth' })
     }
   }
 

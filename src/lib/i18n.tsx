@@ -52,6 +52,9 @@ const translations: Record<Language, Record<string, string>> = {
     moreInfoHeading: 'Why Us?',
     moreInfoBody:
       'From data foundations to scalable apps, we take ideas to production. See how our expertise powers industries like healthcare, energy, agriculture, and finance.',
+    yearsExperience: 'Years of Team Experience',
+    industriesServed: 'Industries Served',
+    serviceAreas: 'Service Areas',
     industriesHeading: 'Industries we serve',
     healthcareIndustry: 'Healthcare',
     healthcareIndustryDesc:
@@ -219,6 +222,9 @@ const translations: Record<Language, Record<string, string>> = {
     moreInfoHeading: '¿Por qué nosotros?',
     moreInfoBody:
       'Desde bases de datos hasta apps escalables, llevamos tus ideas a producción. Descubre cómo nuestra experiencia impulsa industrias como salud, energía, agro y finanzas.',
+    yearsExperience: 'Años de Experiencia del Equipo',
+    industriesServed: 'Industrias Atendidas',
+    serviceAreas: 'Áreas de Servicio',
     industriesHeading: 'Industrias que atendemos',
     healthcareIndustry: 'Salud',
     healthcareIndustryDesc:
