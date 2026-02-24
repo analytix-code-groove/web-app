@@ -237,7 +237,7 @@ const translations: Record<Language, Record<string, string>> = {
     meets: 'Meets',
     flow: 'Flow',
     heroParagraph:
-      'Construimos plataformas de datos confiables y aplicaciones de producción: rápidas, observables y seguras. Menos fricción, más ritmo.',
+      'Construimos plataformas de datos confiables y aplicaciones de producción: rápidas, observables y seguras. Menos fricción, más groove.',
     aiAutomation: 'IA Generativa',
     aiAutomationDesc: 'Agentes LLM y automatización que aceleran equipos.',
     aiAutomationCard: 'LLMs, agentes, automatización de flujos.',

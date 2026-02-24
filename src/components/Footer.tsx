@@ -136,7 +136,7 @@ export default function Footer() {
             </a>
           </div>
         </div>
-        <div className="mt-4 flex justify-center">
+        <div id="clutch-wrapper" className="mt-4 hidden justify-center">
           <div
             className="clutch-widget"
             data-url="https://widget.clutch.co"
@@ -150,7 +150,16 @@ export default function Footer() {
           />
         </div>
       </div>
-      <Script src="https://widget.clutch.co/static/js/widget.js" strategy="afterInteractive" />
+      <Script
+        src="https://widget.clutch.co/static/js/widget.js"
+        strategy="afterInteractive"
+        onReady={() => {
+          const wrapper = document.getElementById('clutch-wrapper')
+          const iframe = wrapper?.querySelector('iframe')
+          if (iframe) wrapper?.classList.replace('hidden', 'flex')
+        }}
+        onError={() => {/* widget blocked — stay hidden */}}
+      />
     </footer>
   )
 }
