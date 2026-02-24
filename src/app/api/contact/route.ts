@@ -178,7 +178,14 @@ function formatContactEmail(
 // ─────────────────────────────────────────────
 export async function POST(req: Request) {
   try {
-    const { name = '', email = '', reason = 'general', message = '' } = await req.json()
+    const { name = '', email = '', reason = 'general', message = '', website = '' } = await req.json()
+
+    // Honeypot: real users never fill this hidden field
+    if (website) {
+      // Return 200 so bots think it succeeded
+      return NextResponse.json({ success: true })
+    }
+
     const to = reason === 'support' ? EMAIL_TO_SUPPORT : EMAIL_TO_INFO
 
     const subject =

@@ -10,6 +10,7 @@ export function ContactClient() {
   const [reason, setReason] = useState('general')
   const [message, setMessage] = useState('')
   const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle')
+  const [honeypot, setHoneypot] = useState('')
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -18,7 +19,7 @@ export function ContactClient() {
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, reason, message }),
+        body: JSON.stringify({ name, email, reason, message, website: honeypot }),
       })
       if (res.ok) {
         setStatus('success')
@@ -40,6 +41,17 @@ export function ContactClient() {
         <h1 className="font-heading text-4xl font-semibold text-text">{t('contact')}</h1>
         <p className="mt-6 text-lg text-muted">{t('contactIntro')}</p>
         <form onSubmit={handleSubmit} className="mt-8 grid gap-4 md:max-w-lg">
+          {/* Honeypot — hidden from real users, bots auto-fill it */}
+          <input
+            type="text"
+            name="website"
+            value={honeypot}
+            onChange={e => setHoneypot(e.target.value)}
+            autoComplete="off"
+            tabIndex={-1}
+            aria-hidden="true"
+            className="absolute -left-[9999px] h-0 w-0 overflow-hidden opacity-0"
+          />
           <input
             type="text"
             value={name}
