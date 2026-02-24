@@ -4,7 +4,11 @@
       "Bash(npm ls:*)",
       "Bash(npm install:*)",
       "Bash(npm view:*)",
-      "Bash(npm audit:*)"
+      "Bash(npm audit:*)",
+      "Bash(grep:*)",
+      "Bash(echo:*)",
+      "Bash(npx eslint:*)",
+      "Bash(curl:*)"
     ]
   }
 }

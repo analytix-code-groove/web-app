@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import ServicesClient from './ServicesClient'
 
 export const metadata: Metadata = {
-  title: 'Services | Analytix Code Groove',
+  title: 'Services',
   description: 'Explore the range of technology services offered by Analytix.',
 }
 

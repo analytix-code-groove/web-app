@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import CloudDevOpsServicePage from './DevOpsClient'
 
 export const metadata: Metadata = {
-  title: 'Cloud & DevOps Services | Analytix Code Groove',
+  title: 'Cloud & DevOps Services',
   description: 'Build, deploy, and scale with confidence.',
 }
 

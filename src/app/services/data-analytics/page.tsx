@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import DataAnalyticsServicePage from './DataAnalyticsClient'
 
 export const metadata: Metadata = {
-  title: 'Data & Analytics Services | Analytix Code Groove',
+  title: 'Data & Analytics Services',
   description: 'From raw data to real results — faster, smarter, and at scale.',
 }
 

@@ -69,7 +69,7 @@ export async function generateMetadata(
   }
   if (!post) return { title: 'Post not found' }
   return {
-    title: `${post.title} | Analytix Code Groove`,
+    title: `${post.title}`,
     description: post.excerpt ?? undefined,
     openGraph: {
       title: post.title,
@@ -299,8 +299,30 @@ export default async function BlogPostPage(
     readingTimeSuffix: lang === 'es' ? 'min de lectura' : 'min read',
   }
 
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: post.title,
+    description: post.excerpt ?? undefined,
+    image: post.cover_url ?? undefined,
+    datePublished: publishedDate?.toISOString(),
+    author: authorName
+      ? { '@type': 'Person', name: authorName }
+      : { '@type': 'Organization', name: 'Analytix Code Groove' },
+    publisher: {
+      '@type': 'Organization',
+      name: 'Analytix Code Groove',
+      url: 'https://analytixcg.com',
+    },
+    mainEntityOfPage: postUrl,
+  }
+
   return (
     <main className="mx-auto max-w-5xl px-4 py-16 lg:flex lg:gap-12">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <article className="flex-1">
         <h1 className="font-heading text-3xl font-semibold text-text">{post.title}</h1>
         {post.excerpt && <p className="mt-3 text-lg text-muted">{post.excerpt}</p>}
