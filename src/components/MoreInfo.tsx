@@ -1,14 +1,14 @@
 "use client"
 
 import { useLanguage } from '@/lib/i18n'
-import { FiActivity, FiZap, FiFeather, FiDollarSign } from 'react-icons/fi'
+import { FiActivity, FiZap, FiFeather, FiDollarSign, FiShoppingCart } from 'react-icons/fi'
 
 export default function MoreInfo() {
   const { t, lang } = useLanguage()
 
   const stats = [
     { value: '20+', labelKey: 'yearsExperience' },
-    { value: '4', labelKey: 'industriesServed' },
+    { value: '5', labelKey: 'industriesServed' },
     { value: '6', labelKey: 'serviceAreas' },
   ]
 
@@ -17,6 +17,7 @@ export default function MoreInfo() {
     { Icon: FiZap, titleKey: 'energyIndustry', descKey: 'energyIndustryDesc' },
     { Icon: FiFeather, titleKey: 'agroIndustry', descKey: 'agroIndustryDesc' },
     { Icon: FiDollarSign, titleKey: 'financialIndustry', descKey: 'financialIndustryDesc' },
+    { Icon: FiShoppingCart, titleKey: 'retailIndustry', descKey: 'retailIndustryDesc' },
   ]
 
   return (
@@ -47,7 +48,7 @@ export default function MoreInfo() {
           {t('industriesHeading')}
         </h3>
 
-        <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
           {industries.map(({ Icon, titleKey, descKey }) => (
             <li
               key={titleKey}

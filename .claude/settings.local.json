@@ -8,7 +8,8 @@
       "Bash(grep:*)",
       "Bash(echo:*)",
       "Bash(npx eslint:*)",
-      "Bash(curl:*)"
+      "Bash(curl:*)",
+      "Bash(npm run build:*)"
     ]
   }
 }

@@ -25,13 +25,32 @@ const translations: Record<Language, Record<string, string>> = {
     readBlog: 'Read the blog',
     comingSoon: 'Coming soon...',
     aboutIntro:
-      'At Analytix Code Groove, we partner with you, blending structured engineering with inventive thinking to craft technology that moves with precision and style. Tough challenges become polished, scalable solutions that let you innovate faster, stay resilient, and make smarter decisions.',
-    missionHeading: 'Our Mission',
-    missionBody:
-      "As your dedicated partner—whether you're modernizing infrastructure, harnessing the power of AI, or turning data into insight—we deliver expert solutions engineered for performance, fueled by creativity, and built for what's next—where data meets flow.",
-    valuesHeading: 'What We Value',
-    valuesBody:
-      'We champion innovation, creativity, dedication, and expertise. Energetic and modern, developer-focused and committed, Code Groove is the trusted crosspoint where technology meets imagination and data meets business.',
+      'More than a consultancy \u2014 a technology partner who knows your business as well as the code. We build solutions that solve the problems that truly impact operations.',
+    whatDrivesUsHeading: 'What Drives Us',
+    whatDrivesUsBody:
+      'Fragmented systems, slow validations, information that arrives late \u2014 we live it every day with our clients. Our focus is building trust: traceability in every data point, every rule documented, every decision auditable.',
+    howWeWorkHeading: 'How We Work',
+    howWeWorkBody:
+      'We integrate with your teams and co-design solutions that work in your reality \u2014 not in a PowerPoint.',
+    howWeWorkBullet1: 'Speed without sacrificing quality.',
+    howWeWorkBullet2: 'Senior teams end to end.',
+    howWeWorkBullet3: 'Iterative delivery with visible value.',
+    howWeWorkBullet4: 'Close partnership, speaking business and technology at the same time.',
+    ourFocusHeading: 'Our Focus',
+    ourFocusBody:
+      'We have extensive experience in healthcare and in other industries where an operational error is not just a technical problem, but a regulatory and reputational risk. Our goal is to drive our clients\u2019 technological innovation through solutions with real impact, robust architecture, and genuine added value to their business.',
+    coreValuesHeading: 'Our Core Values',
+    valueInnovation: 'Innovation',
+    valueInnovationDesc: 'Pushing boundaries with emerging tech and creative problem-solving.',
+    valueCreativity: 'Creativity',
+    valueCreativityDesc: 'Designing elegant solutions that balance form and function.',
+    valueDedication: 'Dedication',
+    valueDedicationDesc: 'Committed to quality, reliability, and your long-term success.',
+    valueExpertise: 'Expertise',
+    valueExpertiseDesc: 'Deep technical knowledge across data, cloud, AI, and software.',
+    aboutCtaHeading: "Let's discuss your next",
+    aboutCtaAccent: 'tech challenge',
+    aboutCtaSubtitle: 'We\u2019re ready to partner with you on your next projects.',
     reachUsAt: 'Reach us at',
     contactIntro: 'Let us know how we can help',
     name: 'Name',
@@ -49,6 +68,8 @@ const translations: Record<Language, Record<string, string>> = {
     emailRequired: 'Please enter your email.',
     emailInvalid: 'Please enter a valid email address.',
     messageRequired: 'Please enter a message.',
+    whatWeDo: 'Our Service Portfolio',
+    servicePortfolioSubtitle: 'End-to-end solutions from data to deployment.',
     moreInfoHeading: 'Why Us?',
     moreInfoBody:
       'From data foundations to scalable apps, we take ideas to production. See how our expertise powers industries like healthcare, energy, agriculture, and finance.',
@@ -68,6 +89,9 @@ const translations: Record<Language, Record<string, string>> = {
     financialIndustry: 'Financial',
     financialIndustryDesc:
       'Strengthen risk management and compliance with reliable systems.',
+    retailIndustry: 'Retail',
+    retailIndustryDesc:
+      'Drive sales and loyalty with data-driven inventory and customer insights.',
     latestPosts: 'Latest posts',
     readMore: 'Read more →',
     minRead: 'min read',
@@ -195,13 +219,32 @@ const translations: Record<Language, Record<string, string>> = {
     readBlog: 'Leer el blog',
     comingSoon: 'Próximamente...',
     aboutIntro:
-      'En Analytix Code Groove nos asociamos contigo, fusionando ingeniería estructurada y pensamiento inventivo para crear tecnología que se mueve con precisión y estilo. Los desafíos difíciles se convierten en soluciones pulidas y escalables que te permiten innovar más rápido, mantenerte resiliente y tomar decisiones más inteligentes.',
-    missionHeading: 'Nuestra Misión',
-    missionBody:
-      'Como tu socio dedicado—ya sea modernizando infraestructura, aprovechando la IA o convirtiendo datos en conocimiento—entregamos soluciones expertas diseñadas para el rendimiento, impulsadas por la creatividad y construidas para lo que viene, donde los datos se encuentran con el flujo.',
-    valuesHeading: 'Lo que Valoramos',
-    valuesBody:
-      'Impulsamos la innovación, la creatividad, la dedicación y la experiencia. Enérgico y enfocado en los desarrolladores, Code Groove es el punto de cruce confiable donde la tecnología se encuentra con la imaginación y los datos con el negocio.',
+      'Más que una consultora — un partner tecnológico que conoce tu negocio tanto como el código. Construimos soluciones que resuelven los problemas que realmente impactan en la operación.',
+    whatDrivesUsHeading: 'Lo que nos mueve',
+    whatDrivesUsBody:
+      'Sistemas fragmentados, validaciones lentas, información que llega tarde — lo vivimos todos los días con nuestros clientes. Nuestro foco es generar confianza: trazabilidad en cada dato, cada regla documentada, cada decisión auditable.',
+    howWeWorkHeading: 'Cómo trabajamos',
+    howWeWorkBody:
+      'Nos integramos con tus equipos y co-diseñamos soluciones que funcionan en tu realidad — no en un PowerPoint.',
+    howWeWorkBullet1: 'Velocidad sin perder calidad.',
+    howWeWorkBullet2: 'Equipos senior de punta a punta.',
+    howWeWorkBullet3: 'Delivery iterativo, con valor visible.',
+    howWeWorkBullet4: 'Acompañamiento cercano, hablando negocio y tecnología al mismo tiempo.',
+    ourFocusHeading: 'Nuestro foco',
+    ourFocusBody:
+      'Contamos con amplia trayectoria en el sector salud y en otras industrias donde un error operativo no es solo un problema técnico, sino un riesgo regulatorio y reputacional. Nuestro objetivo es impulsar la innovación tecnológica de nuestros clientes mediante soluciones con impacto real, arquitectura robusta y un valor agregado genuino a su negocio.',
+    coreValuesHeading: 'Nuestros valores',
+    valueInnovation: 'Innovación',
+    valueInnovationDesc: 'Empujando límites con tecnología emergente y resolución creativa de problemas.',
+    valueCreativity: 'Creatividad',
+    valueCreativityDesc: 'Transformamos ideas en soluciones con diseño y propósito.',
+    valueDedication: 'Dedicación',
+    valueDedicationDesc: 'Comprometidos con la calidad, la confiabilidad y tu éxito a largo plazo.',
+    valueExpertise: 'Experiencia',
+    valueExpertiseDesc: 'Conocimiento técnico profundo en datos, nube, IA y software.',
+    aboutCtaHeading: 'Hablemos de tu próximo',
+    aboutCtaAccent: 'desafío tecnológico',
+    aboutCtaSubtitle: 'Estamos listos para acompañarte en tus próximos proyectos.',
     reachUsAt: 'Contáctanos en',
     contactIntro: 'Cuéntanos cómo podemos ayudarte',
     name: 'Nombre',
@@ -219,6 +262,8 @@ const translations: Record<Language, Record<string, string>> = {
     emailRequired: 'Por favor ingresa tu correo electrónico.',
     emailInvalid: 'Por favor ingresa un correo electrónico válido.',
     messageRequired: 'Por favor ingresa un mensaje.',
+    whatWeDo: 'Nuestro Portafolio de Servicios',
+    servicePortfolioSubtitle: 'Soluciones integrales, desde los datos hasta la implementación.',
     moreInfoHeading: '¿Por qué nosotros?',
     moreInfoBody:
       'Desde bases de datos hasta apps escalables, llevamos tus ideas a producción. Descubre cómo nuestra experiencia impulsa industrias como salud, energía, agro y finanzas.',
@@ -238,6 +283,9 @@ const translations: Record<Language, Record<string, string>> = {
     financialIndustry: 'Finanzas',
     financialIndustryDesc:
       'Refuerza la gestión de riesgos y el cumplimiento con sistemas confiables.',
+    retailIndustry: 'Retail',
+    retailIndustryDesc:
+      'Impulsa ventas y fidelización con inventario e insights de clientes basados en datos.',
     latestPosts: 'Últimas publicaciones',
     readMore: 'Leer más →',
     minRead: 'min de lectura',
