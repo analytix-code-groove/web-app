@@ -10,7 +10,7 @@ import { ensureProfile, getCurrentUser } from '@/lib/profile'
 import logoDesktop from '@/images/logos/desktop/logo_navbar.png'
 import logoMobile from '@/images/logos/mobile/logo_navbar.png'
 import avatarPlaceholder from '@/images/avatar-placeholder.svg'
-import { FiSettings, FiLogOut } from 'react-icons/fi'
+import { FiSettings, FiLogOut, FiDatabase, FiCloud, FiCpu, FiSmartphone, FiMap } from 'react-icons/fi'
 
 const links = [
   { href: '/about', label: 'about' },
@@ -22,110 +22,37 @@ const links = [
         href: '/services/data-analytics',
         label: 'dataAnalytics',
         description: 'dataAnalyticsDesc',
-        icon: (
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            className="h-5 w-5"
-          >
-            <ellipse cx="12" cy="6" rx="7" ry="3" />
-            <path d="M5 6v6c0 1.66 3.13 3 7 3s7-1.34 7-3V6" />
-            <path d="M5 12v6c0 1.66 3.13 3 7 3s7-1.34 7-3v-6" />
-          </svg>
-        ),
+        icon: <FiDatabase className="h-5 w-5" />,
       },
       {
         href: '/services/devops',
         label: 'cloudDevops',
         description: 'cloudDevopsDesc',
-        icon: (
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            className="h-5 w-5"
-          >
-            <path d="M17 16a4 4 0 0 0 0-8 6 6 0 0 0-11.8 1.46A4 4 0 0 0 6 20h11" />
-          </svg>
-        ),
+        icon: <FiCloud className="h-5 w-5" />,
       },
       {
         href: '/services/ai',
         label: 'aiAutomation',
         description: 'aiAutomationDesc',
-        icon: (
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            className="h-5 w-5"
-          >
-            <circle cx="12" cy="12" r="3" />
-            <path d="M12 3v3" />
-            <path d="M12 18v3" />
-            <path d="M3 12h3" />
-            <path d="M18 12h3" />
-            <path d="M5.6 5.6l2.1 2.1" />
-            <path d="M16.3 16.3l2.1 2.1" />
-            <path d="M5.6 18.4l2.1-2.1" />
-            <path d="M16.3 7.7l2.1-2.1" />
-          </svg>
-        ),
+        icon: <FiCpu className="h-5 w-5" />,
       },
       {
         href: '/services/automation-qa',
         label: 'automationQa',
         description: 'automationQaDesc',
-        icon: (
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            className="h-5 w-5"
-          >
-            <path d="M9 11l3 3L22 4" />
-            <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" />
-          </svg>
-        ),
+        icon: <FiSettings className="h-5 w-5" />,
       },
       {
         href: '/services/apps',
         label: 'appsApis',
         description: 'appsApisDesc',
-        icon: (
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            className="h-5 w-5"
-          >
-            <path d="M8 4l-6 8 6 8" />
-            <path d="M16 4l6 8-6 8" />
-          </svg>
-        ),
+        icon: <FiSmartphone className="h-5 w-5" />,
       },
       {
         href: '/services/consulting',
         label: 'itConsulting',
         description: 'itConsultingDesc',
-        icon: (
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            className="h-5 w-5"
-          >
-            <rect x="3" y="7" width="18" height="13" rx="2" />
-            <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
-          </svg>
-        ),
+        icon: <FiMap className="h-5 w-5" />,
       },
     ],
   },

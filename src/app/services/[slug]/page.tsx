@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import ServiceLayout from '@/components/ServiceLayout'
 import { getService, services } from '@/data/services'
 import { notFound } from 'next/navigation'
 
@@ -37,6 +36,5 @@ export default async function ServicePage({ params }: Props) {
   const { slug } = await params
   const service = getService(slug)
   if (!service) notFound()
-  return <ServiceLayout {...service} />
+  return notFound()
 }
-
