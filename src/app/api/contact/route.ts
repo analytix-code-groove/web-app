@@ -145,30 +145,74 @@ function formatContactEmail(
   const rows = safeFields
     .map(
       f =>
-        `<tr><td style="padding:4px 8px;font-weight:bold;">${f.label}:</td><td style="padding:4px 8px;">${f.value}</td></tr>`
+        `<tr>
+          <td style="padding:10px 16px;font-weight:600;color:#9CA3AF;font-size:13px;white-space:nowrap;vertical-align:top;">${f.label}</td>
+          <td style="padding:10px 16px;color:#F3F4F6;font-size:14px;vertical-align:top;">${f.value}</td>
+        </tr>`
     )
     .join('')
 
   const safeMessage = escapeHtml(message).replace(/\n/g, '<br />')
   const year = new Date().getFullYear()
 
-  const html = [
-    '<!DOCTYPE html>',
-    '<html>',
-    '  <body style="font-family:Arial,sans-serif;line-height:1.5;max-width:600px;margin:auto;">',
-    '    <header style="text-align:center;margin-bottom:20px;">',
-    '      <img src="https://analytixcg.com/images/logos/desktop/logo_navbar.png" alt="Analytix Code Groove" style="height:40px" />',
-    '    </header>',
-    '    <h2 style="margin:0 0 16px 0;">Contact Form Submission</h2>',
-    `    <table style="border-collapse:collapse;width:100%;margin-bottom:16px;">${rows}</table>`,
-    '    <p style="margin:0 0 8px 0;"><strong>Message:</strong></p>',
-    `    <p>${safeMessage}</p>`,
-    '    <footer style="margin-top:32px;font-size:12px;color:#666;text-align:center;border-top:1px solid #eee;padding-top:12px;">',
-    `      © ${year} Analytix Code Groove • <a href="https://analytixcg.com" style="color:#666;text-decoration:none;">analytixcg.com</a>`,
-    '    </footer>',
-    '  </body>',
-    '</html>',
-  ].join('\n')
+  const html = `<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8" /></head>
+<body style="margin:0;padding:0;background-color:#0B0E11;font-family:'Segoe UI',Arial,sans-serif;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#0B0E11;">
+    <tr><td align="center" style="padding:24px 16px;">
+      <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;border-radius:12px;overflow:hidden;background-color:#111418;">
+        <!-- Cover -->
+        <tr>
+          <td style="padding:0;line-height:0;">
+            <img src="https://analytixcg.com/images/email-cover.jpg" alt="Analytix Code Groove" width="600" style="display:block;width:100%;height:auto;" />
+          </td>
+        </tr>
+        <!-- Title -->
+        <tr>
+          <td style="padding:28px 24px 4px 24px;">
+            <h2 style="margin:0;font-size:20px;font-weight:600;color:#36E2B4;">Contact Form Submission</h2>
+          </td>
+        </tr>
+        <!-- Fields -->
+        <tr>
+          <td style="padding:12px 8px;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
+              ${rows}
+            </table>
+          </td>
+        </tr>
+        <!-- Divider -->
+        <tr>
+          <td style="padding:0 24px;">
+            <hr style="border:none;border-top:1px solid #1F2937;margin:0;" />
+          </td>
+        </tr>
+        <!-- Message -->
+        <tr>
+          <td style="padding:20px 24px 4px 24px;">
+            <p style="margin:0;font-size:13px;font-weight:600;color:#9CA3AF;">Message</p>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:8px 24px 28px 24px;">
+            <p style="margin:0;font-size:14px;line-height:1.6;color:#F3F4F6;">${safeMessage}</p>
+          </td>
+        </tr>
+        <!-- Footer -->
+        <tr>
+          <td style="padding:20px 24px;background-color:#0B0E11;text-align:center;border-top:1px solid #1F2937;">
+            <p style="margin:0;font-size:12px;color:#6B7280;">
+              &copy; ${year} Analytix Code Groove &bull;
+              <a href="https://analytixcg.com" style="color:#36E2B4;text-decoration:none;">analytixcg.com</a>
+            </p>
+          </td>
+        </tr>
+      </table>
+    </td></tr>
+  </table>
+</body>
+</html>`
 
   return { text, html }
 }
