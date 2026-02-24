@@ -7,7 +7,7 @@ import { useLanguage } from '@/lib/i18n'
 export default function ServiceCards() {
   const { t } = useLanguage()
   return (
-    <section className="bg-bg py-20">
+    <section className="bg-bg py-28">
       <div className="mx-auto max-w-6xl px-4">
         <h2 className="text-center font-heading text-3xl font-semibold text-text sm:text-4xl">
           {t('whatWeDo')}

@@ -21,7 +21,7 @@ export default function MoreInfo() {
   ]
 
   return (
-    <section className="bg-surface py-20">
+    <section className="bg-surface py-28">
       <div className="mx-auto max-w-6xl px-4 text-center">
         <h2 className="font-heading text-3xl font-semibold text-text sm:text-4xl">
           {lang === 'en' ? (
