@@ -44,6 +44,7 @@ Branch flow: `feature/*` → `release/*` → `dev` → `master` (production).
 - When ready to ship, merge desired feature branches into a `release/v<major.minor.patch>` branch.
 - Release branch is merged into `dev` for integration, then into `master` for production.
 - Never commit directly to `dev` or `master`.
+- **NEVER merge release branches into `dev` or `master`.** The user will do this manually.
 
 ### Release Notes
 
