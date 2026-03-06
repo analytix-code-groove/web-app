@@ -302,7 +302,7 @@ const translations: Record<Language, Record<string, string>> = {
       'From data foundations to scalable apps, we take ideas to production. See how our expertise powers industries like healthcare, energy, agriculture, and finance.',
     yearsExperience: 'Years of Team Experience',
     industriesServed: 'Industries Served',
-    serviceAreas: 'Service Areas',
+    serviceAreas: 'Core Services',
     industriesHeading: 'Industries we serve',
     healthcareIndustry: 'Healthcare',
     healthcareIndustryDesc:
@@ -426,6 +426,7 @@ const translations: Record<Language, Record<string, string>> = {
     cancel: 'Cancel',
     save: 'Save',
     accountIdentities: 'Account Identities',
+    trustedBy: 'Trusted by',
   },
   es: {
     about: 'Acerca de',
@@ -720,10 +721,10 @@ const translations: Record<Language, Record<string, string>> = {
     servicePortfolioSubtitle: 'Soluciones integrales, desde los datos hasta la implementación.',
     moreInfoHeading: '¿Por qué nosotros?',
     moreInfoBody:
-      'Desde bases de datos hasta apps escalables, llevamos tus ideas a producción. Descubre cómo nuestra experiencia impulsa industrias como salud, energía, agro y finanzas.',
+      'Desde bases de datos hasta apps escalables, llevamos tus ideas a producción. Descubre cómo nuestra experiencia impulsa las diferentes industrias.',
     yearsExperience: 'Años de Experiencia del Equipo',
     industriesServed: 'Industrias Atendidas',
-    serviceAreas: 'Áreas de Servicio',
+    serviceAreas: 'Servicios Core',
     industriesHeading: 'Industrias que atendemos',
     healthcareIndustry: 'Salud',
     healthcareIndustryDesc:
@@ -852,6 +853,7 @@ const translations: Record<Language, Record<string, string>> = {
     cancel: 'Cancelar',
     save: 'Guardar',
     accountIdentities: 'Identidades de la cuenta',
+    trustedBy: 'Confían en nosotros',
   },
 }
 

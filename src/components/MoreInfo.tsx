@@ -1,15 +1,59 @@
 "use client"
 
+import { useEffect, useRef, useState } from 'react'
 import { useLanguage } from '@/lib/i18n'
 import { FiActivity, FiZap, FiFeather, FiDollarSign, FiShoppingCart } from 'react-icons/fi'
+
+function useCountUp(end: number, duration = 1500) {
+  const [count, setCount] = useState(0)
+  const [started, setStarted] = useState(false)
+  const ref = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setStarted(true); observer.disconnect() } },
+      { threshold: 0.5 }
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+
+  useEffect(() => {
+    if (!started) return
+    const steps = 40
+    const increment = end / steps
+    const interval = duration / steps
+    let current = 0
+    const timer = setInterval(() => {
+      current += increment
+      if (current >= end) { setCount(end); clearInterval(timer) }
+      else setCount(Math.floor(current))
+    }, interval)
+    return () => clearInterval(timer)
+  }, [started, end, duration])
+
+  return { count, ref }
+}
+
+function CountUpStat({ end, suffix, label }: { end: number; suffix: string; label: string }) {
+  const { count, ref } = useCountUp(end)
+  return (
+    <div ref={ref}>
+      <span className="text-4xl font-bold text-mint">{count}{suffix}</span>
+      <p className="mt-2 text-sm text-muted">{label}</p>
+    </div>
+  )
+}
 
 export default function MoreInfo() {
   const { t, lang } = useLanguage()
 
   const stats = [
-    { value: '20+', labelKey: 'yearsExperience' },
-    { value: '5', labelKey: 'industriesServed' },
-    { value: '6', labelKey: 'serviceAreas' },
+    { end: 20, suffix: '+', labelKey: 'yearsExperience' },
+    { end: 5, suffix: '', labelKey: 'industriesServed' },
+    { end: 6, suffix: '', labelKey: 'serviceAreas' },
   ]
 
   const industries = [
@@ -36,11 +80,8 @@ export default function MoreInfo() {
         </p>
 
         <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-3">
-          {stats.map(({ value, labelKey }) => (
-            <div key={labelKey}>
-              <span className="text-4xl font-bold text-mint">{value}</span>
-              <p className="mt-2 text-sm text-muted">{t(labelKey)}</p>
-            </div>
+          {stats.map((stat) => (
+            <CountUpStat key={stat.labelKey} end={stat.end} suffix={stat.suffix} label={t(stat.labelKey)} />
           ))}
         </div>
 

@@ -1,21 +1,8 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
-
-## Build & Development Commands
-
-```bash
-npm run dev          # Start dev server with Turbopack
-npm run build        # Production build
-npm run start        # Start production server
-npm run lint         # Run ESLint
-```
-
-Node 20.x, npm 10.9.2. No test framework is configured.
-
 ## Architecture
 
-**Next.js 15 App Router** with React 19, TypeScript (strict), TailwindCSS 4, and Supabase (PostgreSQL + Auth).
+**Next.js 15 App Router**, React 19, TypeScript (strict), TailwindCSS 4, Supabase (PostgreSQL + Auth).
 
 ### Key Directories
 
@@ -27,50 +14,46 @@ Node 20.x, npm 10.9.2. No test framework is configured.
 
 ### Server/Client Component Pattern
 
-Pages are server components that delegate interactivity to paired `*Client.tsx` files:
-- `src/app/blog/page.tsx` → `BlogClient.tsx`
-- `src/app/services/[service]/page.tsx` → `[service]Client.tsx`
-- `src/app/login/page.tsx` → `LoginClient.tsx`
-
-`ClientLayout.tsx` wraps all pages with Navbar/Footer (hidden on `/login`).
+Pages are server components that delegate interactivity to paired `*Client.tsx` files (e.g. `page.tsx` → `BlogClient.tsx`). `ClientLayout.tsx` wraps all pages with Navbar/Footer (hidden on `/login`).
 
 ### Internationalization
 
-React Context via `LanguageProvider` in `src/lib/i18n.tsx`. Two languages: `en`, `es`. Use `useLanguage()` hook → `{ t(key), lang, setLang }`. Language persisted in localStorage.
+React Context via `LanguageProvider` in `src/lib/i18n.tsx`. Two languages: `en`, `es`. Use `useLanguage()` → `{ t(key), lang, setLang }`. Language persisted in localStorage.
 
 ### Database & Auth
 
-Supabase with RLS policies. Schemas: `api`, `content`, `reference`, `app`, `work`, `marketing`, `contact`.
+Supabase with RLS. Schemas: `api`, `content`, `reference`, `app`, `work`, `marketing`, `contact`.
 
-Key tables: `api.profiles` (roles: admin/author/client), `content.posts`, `content.post_translations` (en/es markdown bodies), `content.tags`.
+Key tables: `api.profiles` (roles: admin/author/client), `content.posts`, `content.post_translations` (en/es markdown), `content.tags`.
 
-Auth: Supabase Auth (email/password, GitHub OAuth, Google OAuth). Profile auto-created on first login via `ensureProfile()` in `src/lib/profile.ts`.
+Auth: email/password + OAuth. Profile auto-created on first login via `ensureProfile()` in `src/lib/profile.ts`.
 
 ### API Routes
 
-- `GET/POST /api/posts` — List/create posts (auth + author/admin for POST)
-- `GET/DELETE /api/posts/[slug]` — Single post operations
-- `POST /api/contact` — Contact form email via Nodemailer
-- `POST /api/roles` — Role management (requires `ADMIN_SECRET` bearer token)
-- `GET /api/rss.xml` — RSS feed
-
-API routes use `export const runtime = 'nodejs'` and `export const dynamic = 'force-dynamic'`.
+All routes under `src/app/api/` use `runtime = 'nodejs'` and `dynamic = 'force-dynamic'`.
 
 ### Styling
 
-Dark-theme only. CSS variables defined in `src/app/globals.css` (`--bg`, `--surface`, `--text`, `--muted`, `--mint`, `--stroke`). Utility-first Tailwind with `@tailwindcss/typography` plugin. Path alias: `@/*` → `./src/*`.
+Dark-theme only. CSS variables in `src/app/globals.css`: `--bg`, `--surface`, `--text`, `--muted`, `--mint`, `--stroke`. Utility-first Tailwind.
+
+## Git Strategy
+
+Branch flow: `feature/*` → `release/*` → `dev` → `master` (production).
+
+- **Every change** gets its own `feature/<short-description>` branch, cut from `dev`.
+- When ready to ship, merge desired feature branches into a `release/v<major.minor.patch>` branch.
+- Release branch is merged into `dev` for integration, then into `master` for production.
+- Never commit directly to `dev` or `master`.
+
+### Release Notes
+
+**Per feature:** Every `feature/*` branch must include a `release-notes/features/<short-description>.md` documenting:
+- What was built and why
+- Breaking changes (if any)
+- Migration steps (if any)
+
+**Per release:** When creating a `release/*` branch, consolidate all included feature notes into `release-notes/v<major.minor.patch>/README.md`. Individual feature files are the source of truth — the release note is a curated summary of them.
 
 ## Environment Variables
 
-Required in `.env.local` (see `.env.example` and `supabase.local.example.json`):
-
-- `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY` — Client-side Supabase
-- `SUPABASE_SERVICE_ROLE_KEY` — Server-side admin client
-- `ADMIN_SECRET` — Role management endpoint auth
-- `SMTP_*` variables — Contact form email delivery
-
-Local dev fallback: `supabase.local.json` is loaded if env vars are not set.
-
-## Deployment
-
-Vercel-hosted. Uses Vercel Analytics and Speed Insights. Image remote patterns configured for Unsplash, GitHub avatars, Google, and Supabase storage.
+See `.env.example`. Required: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`, `ADMIN_SECRET`, `SMTP_*`. Local dev fallback: `supabase.local.json`.
