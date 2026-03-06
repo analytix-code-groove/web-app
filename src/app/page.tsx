@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Hero from '@/components/Hero'
+import ClientLogos from '@/components/ClientLogos'
 import ServiceCards from '@/components/ServiceCards'
 import MoreInfo from '@/components/MoreInfo'
 import LatestPosts from '@/components/LatestPosts'
@@ -13,6 +14,7 @@ export default function Home() {
   return (
     <main>
       <Hero />
+      <ClientLogos />
       <ServiceCards />
       <MoreInfo />
       <LatestPosts />
