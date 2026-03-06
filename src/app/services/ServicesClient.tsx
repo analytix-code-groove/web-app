@@ -12,6 +12,7 @@ import {
   FiSettings,
   FiCloud,
   FiMap,
+  FiUserPlus,
 } from 'react-icons/fi'
 
 const iconMap: Record<string, IconType> = {
@@ -21,6 +22,7 @@ const iconMap: Record<string, IconType> = {
   FiSettings,
   FiCloud,
   FiMap,
+  FiUserPlus,
 }
 
 function ServiceCard({ s, t }: { s: (typeof services)[number]; t: (key: string) => string }) {

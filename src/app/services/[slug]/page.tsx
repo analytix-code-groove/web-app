@@ -16,7 +16,8 @@ export function generateStaticParams() {
         s.slug !== 'ai' &&
         s.slug !== 'apps' &&
         s.slug !== 'consulting' &&
-        s.slug !== 'devops'
+        s.slug !== 'devops' &&
+        s.slug !== 'staff-augmentation'
     )
     .map(s => ({ slug: s.slug }))
 }

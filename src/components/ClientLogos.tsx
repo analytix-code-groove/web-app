@@ -30,7 +30,7 @@ export default function ClientLogos() {
 
   return (
     <section className="py-10 sm:py-14">
-      <p className="mb-6 text-center text-xs font-semibold uppercase tracking-widest text-muted">
+      <p className="mb-12 text-center text-[0.65rem] font-semibold uppercase tracking-widest text-muted">
         {t('trustedBy')}
       </p>
 

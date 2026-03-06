@@ -53,7 +53,7 @@ export default function MoreInfo() {
   const stats = [
     { end: 20, suffix: '+', labelKey: 'yearsExperience' },
     { end: 5, suffix: '', labelKey: 'industriesServed' },
-    { end: 6, suffix: '', labelKey: 'serviceAreas' },
+    { end: 7, suffix: '', labelKey: 'serviceAreas' },
   ]
 
   const industries = [
