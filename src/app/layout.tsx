@@ -42,17 +42,25 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              '@context': 'https://schema.org',
-              '@type': 'Organization',
-              name: 'Analytix Code Groove',
-              url: 'https://analytixcg.com',
-              logo: 'https://analytixcg.com/images/email-cover.jpg',
-              sameAs: [
-                'https://www.linkedin.com/company/analytix-code-groove',
-                'https://x.com/analytixcg',
-              ],
-            }),
+            __html: JSON.stringify([
+              {
+                '@context': 'https://schema.org',
+                '@type': 'Organization',
+                name: 'Analytix Code Groove',
+                url: 'https://analytixcg.com',
+                logo: 'https://analytixcg.com/images/email-cover.jpg',
+                sameAs: [
+                  'https://www.linkedin.com/company/analytix-code-groove',
+                  'https://x.com/analytixcg',
+                ],
+              },
+              {
+                '@context': 'https://schema.org',
+                '@type': 'WebSite',
+                name: 'Analytix Code Groove',
+                url: 'https://analytixcg.com',
+              },
+            ]),
           }}
         />
         {/* Google tag (gtag.js) */}

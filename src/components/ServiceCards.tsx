@@ -16,7 +16,7 @@ export default function ServiceCards() {
           {t('servicePortfolioSubtitle')}
         </p>
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {services.map(s => (
+          {services.slice(0, -1).map(s => (
             <Link
               key={s.slug}
               href={`/services/${s.slug}`}
@@ -27,6 +27,21 @@ export default function ServiceCards() {
               <span className="mt-4 inline-block text-sm text-mint">{t('learnMore')}</span>
             </Link>
           ))}
+          <div className="hidden rounded-xl2 border border-stroke/70 bg-surface/50 p-6 shadow-soft opacity-40 lg:block" />
+          {(() => {
+            const last = services[services.length - 1]
+            return (
+              <Link
+                href={`/services/${last.slug}`}
+                className="group rounded-xl2 border border-stroke/70 bg-surface p-6 shadow-soft transition hover:border-mint/60"
+              >
+                <h3 className="font-heading text-lg font-semibold text-text group-hover:text-mint">{t(last.titleKey)}</h3>
+                <p className="mt-2 text-sm text-muted">{t(last.cardBlurbKey)}</p>
+                <span className="mt-4 inline-block text-sm text-mint">{t('learnMore')}</span>
+              </Link>
+            )
+          })()}
+          <div className="hidden rounded-xl2 border border-stroke/70 bg-surface/50 p-6 shadow-soft opacity-40 lg:block" />
         </div>
       </div>
     </section>

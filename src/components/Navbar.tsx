@@ -10,7 +10,7 @@ import { ensureProfile, getCurrentUser } from '@/lib/profile'
 import logoDesktop from '@/images/logos/desktop/logo_navbar.png'
 import logoMobile from '@/images/logos/mobile/logo_navbar.png'
 import avatarPlaceholder from '@/images/avatar-placeholder.svg'
-import { FiSettings, FiLogOut, FiDatabase, FiCloud, FiCpu, FiSmartphone, FiMap } from 'react-icons/fi'
+import { FiSettings, FiLogOut, FiDatabase, FiCloud, FiCpu, FiSmartphone, FiMap, FiUserPlus } from 'react-icons/fi'
 
 const links = [
   { href: '/about', label: 'about' },
@@ -53,6 +53,12 @@ const links = [
         label: 'itConsulting',
         description: 'itConsultingDesc',
         icon: <FiMap className="h-5 w-5" />,
+      },
+      {
+        href: '/services/staff-augmentation',
+        label: 'staffAugmentation',
+        description: 'staffAugmentationDesc',
+        icon: <FiUserPlus className="h-5 w-5" />,
       },
     ],
   },
@@ -164,7 +170,7 @@ export default function Navbar() {
                     <div
                       onMouseEnter={openMenu}
                       onMouseLeave={closeMenu}
-                      className="absolute left-1/2 top-full mt-4 w-[30rem] -translate-x-1/2 rounded-xl border border-stroke/60 bg-surface p-4 shadow-soft"
+                      className="absolute left-1/2 top-full mt-4 w-[45rem] -translate-x-1/2 rounded-xl border border-stroke/60 bg-surface p-4 shadow-soft"
                     >
                       <div className="grid grid-flow-col grid-rows-3 gap-4">
                         {l.children.map(child => (

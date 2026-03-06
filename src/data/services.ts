@@ -187,7 +187,31 @@ export const services: ReadonlyArray<Service> = [
         descKey: 'roadmapsDesc',
       },
     ],
-  }
+  },
+  {
+    slug: 'staff-augmentation',
+    titleKey: 'staffAugmentation',
+    descKey: 'staffAugmentationDesc',
+    cardBlurbKey: 'staffAugmentationCard',
+    cardIcons: ['FiUserPlus', 'FiUsers', 'FiClock'],
+    features: [
+      {
+        icon: 'FiUserPlus',
+        titleKey: 'saEmbeddedEngineersTitle',
+        descKey: 'saEmbeddedEngineersDesc',
+      },
+      {
+        icon: 'FiClock',
+        titleKey: 'saRapidIntegrationTitle',
+        descKey: 'saRapidIntegrationDesc',
+      },
+      {
+        icon: 'FiCheckCircle',
+        titleKey: 'saVettedTalentTitle',
+        descKey: 'saVettedTalentDesc',
+      },
+    ],
+  },
 ]
 
 export function getService(slug: string) {
