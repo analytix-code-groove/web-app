@@ -477,6 +477,11 @@ const translations: Record<Language, Record<string, string>> = {
     saReadyHeading: 'Ready to Strengthen Your Team?',
     saReadyBody: 'Tell us what you need — roles, skills, timeline. We\u2019ll come back with a shortlist of senior engineers ready to start. No obligation, no long-term lock-in.',
     saReadyCta: 'Get in touch',
+    privacyPolicy: 'Privacy Policy',
+    termsOfService: 'Terms of Service',
+    termsPrefix: 'By continuing, you agree to Analytix\u2019s ',
+    termsAnd: ' and ',
+    termsSuffix: ', and to receive periodic emails with updates.',
   },
   es: {
     about: 'Acerca de',
@@ -954,6 +959,11 @@ const translations: Record<Language, Record<string, string>> = {
     saReadyHeading: '¿Listo para fortalecer tu equipo?',
     saReadyBody: 'Contanos lo que necesitás — roles, habilidades, plazos. Te respondemos con una lista de ingenieros senior listos para arrancar. Sin compromiso, sin contratos a largo plazo.',
     saReadyCta: 'Contáctanos',
+    privacyPolicy: 'Política de Privacidad',
+    termsOfService: 'Términos de Servicio',
+    termsPrefix: 'Al continuar, aceptas los ',
+    termsAnd: ' y la ',
+    termsSuffix: ' de Analytix, y autorizas el envío de correos electrónicos periódicos con actualizaciones.',
   },
 }
 
