@@ -5,9 +5,14 @@ import { useLanguage } from '@/lib/i18n'
 import { FiActivity, FiZap, FiFeather, FiDollarSign, FiShoppingCart } from 'react-icons/fi'
 
 function useCountUp(end: number, duration = 1500) {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(end)
   const [started, setStarted] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
+
+  // Reset to 0 after hydration so the animation can play
+  useEffect(() => {
+    setCount(0)
+  }, [])
 
   useEffect(() => {
     const el = ref.current
