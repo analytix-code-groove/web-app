@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { createSupabaseServerClient } from '@/lib/supabase'
+import { buildBreadcrumbJsonLd } from '@/lib/breadcrumbs'
 import BlogClient from './BlogClient'
 
 export const revalidate = 60
@@ -8,6 +9,8 @@ export const metadata: Metadata = {
   title: 'Blog',
   description: 'Insights on data engineering, cloud, and automation from the Analytix team.',
 }
+
+const BASE = 'https://www.analytixcg.com'
 
 type Row = {
   slug: string
@@ -46,5 +49,15 @@ export default async function BlogPage() {
     // Blog still renders without initial posts
   }
 
-  return <BlogClient initialPosts={initialPosts} />
+  const breadcrumb = buildBreadcrumbJsonLd([
+    { name: 'Home', url: BASE },
+    { name: 'Blog', url: `${BASE}/blog` },
+  ])
+
+  return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb) }} />
+      <BlogClient initialPosts={initialPosts} />
+    </>
+  )
 }
