@@ -14,9 +14,13 @@ type Post = {
   readingMinutes: number
 }
 
-export default function BlogClient() {
+interface BlogClientProps {
+  initialPosts?: Post[]
+}
+
+export default function BlogClient({ initialPosts = [] }: BlogClientProps) {
   const { t, lang } = useLanguage()
-  const [posts, setPosts] = useState<Post[]>([])
+  const [posts, setPosts] = useState<Post[]>(initialPosts)
   const [canCreate, setCanCreate] = useState(false)
   const supabase = useMemo(() => createSupabaseBrowserClient(), [])
 
