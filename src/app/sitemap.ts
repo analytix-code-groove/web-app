@@ -2,7 +2,7 @@ import type { MetadataRoute } from 'next'
 import { createSupabaseServerClient } from '@/lib/supabase'
 import { services } from '@/data/services'
 
-const BASE_URL = 'https://analytixcg.com'
+const BASE_URL = 'https://www.analytixcg.com'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Static pages

@@ -68,20 +68,22 @@ export async function generateMetadata(
     post = await fetchPost(slug, lang)
   }
   if (!post) return { title: 'Post not found' }
+  const ogImage = post.cover_url || '/images/email-cover.jpg'
   return {
     title: `${post.title}`,
     description: post.excerpt ?? undefined,
+    alternates: { canonical: `/blog/${slug}` },
     openGraph: {
       title: post.title,
       description: post.excerpt ?? undefined,
-      images: post.cover_url ? [post.cover_url] : undefined,
+      images: [ogImage],
       type: 'article',
     },
     twitter: {
-      card: post.cover_url ? 'summary_large_image' : 'summary',
+      card: 'summary_large_image',
       title: post.title,
       description: post.excerpt ?? undefined,
-      images: post.cover_url ? [post.cover_url] : undefined,
+      images: [ogImage],
     },
   }
 }
@@ -304,7 +306,7 @@ export default async function BlogPostPage(
     '@type': 'BlogPosting',
     headline: post.title,
     description: post.excerpt ?? undefined,
-    image: post.cover_url ?? undefined,
+    image: post.cover_url || `${BASE_URL}/images/email-cover.jpg`,
     datePublished: publishedDate?.toISOString(),
     author: authorName
       ? { '@type': 'Person', name: authorName }
@@ -312,7 +314,7 @@ export default async function BlogPostPage(
     publisher: {
       '@type': 'Organization',
       name: 'Analytix Code Groove',
-      url: 'https://analytixcg.com',
+      url: 'https://www.analytixcg.com',
     },
     mainEntityOfPage: postUrl,
   }

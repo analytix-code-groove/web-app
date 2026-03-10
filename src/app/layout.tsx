@@ -7,7 +7,7 @@ import { Analytics } from '@vercel/analytics/next'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://analytixcg.com'),
+  metadataBase: new URL('https://www.analytixcg.com'),
   title: {
     default: 'Analytix Code Groove',
     template: '%s | Analytix Code Groove',
@@ -17,6 +17,7 @@ export const metadata: Metadata = {
     icon: '/favicon.ico',
   },
   alternates: {
+    canonical: '/',
     types: {
       'application/rss+xml': '/rss.xml',
     },
@@ -25,6 +26,7 @@ export const metadata: Metadata = {
     siteName: 'Analytix Code Groove',
     type: 'website',
     locale: 'en_US',
+    images: [{ url: '/images/email-cover.jpg', width: 1200, height: 630 }],
   },
   twitter: {
     card: 'summary_large_image',
@@ -46,19 +48,39 @@ export default function RootLayout({
               {
                 '@context': 'https://schema.org',
                 '@type': 'Organization',
+                '@id': 'https://www.analytixcg.com/#organization',
                 name: 'Analytix Code Groove',
-                url: 'https://analytixcg.com',
-                logo: 'https://analytixcg.com/images/email-cover.jpg',
+                url: 'https://www.analytixcg.com',
+                logo: 'https://www.analytixcg.com/images/email-cover.jpg',
+                description: 'We build reliable data platforms, AI workflows, and production-grade apps.',
+                foundingDate: '2024',
+                contactPoint: {
+                  '@type': 'ContactPoint',
+                  email: 'hello@analytixcg.com',
+                  contactType: 'customer service',
+                },
+                areaServed: 'Worldwide',
+                knowsAbout: [
+                  'Data & Analytics',
+                  'Generative AI',
+                  'Cloud & DevOps',
+                  'Apps & APIs',
+                  'IT Consulting',
+                  'Automation & QA',
+                  'Staff Augmentation',
+                ],
+                numberOfEmployees: { '@type': 'QuantitativeValue', minValue: 10, maxValue: 50 },
                 sameAs: [
                   'https://www.linkedin.com/company/analytix-code-groove',
                   'https://x.com/analytixcg',
+                  'https://github.com/analytix-code-groove',
                 ],
               },
               {
                 '@context': 'https://schema.org',
                 '@type': 'WebSite',
                 name: 'Analytix Code Groove',
-                url: 'https://analytixcg.com',
+                url: 'https://www.analytixcg.com',
               },
             ]),
           }}
