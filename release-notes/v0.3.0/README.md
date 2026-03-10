@@ -10,7 +10,7 @@ This release implements quick-win improvements identified in the GEO (Generative
 
 ### 1. SEO Meta Fixes (`feature/seo-meta-fixes`)
 - Canonical URLs using `www.analytixcg.com` across metadataBase, sitemap, and JSON-LD
-- Default Open Graph image fallback (`/images/email-cover.jpg`)
+- Default Open Graph image fallback (`/images/og-cover.jpg`)
 - Enhanced Organization JSON-LD with `@id`, `description`, `foundingDate`, `contactPoint`, `areaServed`, `knowsAbout`, `numberOfEmployees`, and GitHub in `sameAs`
 - Blog posts always use `summary_large_image` Twitter card
 
@@ -46,7 +46,7 @@ This release implements quick-win improvements identified in the GEO (Generative
 ## Pre-deploy Checklist
 
 - [ ] Set `NEXT_PUBLIC_SITE_URL` to `https://www.analytixcg.com` in Vercel
-- [ ] Verify `/images/email-cover.jpg` dimensions (ideal: 1200x630)
+- [ ] Verify `/images/og-cover.jpg` dimensions (ideal: 1200x630)
 - [ ] Run SQL migration `src/sql/add-author-profile-fields.sql` in Supabase (prod + local)
 - [ ] Confirm GitHub org URL: `https://github.com/analytix-code-groove`
 - [ ] Flag legal pages for professional review

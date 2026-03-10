@@ -76,7 +76,7 @@ export async function generateMetadata(
     post = await fetchPost(slug, lang)
   }
   if (!post) return { title: 'Post not found' }
-  const ogImage = post.cover_url || '/images/email-cover.jpg'
+  const ogImage = post.cover_url || '/images/og-cover.jpg'
   return {
     title: `${post.title}`,
     description: post.excerpt ?? undefined,
@@ -315,7 +315,7 @@ export default async function BlogPostPage(
     '@type': 'BlogPosting',
     headline: post.title,
     description: post.excerpt ?? undefined,
-    image: post.cover_url || `${BASE_URL}/images/email-cover.jpg`,
+    image: post.cover_url || `${BASE_URL}/images/og-cover.jpg`,
     datePublished: publishedDate?.toISOString(),
     author: authorName
       ? { '@type': 'Person', name: authorName, ...(author?.linkedin_url ? { url: author.linkedin_url } : {}) }

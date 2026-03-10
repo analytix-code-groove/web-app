@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     siteName: 'Analytix Code Groove',
     type: 'website',
     locale: 'en_US',
-    images: [{ url: '/images/email-cover.jpg', width: 1200, height: 630 }],
+    images: [{ url: '/images/og-cover.jpg', width: 1200, height: 630 }],
   },
   twitter: {
     card: 'summary_large_image',
@@ -51,7 +51,7 @@ export default function RootLayout({
                 '@id': 'https://www.analytixcg.com/#organization',
                 name: 'Analytix Code Groove',
                 url: 'https://www.analytixcg.com',
-                logo: 'https://www.analytixcg.com/images/email-cover.jpg',
+                logo: 'https://www.analytixcg.com/images/og-cover.jpg',
                 description: 'We build reliable data platforms, AI workflows, and production-grade apps.',
                 foundingDate: '2024',
                 contactPoint: {
