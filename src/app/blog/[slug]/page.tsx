@@ -12,6 +12,7 @@ import GithubSlugger from 'github-slugger'
 import ShareButtons from '@/components/ShareButtons'
 import { headers, cookies } from 'next/headers'
 import { createSupabaseServerClient } from '@/lib/supabase'
+import { buildBreadcrumbJsonLd } from '@/lib/breadcrumbs'
 
 export const revalidate = 60 // or: export const dynamic = 'force-dynamic'
 
@@ -317,8 +318,18 @@ export default async function BlogPostPage(
     mainEntityOfPage: postUrl,
   }
 
+  const breadcrumb = buildBreadcrumbJsonLd([
+    { name: 'Home', url: BASE_URL },
+    { name: 'Blog', url: `${BASE_URL}/blog` },
+    { name: post.title, url: postUrl },
+  ])
+
   return (
     <main className="mx-auto max-w-5xl px-4 py-16 lg:flex lg:gap-12">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb) }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
