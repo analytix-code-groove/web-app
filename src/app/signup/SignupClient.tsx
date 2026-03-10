@@ -151,7 +151,13 @@ export default function SignupClient() {
             </Link>
           </p>
 
-          <p className="mt-16 text-xs leading-relaxed text-muted">{t('termsAgreement')}</p>
+          <p className="mt-16 text-xs leading-relaxed text-muted">
+            {t('termsPrefix')}
+            <Link href="/terms" className="text-mint hover:underline">{t('termsOfService')}</Link>
+            {t('termsAnd')}
+            <Link href="/privacy" className="text-mint hover:underline">{t('privacyPolicy')}</Link>
+            {t('termsSuffix')}
+          </p>
         </div>
       </div>
 

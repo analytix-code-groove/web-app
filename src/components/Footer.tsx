@@ -22,6 +22,8 @@ const services = [
 const company = [
   { href: '/about', label: 'about' },
   { href: '/contact', label: 'contact' },
+  { href: '/privacy', label: 'privacyPolicy' },
+  { href: '/terms', label: 'termsOfService' },
 ]
 
 const ClutchIcon = () => (
