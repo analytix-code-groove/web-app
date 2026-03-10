@@ -29,20 +29,27 @@ async function fetchPost(slug: string, lang: string) {
   return res.json()
 }
 
-async function fetchAuthorName(authorId: string) {
+type Author = {
+  full_name: string | null
+  avatar_url: string | null
+  bio: string | null
+  linkedin_url: string | null
+}
+
+async function fetchAuthor(authorId: string): Promise<Author | null> {
   try {
     const supabase = createSupabaseServerClient()
     const { data, error } = await supabase
       .schema('content')
       .from('vw_authors_public')
-      .select('full_name')
+      .select('full_name, avatar_url, bio, linkedin_url')
       .eq('id', authorId)
       .single()
     if (error) {
       console.error('Failed to load author', error)
       return null
     }
-    return data?.full_name ?? null
+    return data ?? null
   } catch (e) {
     console.error('Unexpected author fetch error', e)
     return null
@@ -106,7 +113,8 @@ export default async function BlogPostPage(
     post = await fetchPost(slug, lang)
   }
   if (!post) notFound()
-  const authorName = post.author_id ? await fetchAuthorName(post.author_id) : null
+  const author = post.author_id ? await fetchAuthor(post.author_id) : null
+  const authorName = author?.full_name ?? null
   const publishedDate = post.published_at
     ? new Date(post.published_at)
     : null
@@ -307,7 +315,7 @@ export default async function BlogPostPage(
     image: post.cover_url ?? undefined,
     datePublished: publishedDate?.toISOString(),
     author: authorName
-      ? { '@type': 'Person', name: authorName }
+      ? { '@type': 'Person', name: authorName, ...(author?.linkedin_url ? { url: author.linkedin_url } : {}) }
       : { '@type': 'Organization', name: 'Analytix Code Groove' },
     publisher: {
       '@type': 'Organization',
@@ -374,9 +382,43 @@ export default async function BlogPostPage(
                 <time dateTime={publishedDate?.toISOString()}>{formattedDate}</time>
               </p>
             )}
-            {authorName && <p>{labels.writtenBy} {authorName}</p>}
           </div>
         </section>
+
+        {author && authorName && (
+          <section>
+            <p className="text-xs font-semibold uppercase tracking-wide text-muted">
+              {labels.writtenBy}
+            </p>
+            <div className="mt-3 flex items-start gap-3">
+              {author.avatar_url && (
+                <Image
+                  src={author.avatar_url}
+                  alt={authorName}
+                  width={48}
+                  height={48}
+                  className="rounded-full object-cover"
+                />
+              )}
+              <div className="min-w-0">
+                <p className="text-sm font-semibold text-text">{authorName}</p>
+                {author.bio && (
+                  <p className="mt-1 text-xs text-muted line-clamp-3">{author.bio}</p>
+                )}
+                {author.linkedin_url && (
+                  <a
+                    href={author.linkedin_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-1 inline-block text-xs text-mint hover:underline"
+                  >
+                    LinkedIn
+                  </a>
+                )}
+              </div>
+            </div>
+          </section>
+        )}
 
         <section>
           <p className="text-xs font-semibold uppercase tracking-wide text-muted">{labels.share}</p>
