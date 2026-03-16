@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const description = service
     ? `Learn more about our ${name} offering.`
     : 'Service details.'
-  return { title, description }
+  return { title, description, alternates: { canonical: `/services/${slug}` } }
 }
 
 export default async function ServicePage({ params }: Props) {

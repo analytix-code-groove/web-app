@@ -5,6 +5,7 @@ import AboutClient from './AboutClient'
 export const metadata: Metadata = {
   title: 'About',
   description: 'Learn about Analytix Code Groove — our mission, values, and the team behind the technology.',
+  alternates: { canonical: '/about' },
 }
 
 const BASE = 'https://www.analytixcg.com'

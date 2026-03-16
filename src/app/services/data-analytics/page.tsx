@@ -5,6 +5,7 @@ import DataAnalyticsServicePage from './DataAnalyticsClient'
 export const metadata: Metadata = {
   title: 'Data & Analytics Services',
   description: 'From raw data to real results — faster, smarter, and at scale.',
+  alternates: { canonical: '/services/data-analytics' },
 }
 
 const BASE = 'https://www.analytixcg.com'

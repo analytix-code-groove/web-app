@@ -17,7 +17,6 @@ export const metadata: Metadata = {
     icon: '/favicon.ico',
   },
   alternates: {
-    canonical: '/',
     types: {
       'application/rss+xml': '/rss.xml',
     },
@@ -51,9 +50,9 @@ export default function RootLayout({
                 '@id': 'https://www.analytixcg.com/#organization',
                 name: 'Analytix Code Groove',
                 url: 'https://www.analytixcg.com',
-                logo: 'https://www.analytixcg.com/images/og-cover.jpg',
+                logo: 'https://www.analytixcg.com/favicon.svg',
                 description: 'We build reliable data platforms, AI workflows, and production-grade apps.',
-                foundingDate: '2024',
+                foundingDate: '2025-10-24',
                 contactPoint: {
                   '@type': 'ContactPoint',
                   email: 'hello@analytixcg.com',
@@ -71,9 +70,10 @@ export default function RootLayout({
                 ],
                 numberOfEmployees: { '@type': 'QuantitativeValue', minValue: 10, maxValue: 50 },
                 sameAs: [
-                  'https://www.linkedin.com/company/analytix-code-groove',
+                  'https://www.linkedin.com/company/analytixcg',
                   'https://x.com/analytixcg',
                   'https://github.com/analytix-code-groove',
+                  'https://clutch.co/profile/analytix-code-groove',
                 ],
               },
               {
@@ -89,9 +89,9 @@ export default function RootLayout({
         <Script
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-LP2YGD26S7"
-          strategy="beforeInteractive"
+          strategy="afterInteractive"
         />
-        <Script id="google-tag" strategy="beforeInteractive">
+        <Script id="google-tag" strategy="afterInteractive">
           {`window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());

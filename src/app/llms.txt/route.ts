@@ -25,7 +25,8 @@ Healthcare, Energy, Agriculture, Financial Services, Retail.
 
 - Website: https://www.analytixcg.com
 - Email: hello@analytixcg.com
-- LinkedIn: https://www.linkedin.com/company/analytix-code-groove
+- LinkedIn: https://www.linkedin.com/company/analytixcg
+- Clutch: https://clutch.co/profile/analytix-code-groove
 - Blog: https://www.analytixcg.com/blog
 
 ## Permissions

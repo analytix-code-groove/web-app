@@ -5,6 +5,7 @@ import AutomationQaServicePage from './AutomationQaClient'
 export const metadata: Metadata = {
   title: 'Automation & QA Services',
   description: 'Smarter processes. Higher quality. Fewer headaches.',
+  alternates: { canonical: '/services/automation-qa' },
 }
 
 const BASE = 'https://www.analytixcg.com'

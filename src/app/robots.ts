@@ -16,6 +16,6 @@ export default function robots(): MetadataRoute.Robots {
         '/api/',
       ],
     },
-    sitemap: 'https://analytixcg.com/sitemap.xml',
+    sitemap: 'https://www.analytixcg.com/sitemap.xml',
   }
 }

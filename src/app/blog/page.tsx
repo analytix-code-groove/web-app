@@ -8,6 +8,7 @@ export const revalidate = 60
 export const metadata: Metadata = {
   title: 'Blog',
   description: 'Insights on data engineering, cloud, and automation from the Analytix team.',
+  alternates: { canonical: '/blog' },
 }
 
 const BASE = 'https://www.analytixcg.com'
