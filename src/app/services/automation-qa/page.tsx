@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { buildBreadcrumbJsonLd } from '@/lib/breadcrumbs'
+import { buildServiceJsonLd } from '@/lib/schema'
 import AutomationQaServicePage from './AutomationQaClient'
 
 export const metadata: Metadata = {
@@ -16,10 +17,12 @@ export default function Page() {
     { name: 'Services', url: `${BASE}/services` },
     { name: 'Automation & QA', url: `${BASE}/services/automation-qa` },
   ])
+  const service = buildServiceJsonLd('automation-qa', 'Automation & QA', 'Workflow automation, test automation, and quality gates.')
 
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(service) }} />
       <AutomationQaServicePage />
     </>
   )
