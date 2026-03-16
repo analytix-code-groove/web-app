@@ -5,6 +5,7 @@ import { ContactClient } from './ContactClient'
 export const metadata: Metadata = {
   title: 'Contact',
   description: 'Get in touch with the Analytix team to discuss your next project.',
+  alternates: { canonical: '/contact' },
 }
 
 const BASE = 'https://www.analytixcg.com'
