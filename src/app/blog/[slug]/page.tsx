@@ -19,7 +19,7 @@ export const revalidate = 60 // or: export const dynamic = 'force-dynamic'
 type Params = { slug: string }
 
 const BASE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
+  (process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000').replace(/\/+$/, '')
 
 async function fetchPost(slug: string, lang: string) {
   const res = await fetch(`${BASE_URL}/api/posts/${slug}?lang=${lang}`, {

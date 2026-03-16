@@ -5,6 +5,7 @@ import CloudDevOpsServicePage from './DevOpsClient'
 export const metadata: Metadata = {
   title: 'Cloud & DevOps Services',
   description: 'Build, deploy, and scale with confidence.',
+  alternates: { canonical: '/services/devops' },
 }
 
 const BASE = 'https://www.analytixcg.com'
