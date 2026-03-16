@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import { getService, services } from '@/data/services'
 import { notFound } from 'next/navigation'
+import { buildBreadcrumbJsonLd } from '@/lib/breadcrumbs'
+import { buildServiceJsonLd } from '@/lib/schema'
 
 interface Params {
   slug: string
@@ -33,9 +35,25 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return { title, description, alternates: { canonical: `/services/${slug}` } }
 }
 
+const BASE = 'https://www.analytixcg.com'
+
 export default async function ServicePage({ params }: Props) {
   const { slug } = await params
-  const service = getService(slug)
-  if (!service) notFound()
-  return notFound()
+  const svc = getService(slug)
+  if (!svc) notFound()
+
+  const name = svc.slug.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase())
+  const breadcrumb = buildBreadcrumbJsonLd([
+    { name: 'Home', url: BASE },
+    { name: 'Services', url: `${BASE}/services` },
+    { name, url: `${BASE}/services/${slug}` },
+  ])
+  const serviceSchema = buildServiceJsonLd(slug, name, `Learn more about our ${name} offering.`)
+
+  return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
+    </>
+  )
 }

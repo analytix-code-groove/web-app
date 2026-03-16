@@ -79,8 +79,11 @@ export default function RootLayout({
               {
                 '@context': 'https://schema.org',
                 '@type': 'WebSite',
+                '@id': 'https://www.analytixcg.com/#website',
                 name: 'Analytix Code Groove',
                 url: 'https://www.analytixcg.com',
+                publisher: { '@id': 'https://www.analytixcg.com/#organization' },
+                inLanguage: ['en', 'es'],
               },
             ]),
           }}
