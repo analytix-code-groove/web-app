@@ -5,6 +5,7 @@ import ITConsultingServicePage from './ConsultingClient'
 export const metadata: Metadata = {
   title: 'IT Consulting',
   description: 'Clarity, architecture, and momentum\u2014when you need it.',
+  alternates: { canonical: '/services/consulting' },
 }
 
 const BASE = 'https://www.analytixcg.com'

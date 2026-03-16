@@ -8,6 +8,7 @@ import LatestPosts from '@/components/LatestPosts'
 export const metadata: Metadata = {
   title: 'Analytix Code Groove',
   description: 'Discover our data, AI, and cloud services designed to move your business forward.',
+  alternates: { canonical: '/' },
 }
 
 export default function Home() {
