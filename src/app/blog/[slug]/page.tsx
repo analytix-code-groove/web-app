@@ -313,19 +313,32 @@ export default async function BlogPostPage(
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
+    '@id': `${postUrl}/#article`,
     headline: post.title,
     description: post.excerpt ?? undefined,
     image: post.cover_url || `${BASE_URL}/images/og-cover.jpg`,
     datePublished: publishedDate?.toISOString(),
+    dateModified: publishedDate?.toISOString(),
+    wordCount,
+    inLanguage: lang,
     author: authorName
-      ? { '@type': 'Person', name: authorName, ...(author?.linkedin_url ? { url: author.linkedin_url } : {}) }
-      : { '@type': 'Organization', name: 'Analytix Code Groove' },
-    publisher: {
-      '@type': 'Organization',
-      name: 'Analytix Code Groove',
-      url: 'https://www.analytixcg.com',
+      ? {
+          '@type': 'Person',
+          '@id': `${BASE_URL}/#author-${post.author_id}`,
+          name: authorName,
+          ...(author?.avatar_url ? { image: author.avatar_url } : {}),
+          ...(author?.bio ? { jobTitle: author.bio.split('.')[0] } : {}),
+          ...(author?.linkedin_url ? { url: author.linkedin_url, sameAs: [author.linkedin_url] } : {}),
+          worksFor: { '@id': 'https://www.analytixcg.com/#organization' },
+        }
+      : { '@type': 'Organization', '@id': 'https://www.analytixcg.com/#organization', name: 'Analytix Code Groove' },
+    publisher: { '@id': 'https://www.analytixcg.com/#organization' },
+    mainEntityOfPage: { '@type': 'WebPage', '@id': postUrl },
+    isPartOf: { '@id': 'https://www.analytixcg.com/#website' },
+    speakable: {
+      '@type': 'SpeakableSpecification',
+      cssSelector: ['article h1', 'article > .prose > p:first-of-type'],
     },
-    mainEntityOfPage: postUrl,
   }
 
   const breadcrumb = buildBreadcrumbJsonLd([
