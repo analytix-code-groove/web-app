@@ -1,82 +1,121 @@
-# Supabase Style Web App
+<p align="center">
+  <img src="public/images/email-cover.jpg" alt="Analytix Code Groove" width="700" />
+</p>
 
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app). It features a Supabase-inspired dark theme and includes Auth, Services, and Blog pages.
+<h1 align="center">acg-web</h1>
+
+<p align="center">
+  <strong>Where Data Meets Flow</strong><br/>
+  Corporate website and blog for <a href="#">Analytix Code Groove</a> — a technology consultancy specializing in data, AI, cloud, and software engineering.
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Next.js-15-black?logo=next.js" alt="Next.js 15" />
+  <img src="https://img.shields.io/badge/React-19-61dafb?logo=react" alt="React 19" />
+  <img src="https://img.shields.io/badge/TypeScript-strict-3178c6?logo=typescript" alt="TypeScript" />
+  <img src="https://img.shields.io/badge/Tailwind_CSS-4-06b6d4?logo=tailwindcss" alt="Tailwind CSS 4" />
+  <img src="https://img.shields.io/badge/Supabase-PostgreSQL-3fcf8e?logo=supabase" alt="Supabase" />
+  <img src="https://img.shields.io/badge/Deploy-Vercel-000?logo=vercel" alt="Vercel" />
+</p>
+
+---
+
+## Overview
+
+**acg-web** is the landing site, service pages, and blog platform for Analytix Code Groove. It's built with the Next.js 15 App Router, backed by Supabase for auth and content, and deployed on Vercel.
+
+### What's inside
+
+| Section | Description |
+|---|---|
+| **Home** | Hero with video background, client logos, service cards, and latest blog posts |
+| **About** | Company story, values, industries served |
+| **Services** | 7 dedicated service pages — Data & Analytics, Cloud & DevOps, Generative AI, Automation & QA, Apps & APIs, IT Consulting, Staff Augmentation |
+| **Blog** | Markdown-powered bilingual blog with image uploads, tags, and bookmarks |
+| **Contact** | Contact form with SMTP email delivery |
+| **Auth** | Email/password + GitHub/Google OAuth, role-based access (admin, author, client) |
+
+### Key features
+
+- **Bilingual (EN/ES)** — full i18n via React Context with browser language detection
+- **Dark theme** — mint accent (`#36E2B4`), custom CSS variables, utility-first Tailwind
+- **Server + Client components** — pages are server components that delegate interactivity to paired `*Client.tsx` files
+- **Role-based blog** — admins and authors can create/edit posts with Markdown + image uploads
+- **Supabase backend** — PostgreSQL with Row Level Security, storage buckets for media
+
+---
 
 ## Getting Started
 
-Clone the repository and install dependencies:
+### Prerequisites
+
+- Node.js 20.x
+- npm 10+
+- A [Supabase](https://supabase.com) project
+
+### Setup
 
 ```bash
-git clone <your-fork-url>
-cd web-app
+git clone https://github.com/analytix-code-groove/acg-web.git
+cd acg-web
 npm install
 ```
 
-Copy the example configuration files and fill in your own credentials:
+Copy the example config files and fill in your credentials:
 
 ```bash
-cp supabase.local.example.json supabase.local.json
 cp .env.example .env.local
+cp supabase.local.example.json supabase.local.json
 ```
 
-Then run the development server:
+### Required environment variables
+
+| Variable | Description |
+|---|---|
+| `NEXT_PUBLIC_SUPABASE_URL` | Your Supabase project URL |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase anonymous key |
+| `SUPABASE_SERVICE_ROLE_KEY` | Supabase service role key |
+| `ADMIN_SECRET` | Secret token for the `/api/roles` endpoint |
+| `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS` | SMTP credentials for the contact form |
+| `SMTP_FROM` | Sender address for outbound emails |
+
+See `.env.example` for the full list. You can alternatively use `supabase.local.json` for local development.
+
+### Run
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-## Auth Configuration
-
-Create a `supabase.local.json` file in the project root (start from `supabase.local.example.json`) with your Supabase project credentials, OAuth provider keys, and SMTP settings used by the contact form:
+## Project Structure
 
 ```
-{
-  "SUPABASE_URL": "https://your-project.supabase.co",
-  "SUPABASE_ANON_KEY": "your-supabase-anon-key",
-  "SUPABASE_SERVICE_ROLE_KEY": "your-service-role-key",
-  "SUPABASE_CALLBACK_URL": "https://your-project.supabase.co/auth/v1/callback",
-
-  "GITHUB_APP_NAME": "AnalytixCG (Dev)",
-  "GITHUB_CLIENT_ID": "your-client-id",
-  "GITHUB_CLIENT_SECRET": "your-client-secret",
-
-  "GOOGLE_APP_NAME": "AnalytixCG (Dev)",
-  "GOOGLE_CLIENT_ID": "your-client-id",
-  "GOOGLE_CLIENT_SECRET": "your-client-secret",
-
-  "SMTP_HOST": "smtp.office365.com",
-  "SMTP_PORT": 587,
-  "SMTP_SECURE": false,
-  "SMTP_USER": "your-smtp-username",
-  "SMTP_PASS": "your-smtp-password",
-  "SMTP_FROM": "Analytix Code Groove <info@example.com>",
-  "EMAIL_TO_SUPPORT": "support@example.com",
-  "EMAIL_TO_INFO": "info@example.com",
-
-  "ADMIN_SECRET": "change-me"
-}
+src/
+  app/              App Router pages and API routes
+    api/            REST endpoints (posts, roles, contact)
+    services/       7 individual service pages
+    blog/           Blog list, detail, and new post pages
+    ...
+  components/       Shared React components (Navbar, Hero, Footer, etc.)
+  lib/              Utilities — i18n, Supabase clients, profile helpers
+  data/             Service definitions with translation keys
+  images/           Logos and static assets
+  sql/              Supabase SQL schemas and RLS policies
 ```
 
-The file is ignored by Git and any values it defines are used only when corresponding environment variables are absent.
+---
 
-You can alternatively set these values in `.env.local`; see `.env.example` for the expected keys.
+## Auth & Roles
 
-## Assigning roles
+Authentication is handled by Supabase with email/password and OAuth (GitHub, Google). A profile is auto-created on first login via `ensureProfile()`.
 
-To publish blog posts, your user must have the `admin` or `author` role. The repository exposes a protected endpoint that lets you promote a user when developing locally.
+### Assigning roles
 
-1. Set a secret token in your environment (`ADMIN_SECRET` in `.env.local` or `supabase.local.json`).
-2. Use the `/api/roles` endpoint with that secret to update a user's role:
+Users default to the `client` role. To promote a user to `author` or `admin`:
 
 ```bash
 curl -X POST http://localhost:3000/api/roles \
@@ -85,67 +124,46 @@ curl -X POST http://localhost:3000/api/roles \
   -d '{"user_id": "<user-uuid>", "role": "author"}'
 ```
 
-Valid roles are `admin`, `author` and `client` (the default). Only requests presenting the correct `ADMIN_SECRET` will succeed.
+---
 
-## Learn More
+## Blog
 
-To learn more about Next.js, take a look at the following resources:
+Posts are created from `/blog/new` with fields for title, excerpt, tags, Markdown body, and an optional cover image. Content is stored per-language in a `post_translations` table (EN/ES).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-
-## Publishing blog posts
-
-Posts can be created from the `/blog/new` page which provides fields for the title, excerpt, tags, Markdown body and an optional image upload. Each post now stores language-specific fields in a separate `post_translations` table, so the page also sends the current interface language. The image is stored in the Supabase `posts` storage bucket under a folder for the current user's UUID and automatically linked to the post.
-
-You can also manage posts through the `/api/posts` endpoints. To publish a new article programmatically, send a `POST` request with the post data including a `lang` code (`en` or `es`):
+### Publishing via API
 
 ```bash
 curl -X POST http://localhost:3000/api/posts \
-  -H 'Content-Type: application/json' \
+  -H "Content-Type: application/json" \
   -d '{
     "slug": "my-first-post",
     "lang": "en",
     "title": "My First Post",
-    "excerpt": "Short summary shown on the blog list",
+    "excerpt": "Short summary for the blog list",
     "tags": ["nextjs", "supabase"],
-    "body_md": "# Hello everyone\nThis is my first post!",
-    "cover_url": "https://your-project.supabase.co/storage/v1/object/public/posts/<user-id>/hello.png"
+    "body_md": "# Hello\nThis is my first post!"
   }'
 ```
 
-### Markdown formatting
+### Markdown support
 
-Posts support [Markdown](https://www.markdownguide.org/basic-syntax/) with GitHub Flavored Markdown extensions. Common patterns:
+Posts support GitHub Flavored Markdown: headings, bold/italic, lists, code blocks, and inline images via `![alt](url)`.
 
-- `# Heading` creates a large title, while `##` and `###` produce progressively smaller subtitles.
-- Use `**bold**` or `*italic*` for emphasis.
-- Start lines with `-` or `1.` to create lists.
-- Embed images anywhere using `![alt text](https://url/to/image.png)`—place the Markdown where you want the image to appear in the article.
+---
 
-### Uploading images
+## Git Strategy
 
-Images uploaded from the `/blog/new` page are stored automatically. To upload images manually use the `posts` bucket and place files inside a folder matching the author's UUID, e.g. `posts/013d5128-6a52-4e6e-bd9f-b8e2c4477339/image.png`.
-
-Example using the Supabase JavaScript client:
-
-```ts
-const file = /* File or Blob */
-const { data, error } = await supabase.storage
-  .from('posts')
-  .upload(`${user.id}/hello.png`, file, { upsert: true })
-const {
-  data: { publicUrl }
-} = supabase.storage.from('posts').getPublicUrl(`${user.id}/hello.png`)
+```
+feature/* --> release/v*.*.* --> dev --> master
 ```
 
-Use the `publicUrl` as the `cover_url` field when creating the post via the API. The image will appear above the article content on its dedicated page.
-To show images inside the article itself, include their URLs in the Markdown body using the `![alt](url)` syntax at the desired location.
+- Every change gets its own `feature/<short-description>` branch cut from `dev`
+- Feature branches merge into `release/v*.*.*` branches
+- Release branches are merged into `dev` (integration) and `master` (production) by maintainers
+- Never commit directly to `dev` or `master`
+
+---
+
+## License
+
+All rights reserved. &copy; Analytix Code Groove.
