@@ -27,6 +27,8 @@ export default function Hero() {
           muted
           loop
           playsInline
+          preload="auto"
+          poster="/videos/hero-bg-poster.jpg"
           onError={() => setVideoError(true)}
           className="pointer-events-none absolute inset-0 -z-20 h-full w-full object-cover"
         >
