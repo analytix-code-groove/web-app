@@ -46,3 +46,13 @@ next-env.d.ts
 
 # auth
 supabase.local.json
+
+# sensitive files
+*.key
+*.p12
+*.pfx
+*.cert
+credentials.json
+service-account*.json
+secrets.*
+token.json
